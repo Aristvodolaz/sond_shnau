@@ -257,13 +257,14 @@ rm -rf node_modules package-lock.json
 npm install
 ```
 
-**Решение 2 - Добавить PostCSS конфиг:**
+**Решение 2 - Если Node.js >= 18 но ошибка есть:**
 ```bash
-# Файл postcss.config.cjs уже есть в проекте
-# Просто убедитесь что он скопирован на сервер
-git pull  # Обновить проект
-npm install
+# Просто обновите зависимости
+cd /root/sond_shnau
+npm install --force
 ```
+
+**Примечание:** Nuxt 3 автоматически настраивает PostCSS. Внешний `postcss.config.cjs` не нужен и может вызывать предупреждения.
 
 ### Ошибка подключения к БД
 
