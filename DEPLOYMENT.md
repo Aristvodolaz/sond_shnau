@@ -214,6 +214,57 @@ DELETE /api/admin/news/:id  # Удалить новость
 
 ## 🐛 Troubleshooting
 
+### Ошибка native binding (oxc-parser)
+
+```
+ERROR Cannot find native binding. npm has a bug related to optional dependencies
+```
+
+**Решение:**
+```bash
+cd /root/sond_shnau
+rm -rf node_modules package-lock.json
+npm cache clean --force
+npm install --ignore-scripts
+npm run postinstall
+```
+
+### Ошибка PostCSS "Cannot use 'import.meta' outside a module"
+
+```
+ERROR Pre-transform error: [postcss] Cannot use 'import.meta' outside a module
+```
+
+**Причина:** Старая версия Node.js (< 18) или отсутствие PostCSS конфига
+
+**Решение 1 - Обновить Node.js (рекомендуется):**
+```bash
+# Установить nvm
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+source ~/.bashrc
+
+# Установить Node 20
+nvm install 20
+nvm use 20
+nvm alias default 20
+
+# Проверить версию
+node -v  # Должно быть v20.x.x
+
+# Переустановить зависимости
+cd /root/sond_shnau
+rm -rf node_modules package-lock.json
+npm install
+```
+
+**Решение 2 - Добавить PostCSS конфиг:**
+```bash
+# Файл postcss.config.cjs уже есть в проекте
+# Просто убедитесь что он скопирован на сервер
+git pull  # Обновить проект
+npm install
+```
+
 ### Ошибка подключения к БД
 
 ```
