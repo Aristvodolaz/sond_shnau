@@ -1,6 +1,6 @@
 // Database configuration
 export const dbConfig = {
-  host: '155.212.216.148',
+  host: 'localhost',
   port: 5432,
   database: 'fond_shnau',
   user: 'my_user',

@@ -235,9 +235,9 @@ npm run postinstall
 ERROR Pre-transform error: [postcss] Cannot use 'import.meta' outside a module
 ```
 
-**Причина:** Старая версия Node.js (< 18) или отсутствие PostCSS конфига
+**Причина:** Старая версия Node.js (< 18). Современный Tailwind CSS требует Node.js 18+
 
-**Решение 1 - Обновить Node.js (рекомендуется):**
+**Решение - Обновить Node.js:**
 ```bash
 # Установить nvm
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
@@ -257,14 +257,7 @@ rm -rf node_modules package-lock.json
 npm install
 ```
 
-**Решение 2 - Если Node.js >= 18 но ошибка есть:**
-```bash
-# Просто обновите зависимости
-cd /root/sond_shnau
-npm install --force
-```
-
-**Примечание:** Nuxt 3 автоматически настраивает PostCSS. Внешний `postcss.config.cjs` не нужен и может вызывать предупреждения.
+**⚠️ Важно:** После обновления Node.js предупреждение о PostCSS должно исчезнуть. Nuxt 3 автоматически настраивает PostCSS, внешний конфиг не требуется.
 
 ### Ошибка подключения к БД
 
