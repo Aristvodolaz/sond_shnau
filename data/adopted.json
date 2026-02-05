@@ -1,0 +1,74 @@
+[
+  {
+    "id": "1",
+    "name": "Арчи",
+    "type": "Ризеншнауцер",
+    "year": 2023,
+    "city": "Москва",
+    "photo": "/images/adopted/archi.jpg",
+    "adoptionDate": "2023-05-12"
+  },
+  {
+    "id": "2",
+    "name": "Лола",
+    "type": "Миттельшнауцер",
+    "year": 2023,
+    "city": "Санкт-Петербург",
+    "photo": "/images/adopted/lola.jpg",
+    "adoptionDate": "2023-07-20"
+  },
+  {
+    "id": "3",
+    "name": "Тоби",
+    "type": "Цвергшнауцер",
+    "year": 2023,
+    "city": "Казань",
+    "photo": "/images/adopted/toby.jpg",
+    "adoptionDate": "2023-09-15"
+  },
+  {
+    "id": "4",
+    "name": "Боня",
+    "type": "Миттельшнауцер",
+    "year": 2022,
+    "city": "Екатеринбург",
+    "photo": "/images/adopted/bonya.jpg",
+    "adoptionDate": "2022-11-30"
+  },
+  {
+    "id": "5",
+    "name": "Рокки",
+    "type": "Ризеншнауцер",
+    "year": 2022,
+    "city": "Новосибирск",
+    "photo": "/images/adopted/rocky.jpg",
+    "adoptionDate": "2022-08-14"
+  },
+  {
+    "id": "6",
+    "name": "Дейзи",
+    "type": "Цвергшнауцер",
+    "year": 2021,
+    "city": "Краснодар",
+    "photo": "/images/adopted/daisy.jpg",
+    "adoptionDate": "2021-06-22"
+  },
+  {
+    "id": "7",
+    "name": "Бруно",
+    "type": "Миттельшнауцер",
+    "year": 2021,
+    "city": "Владивосток",
+    "photo": "/images/adopted/bruno.jpg",
+    "adoptionDate": "2021-03-10"
+  },
+  {
+    "id": "8",
+    "name": "Молли",
+    "type": "Цвергшнауцер",
+    "year": 2020,
+    "city": "Ростов-на-Дону",
+    "photo": "/images/adopted/molly.jpg",
+    "adoptionDate": "2020-12-05"
+  }
+]
