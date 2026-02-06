@@ -4,9 +4,15 @@
       <div class="flex items-center justify-between">
         <!-- Logo -->
         <NuxtLink to="/" class="flex items-center space-x-3 group">
-          <div class="w-12 h-12 bg-primary-500 rounded-full flex items-center justify-center transition-transform group-hover:scale-105">
-            <span class="text-2xl">🐕</span>
-          </div>
+<div
+  class="w-20 h-20 rounded-full flex items-center justify-center overflow-hidden transition-transform group-hover:scale-105"
+>
+  <img
+    src="/images/logo/logo.png"
+    alt="Логотип"
+    class="w-full h-full object-cover"
+  />
+</div>
           <div class="hidden sm:block">
             <div class="font-display font-bold text-lg text-warm-900">Фонд помощи</div>
             <div class="text-sm text-warm-600">шнауцерам</div>
