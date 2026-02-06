@@ -140,6 +140,7 @@
           </div>
         </div>
       </div>
+      </div>
     </div>
 
     <!-- Not Found State -->
