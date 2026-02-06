@@ -68,8 +68,10 @@
 </template>
 
 <script setup lang="ts">
+// Explicitly disable layout for login page
 definePageMeta({
-  layout: false
+  layout: false,
+  middleware: [] // Clear any default middleware
 })
 
 useHead({

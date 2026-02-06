@@ -1,11 +1,9 @@
 <template>
-  <div class="min-h-screen flex flex-col">
-    <AppHeader />
-    <main class="flex-1">
+  <div>
+    <NuxtLayout>
       <NuxtPage />
-    </main>
-    <AppFooter />
-    <UiToast />
+    </NuxtLayout>
+    <ToastContainer />
   </div>
 </template>
 
