@@ -4,7 +4,7 @@
       <h1 class="text-3xl font-display font-bold text-warm-900">
         Управление собаками
       </h1>
-      <UiButton @click="showAddModal = true" variant="primary">
+      <UiButton @click="openAddModal" variant="primary">
         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
         </svg>
@@ -68,6 +68,19 @@
         </table>
       </div>
     </UiCard>
+
+    <!-- Add/Edit Modal -->
+    <UiModal
+      v-model="showModal"
+      :title="editingDog ? 'Редактировать собаку' : 'Добавить собаку'"
+    >
+      <AdminDogForm
+        :dog="editingDog"
+        :loading="saving"
+        @submit="handleSubmit"
+        @cancel="closeModal"
+      />
+    </UiModal>
   </div>
 </template>
 
@@ -80,11 +93,15 @@ useHead({
   title: 'Управление собаками - Админка'
 })
 
-const showAddModal = ref(false)
+const showModal = ref(false)
+const editingDog = ref<any>(null)
+const saving = ref(false)
+const toast = useToast()
 
-// Fetch dogs
+// Fetch dogs from API
 const { data: dogs, refresh } = await useFetch('/api/admin/dogs')
 
+// Helper function to get dog type name in Russian
 const getDogTypeName = (type: string) => {
   const types: Record<string, string> = {
     riesenschnauzer: 'Ризеншнауцер',
@@ -95,19 +112,106 @@ const getDogTypeName = (type: string) => {
   return types[type] || type
 }
 
-const editDog = (dog: any) => {
-  // TODO: Open edit modal
-  console.log('Edit dog:', dog)
+// Open add modal
+const openAddModal = () => {
+  editingDog.value = null
+  showModal.value = true
 }
 
+// Open edit modal with dog data
+const editDog = (dog: any) => {
+  editingDog.value = { ...dog }
+  showModal.value = true
+}
+
+// Close modal
+const closeModal = () => {
+  showModal.value = false
+  editingDog.value = null
+}
+
+// Generate slug from name
+const generateSlug = (name: string) => {
+  const translitMap: Record<string, string> = {
+    'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd', 'е': 'e', 'ё': 'yo', 'ж': 'zh',
+    'з': 'z', 'и': 'i', 'й': 'y', 'к': 'k', 'л': 'l', 'м': 'm', 'н': 'n', 'о': 'o',
+    'п': 'p', 'р': 'r', 'с': 's', 'т': 't', 'у': 'u', 'ф': 'f', 'х': 'h', 'ц': 'ts',
+    'ч': 'ch', 'ш': 'sh', 'щ': 'sch', 'ъ': '', 'ы': 'y', 'ь': '', 'э': 'e', 'ю': 'yu', 'я': 'ya'
+  }
+
+  return name
+    .toLowerCase()
+    .split('')
+    .map(char => translitMap[char] || char)
+    .join('')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+}
+
+// Handle form submission (create or update)
+const handleSubmit = async (data: any) => {
+  saving.value = true
+
+  try {
+    // Transform data to API format
+    const apiData = {
+      slug: editingDog.value?.slug || generateSlug(data.name),
+      name: data.name,
+      type: data.type,
+      age: data.age,
+      city: data.city,
+      curator_name: data.curator.name,
+      curator_phone: data.curator.phone,
+      curator_email: data.curator.email || null,
+      photos: data.photos,
+      description: data.description,
+      features: Object.entries(data.features)
+        .filter(([_, value]) => value)
+        .map(([key]) => key),
+      health: data.health,
+      character: data.character,
+      forum_topic_url: data.forumTopicUrl,
+      status: data.status,
+      date_added: data.dateAdded
+    }
+
+    if (editingDog.value) {
+      // Update existing dog
+      await $fetch(`/api/admin/dogs/${editingDog.value.id}`, {
+        method: 'PUT',
+        body: apiData
+      })
+      toast.success('Собака успешно обновлена!')
+    } else {
+      // Create new dog
+      await $fetch('/api/admin/dogs', {
+        method: 'POST',
+        body: apiData
+      })
+      toast.success('Собака успешно добавлена!')
+    }
+
+    closeModal()
+    refresh()
+  } catch (error: any) {
+    console.error('Error saving dog:', error)
+    toast.error(error.data?.message || 'Ошибка сохранения собаки')
+  } finally {
+    saving.value = false
+  }
+}
+
+// Delete dog
 const deleteDog = async (dog: any) => {
   if (!confirm(`Удалить собаку "${dog.name}"?`)) return
 
   try {
     await $fetch(`/api/admin/dogs/${dog.id}`, { method: 'DELETE' })
+    toast.success('Собака успешно удалена')
     refresh()
-  } catch (error) {
-    alert('Ошибка удаления')
+  } catch (error: any) {
+    console.error('Error deleting dog:', error)
+    toast.error(error.data?.message || 'Ошибка удаления собаки')
   }
 }
 </script>

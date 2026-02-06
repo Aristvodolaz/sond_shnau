@@ -2,41 +2,57 @@
   <div>
     <div class="flex items-center justify-between mb-8">
       <h1 class="text-3xl font-display font-bold text-warm-900">
-        Управление новостями
+        Управление историями
       </h1>
       <UiButton @click="openAddModal" variant="primary">
         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
         </svg>
-        Добавить новость
+        Добавить историю
       </UiButton>
     </div>
 
-    <!-- News Table -->
+    <!-- Stories Table -->
     <UiCard :padding="false">
       <div class="overflow-x-auto">
         <table class="w-full">
           <thead class="bg-warm-100 border-b border-warm-200">
             <tr>
-              <th class="px-6 py-4 text-left text-sm font-semibold text-warm-900">Заголовок</th>
-              <th class="px-6 py-4 text-left text-sm font-semibold text-warm-900">Дата</th>
-              <th class="px-6 py-4 text-left text-sm font-semibold text-warm-900">Статус</th>
+              <th class="px-6 py-4 text-left text-sm font-semibold text-warm-900">Имя собаки</th>
+              <th class="px-6 py-4 text-left text-sm font-semibold text-warm-900">Год</th>
+              <th class="px-6 py-4 text-left text-sm font-semibold text-warm-900">Часть</th>
+              <th class="px-6 py-4 text-left text-sm font-semibold text-warm-900">Фото</th>
               <th class="px-6 py-4 text-left text-sm font-semibold text-warm-900">Действия</th>
             </tr>
           </thead>
           <tbody class="divide-y divide-warm-200">
-            <tr v-for="item in news" :key="item.id" class="hover:bg-warm-50 transition-colors">
-              <td class="px-6 py-4 font-medium text-warm-900">{{ item.title }}</td>
-              <td class="px-6 py-4 text-warm-600 text-sm">{{ formatDate(item.date) }}</td>
+            <tr v-for="story in stories" :key="story.id" class="hover:bg-warm-50 transition-colors">
+              <td class="px-6 py-4 font-medium text-warm-900">{{ story.dogName }}</td>
+              <td class="px-6 py-4 text-warm-600 text-sm">{{ story.year }}</td>
+              <td class="px-6 py-4 text-warm-600 text-sm">{{ story.part || '—' }}</td>
               <td class="px-6 py-4">
-                <UiTag :variant="item.published ? 'success' : 'default'" size="sm">
-                  {{ item.published ? 'Опубликовано' : 'Черновик' }}
-                </UiTag>
+                <div class="flex items-center space-x-2">
+                  <img
+                    v-if="story.beforePhoto"
+                    :src="story.beforePhoto"
+                    alt="До"
+                    class="w-12 h-12 object-cover rounded"
+                  />
+                  <svg v-if="story.beforePhoto && story.afterPhoto" class="w-4 h-4 text-warm-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                  </svg>
+                  <img
+                    v-if="story.afterPhoto"
+                    :src="story.afterPhoto"
+                    alt="После"
+                    class="w-12 h-12 object-cover rounded"
+                  />
+                </div>
               </td>
               <td class="px-6 py-4">
                 <div class="flex items-center space-x-2">
                   <button
-                    @click="editNews(item)"
+                    @click="editStory(story)"
                     class="p-2 text-primary-600 hover:bg-primary-50 rounded-lg transition-colors"
                     title="Редактировать"
                   >
@@ -45,7 +61,7 @@
                     </svg>
                   </button>
                   <button
-                    @click="deleteNews(item)"
+                    @click="deleteStory(story)"
                     class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                     title="Удалить"
                   >
@@ -64,10 +80,10 @@
     <!-- Add/Edit Modal -->
     <UiModal
       v-model="showModal"
-      :title="editingNews ? 'Редактировать новость' : 'Добавить новость'"
+      :title="editingStory ? 'Редактировать историю' : 'Добавить историю'"
     >
-      <AdminNewsForm
-        :news="editingNews"
+      <AdminStoryForm
+        :story="editingStory"
         :loading="saving"
         @submit="handleSubmit"
         @cancel="closeModal"
@@ -82,25 +98,19 @@ definePageMeta({
 })
 
 useHead({
-  title: 'Управление новостями - Админка'
+  title: 'Управление историями - Админка'
 })
 
 const showModal = ref(false)
-const editingNews = ref<any>(null)
+const editingStory = ref<any>(null)
 const saving = ref(false)
 const toast = useToast()
 
-// Fetch news from API
-const { data: news, refresh } = await useFetch('/api/admin/news')
+// Fetch stories from API
+const { data: stories, refresh } = await useFetch('/api/admin/stories')
 
-// Format date for display
-const formatDate = (dateString: string) => {
-  const date = new Date(dateString)
-  return date.toLocaleDateString('ru-RU', { year: 'numeric', month: 'long', day: 'numeric' })
-}
-
-// Generate slug from title
-const generateSlug = (title: string) => {
+// Generate slug from dog name and year
+const generateSlug = (dogName: string, year: number, part?: number) => {
   const translitMap: Record<string, string> = {
     'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd', 'е': 'e', 'ё': 'yo', 'ж': 'zh',
     'з': 'z', 'и': 'i', 'й': 'y', 'к': 'k', 'л': 'l', 'м': 'm', 'н': 'n', 'о': 'o',
@@ -108,31 +118,33 @@ const generateSlug = (title: string) => {
     'ч': 'ch', 'ш': 'sh', 'щ': 'sch', 'ъ': '', 'ы': 'y', 'ь': '', 'э': 'e', 'ю': 'yu', 'я': 'ya'
   }
 
-  return title
+  const slug = dogName
     .toLowerCase()
     .split('')
     .map(char => translitMap[char] || char)
     .join('')
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '')
+
+  return part ? `${slug}-${year}-${part}` : `${slug}-${year}`
 }
 
 // Open add modal
 const openAddModal = () => {
-  editingNews.value = null
+  editingStory.value = null
   showModal.value = true
 }
 
-// Open edit modal with news data
-const editNews = (item: any) => {
-  editingNews.value = { ...item }
+// Open edit modal with story data
+const editStory = (story: any) => {
+  editingStory.value = { ...story }
   showModal.value = true
 }
 
 // Close modal
 const closeModal = () => {
   showModal.value = false
-  editingNews.value = null
+  editingStory.value = null
 }
 
 // Handle form submission (create or update)
@@ -142,52 +154,54 @@ const handleSubmit = async (data: any) => {
   try {
     // Transform data to API format
     const apiData = {
-      slug: editingNews.value?.slug || generateSlug(data.title),
-      title: data.title,
-      date: data.date,
+      slug: editingStory.value?.slug || generateSlug(data.dogName, data.year, data.part),
+      dog_name: data.dogName,
+      year: data.year,
+      part: data.part || null,
       preview: data.preview,
       content: data.content,
-      image: data.image || null,
-      published: data.published
+      photos: data.photos,
+      before_photo: data.beforePhoto || null,
+      after_photo: data.afterPhoto || null
     }
 
-    if (editingNews.value) {
-      // Update existing news
-      await $fetch(`/api/admin/news/${editingNews.value.id}`, {
+    if (editingStory.value) {
+      // Update existing story
+      await $fetch(`/api/admin/stories/${editingStory.value.id}`, {
         method: 'PUT',
         body: apiData
       })
-      toast.success('Новость успешно обновлена!')
+      toast.success('История успешно обновлена!')
     } else {
-      // Create new news
-      await $fetch('/api/admin/news', {
+      // Create new story
+      await $fetch('/api/admin/stories', {
         method: 'POST',
         body: apiData
       })
-      toast.success('Новость успешно добавлена!')
+      toast.success('История успешно добавлена!')
     }
 
     closeModal()
     refresh()
   } catch (error: any) {
-    console.error('Error saving news:', error)
-    toast.error(error.data?.message || 'Ошибка сохранения новости')
+    console.error('Error saving story:', error)
+    toast.error(error.data?.message || 'Ошибка сохранения истории')
   } finally {
     saving.value = false
   }
 }
 
-// Delete news
-const deleteNews = async (item: any) => {
-  if (!confirm(`Удалить новость "${item.title}"?`)) return
+// Delete story
+const deleteStory = async (story: any) => {
+  if (!confirm(`Удалить историю "${story.dogName}"?`)) return
 
   try {
-    await $fetch(`/api/admin/news/${item.id}`, { method: 'DELETE' })
-    toast.success('Новость успешно удалена')
+    await $fetch(`/api/admin/stories/${story.id}`, { method: 'DELETE' })
+    toast.success('История успешно удалена')
     refresh()
   } catch (error: any) {
-    console.error('Error deleting news:', error)
-    toast.error(error.data?.message || 'Ошибка удаления новости')
+    console.error('Error deleting story:', error)
+    toast.error(error.data?.message || 'Ошибка удаления истории')
   }
 }
 </script>

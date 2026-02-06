@@ -36,10 +36,10 @@
           </h2>
           <div class="flex gap-2">
             <button
-              @click="filterStatus = 'available'"
+              @click="filterStatus = 'looking'"
               :class="[
                 'px-4 py-2 rounded-lg font-medium transition-colors text-sm md:text-base',
-                filterStatus === 'available' 
+                filterStatus === 'looking' 
                   ? 'bg-primary-500 text-white' 
                   : 'bg-warm-200 text-warm-700 hover:bg-warm-300'
               ]"
@@ -140,7 +140,7 @@ useHead({
 const { data: dogsData } = await useFetch<Dog[]>('/api/dogs')
 const dogs = ref<Dog[]>(dogsData.value || [])
 
-const filterStatus = ref<'available' | 'pensioner'>('available')
+const filterStatus = ref<'looking' | 'pensioner'>('looking')
 
 const filteredDogs = computed(() => {
   return dogs.value.filter(dog => dog.status === filterStatus.value)

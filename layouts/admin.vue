@@ -23,6 +23,13 @@
               >
                 Новости
               </NuxtLink>
+              <NuxtLink
+                to="/admin/stories"
+                class="px-4 py-2 rounded-lg text-warm-700 hover:bg-warm-100 transition-colors"
+                active-class="bg-primary-100 text-primary-700"
+              >
+                Истории
+              </NuxtLink>
             </nav>
           </div>
           <div class="flex items-center space-x-4">
@@ -51,6 +58,9 @@
     <main class="container-custom py-8">
       <slot />
     </main>
+
+    <!-- Toast Notifications -->
+    <ToastContainer />
   </div>
 </template>
 

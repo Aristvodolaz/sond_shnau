@@ -18,7 +18,7 @@ export interface Dog {
   health: string
   character: string
   forumTopicUrl: string
-  status: 'available' | 'pensioner'
+  status: 'looking' | 'pensioner'
   dateAdded: string
 }
 

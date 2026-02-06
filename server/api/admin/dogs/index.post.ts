@@ -17,7 +17,7 @@ const dogSchema = z.object({
   health: z.string().min(1),
   character: z.string().min(1),
   forum_topic_url: z.string().url(),
-  status: z.enum(['available', 'pensioner']),
+  status: z.enum(['looking', 'pensioner']),
   date_added: z.string()
 })
 
