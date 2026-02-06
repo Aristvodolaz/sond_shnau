@@ -1,16 +1,16 @@
 // Admin authentication middleware
 export default defineNuxtRouteMiddleware(async (to, from) => {
-  // Skip middleware on client-side navigation after initial load
-  if (import.meta.client) {
-    // Check if we have admin token cookie
-    const hasToken = document.cookie.includes('admin_token=')
+  // Only run on server side or initial client load
+  // Cookie with httpOnly flag is only readable on server
+  if (import.meta.server) {
+    const cookie = useCookie('admin_token')
     
-    if (!hasToken) {
+    if (!cookie.value) {
       // No token, redirect to login
       return navigateTo('/admin/login')
     }
   }
   
-  // On server side, we can't easily check the cookie validity without making a request
-  // The API will handle authentication, and we'll handle 401 on the client
+  // On client side, we rely on API 401 responses
+  // which are handled by useAdminAuth composable
 })

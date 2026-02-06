@@ -97,10 +97,11 @@ const handleLogin = async () => {
       }
     })
 
-    router.push('/admin')
+    // Use navigateTo with external redirect to ensure cookie is properly set
+    // This will cause a full page reload
+    await navigateTo('/admin', { external: true })
   } catch (e: any) {
     error.value = e.data?.message || 'Ошибка входа. Проверьте логин и пароль.'
-  } finally {
     loading.value = false
   }
 }
