@@ -78,7 +78,8 @@
 
 <script setup lang="ts">
 definePageMeta({
-  layout: 'admin'
+  layout: 'admin',
+  middleware: 'admin-auth'
 })
 
 useHead({
@@ -89,6 +90,7 @@ const showModal = ref(false)
 const editingNews = ref<any>(null)
 const saving = ref(false)
 const toast = useToast()
+const { adminFetch } = useAdminAuth()
 
 // Fetch news from API
 const { data: news, refresh } = await useFetch('/api/admin/news')
@@ -153,14 +155,14 @@ const handleSubmit = async (data: any) => {
 
     if (editingNews.value) {
       // Update existing news
-      await $fetch(`/api/admin/news/${editingNews.value.id}`, {
+      await adminFetch(`/api/admin/news/${editingNews.value.id}`, {
         method: 'PUT',
         body: apiData
       })
       toast.success('Новость успешно обновлена!')
     } else {
       // Create new news
-      await $fetch('/api/admin/news', {
+      await adminFetch('/api/admin/news', {
         method: 'POST',
         body: apiData
       })
@@ -182,7 +184,7 @@ const deleteNews = async (item: any) => {
   if (!confirm(`Удалить новость "${item.title}"?`)) return
 
   try {
-    await $fetch(`/api/admin/news/${item.id}`, { method: 'DELETE' })
+    await adminFetch(`/api/admin/news/${item.id}`, { method: 'DELETE' })
     toast.success('Новость успешно удалена')
     refresh()
   } catch (error: any) {

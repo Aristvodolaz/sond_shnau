@@ -1,6 +1,14 @@
 <template>
-  <div v-if="dog" class="py-12 md:py-16">
-    <div class="container-custom">
+  <div class="min-h-screen bg-warm-50">
+    <!-- Loading State -->
+    <div v-if="pending" class="py-16 text-center">
+      <UiLoader />
+      <p class="mt-4 text-warm-600">Загрузка...</p>
+    </div>
+
+    <!-- Dog Content -->
+    <div v-else-if="dog" class="py-12 md:py-16">
+      <div class="container-custom">
       <!-- Back Button -->
       <UiButton to="/" variant="outline" size="sm" class="mb-8">
         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -98,16 +106,20 @@
           </div>
 
           <!-- Features -->
-          <div class="mb-6">
+          <div v-if="displayFeatures.length > 0" class="mb-6">
             <h3 class="text-xl font-display font-semibold text-warm-900 mb-3">Особенности</h3>
-            <ul class="space-y-2">
-              <li v-for="(feature, index) in dog.features" :key="index" class="flex items-start">
-                <svg class="w-5 h-5 mr-2 text-primary-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div
+                v-for="(feature, index) in displayFeatures"
+                :key="index"
+                class="flex items-center bg-green-50 border border-green-200 rounded-lg px-4 py-3"
+              >
+                <svg class="w-5 h-5 mr-3 text-green-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                <span class="text-warm-700">{{ feature }}</span>
-              </li>
-            </ul>
+                <span class="text-green-800 font-medium">{{ feature }}</span>
+              </div>
+            </div>
           </div>
 
           <!-- Character -->
@@ -129,9 +141,20 @@
         </div>
       </div>
     </div>
-  </div>
-  <div v-else class="py-16 text-center">
-    <p class="text-warm-600">Собака не найдена</p>
+
+    <!-- Not Found State -->
+    <div v-else class="py-16 text-center">
+      <div class="max-w-md mx-auto px-4">
+        <svg class="w-24 h-24 mx-auto text-warm-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <h1 class="text-2xl font-display font-bold text-warm-900 mb-2">Собака не найдена</h1>
+        <p class="text-warm-600 mb-6">Возможно, она уже нашла дом или была перемещена</p>
+        <UiButton to="/" variant="primary">
+          Вернуться к списку собак
+        </UiButton>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -141,10 +164,25 @@ import type { Dog } from '~/types'
 const route = useRoute()
 const slug = route.params.slug as string
 
-// Fetch dog data from API
-const { data: dog } = await useFetch<Dog>(`/api/dogs/${slug}`)
+// Fetch dog data from API with loading state
+const { data: dog, pending } = await useFetch<Dog>(`/api/dogs/${slug}`)
 
 const currentPhoto = ref(dog.value?.photos[0] || '')
+
+// Convert feature keys to readable labels
+const featureLabels: Record<string, string> = {
+  sterilized: 'Стерилизован(а)',
+  vaccinated: 'Привит(а)',
+  treatedForParasites: 'Обработан(а) от паразитов'
+}
+
+const displayFeatures = computed(() => {
+  if (!dog.value?.features) return []
+  
+  return dog.value.features
+    .map(feature => featureLabels[feature] || feature)
+    .filter(Boolean)
+})
 
 // SEO
 useHead({

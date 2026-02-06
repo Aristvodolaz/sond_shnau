@@ -86,7 +86,8 @@
 
 <script setup lang="ts">
 definePageMeta({
-  layout: 'admin'
+  layout: 'admin',
+  middleware: 'admin-auth'
 })
 
 useHead({
@@ -97,6 +98,7 @@ const showModal = ref(false)
 const editingDog = ref<any>(null)
 const saving = ref(false)
 const toast = useToast()
+const { adminFetch } = useAdminAuth()
 
 // Fetch dogs from API
 const { data: dogs, refresh } = await useFetch('/api/admin/dogs')
@@ -177,14 +179,14 @@ const handleSubmit = async (data: any) => {
 
     if (editingDog.value) {
       // Update existing dog
-      await $fetch(`/api/admin/dogs/${editingDog.value.id}`, {
+      await adminFetch(`/api/admin/dogs/${editingDog.value.id}`, {
         method: 'PUT',
         body: apiData
       })
       toast.success('Собака успешно обновлена!')
     } else {
       // Create new dog
-      await $fetch('/api/admin/dogs', {
+      await adminFetch('/api/admin/dogs', {
         method: 'POST',
         body: apiData
       })
@@ -206,7 +208,7 @@ const deleteDog = async (dog: any) => {
   if (!confirm(`Удалить собаку "${dog.name}"?`)) return
 
   try {
-    await $fetch(`/api/admin/dogs/${dog.id}`, { method: 'DELETE' })
+    await adminFetch(`/api/admin/dogs/${dog.id}`, { method: 'DELETE' })
     toast.success('Собака успешно удалена')
     refresh()
   } catch (error: any) {

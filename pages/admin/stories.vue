@@ -94,7 +94,8 @@
 
 <script setup lang="ts">
 definePageMeta({
-  layout: 'admin'
+  layout: 'admin',
+  middleware: 'admin-auth'
 })
 
 useHead({
@@ -105,6 +106,7 @@ const showModal = ref(false)
 const editingStory = ref<any>(null)
 const saving = ref(false)
 const toast = useToast()
+const { adminFetch } = useAdminAuth()
 
 // Fetch stories from API
 const { data: stories, refresh } = await useFetch('/api/admin/stories')
@@ -167,14 +169,14 @@ const handleSubmit = async (data: any) => {
 
     if (editingStory.value) {
       // Update existing story
-      await $fetch(`/api/admin/stories/${editingStory.value.id}`, {
+      await adminFetch(`/api/admin/stories/${editingStory.value.id}`, {
         method: 'PUT',
         body: apiData
       })
       toast.success('История успешно обновлена!')
     } else {
       // Create new story
-      await $fetch('/api/admin/stories', {
+      await adminFetch('/api/admin/stories', {
         method: 'POST',
         body: apiData
       })
@@ -196,7 +198,7 @@ const deleteStory = async (story: any) => {
   if (!confirm(`Удалить историю "${story.dogName}"?`)) return
 
   try {
-    await $fetch(`/api/admin/stories/${story.id}`, { method: 'DELETE' })
+    await adminFetch(`/api/admin/stories/${story.id}`, { method: 'DELETE' })
     toast.success('История успешно удалена')
     refresh()
   } catch (error: any) {
