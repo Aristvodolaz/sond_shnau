@@ -1,141 +1,125 @@
-# 🗄️ Настройка базы данных PostgreSQL
+# Database Setup Guide
 
-## Подключение к БД
+## Issue: Connection Timeout Error
 
-Проект использует PostgreSQL на сервере:
-- **Host:** 155.212.216.148
-- **Port:** 5432
-- **Database:** fond_shnau
-- **User:** my_user
-- **Password:** 123456
+If you're seeing `connect ETIMEDOUT` errors, it means the application cannot reach the PostgreSQL database.
 
-Настройки находятся в файле `server/database/config.ts`.
+## Quick Solution: Local PostgreSQL with Docker
 
-## Инициализация БД
-
-### 1. Установить зависимости
+The easiest way to get started is using Docker:
 
 ```bash
-npm install
+# Start PostgreSQL container
+docker run --name fond-postgres \
+  -e POSTGRES_DB=fond_shnau \
+  -e POSTGRES_USER=postgres \
+  -e POSTGRES_PASSWORD=postgres \
+  -p 5432:5432 \
+  -d postgres:16
+
+# Verify it's running
+docker ps
 ```
 
-Это установит:
-- `pg` — PostgreSQL клиент
-- `zod` — валидация данных
+Your `.env` file is already configured for localhost by default.
 
-### 2. Инициализировать базу данных
+## Alternative: Local PostgreSQL Installation
+
+### Windows
+1. Download PostgreSQL from https://www.postgresql.org/download/windows/
+2. Install and set password for `postgres` user
+3. Create database: `CREATE DATABASE fond_shnau;`
+
+### macOS (with Homebrew)
+```bash
+brew install postgresql@16
+brew services start postgresql@16
+createdb fond_shnau
+```
+
+### Linux (Ubuntu/Debian)
+```bash
+sudo apt update
+sudo apt install postgresql postgresql-contrib
+sudo systemctl start postgresql
+sudo -u postgres createdb fond_shnau
+```
+
+## Configuration
+
+Database settings are in `.env` file:
+
+```env
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=fond_shnau
+DB_USER=postgres
+DB_PASSWORD=postgres
+DB_SSL=false
+```
+
+## Remote Database Connection
+
+If you need to connect to the remote database at `155.212.216.148`:
+
+1. **Verify server is reachable:**
+   ```bash
+   # Test connection (should respond in <1 second if reachable)
+   telnet 155.212.216.148 5432
+   # or
+   nc -zv 155.212.216.148 5432
+   ```
+
+2. **Check with database administrator:**
+   - Is the server running?
+   - Is your IP whitelisted in firewall?
+   - Is your IP allowed in `pg_hba.conf`?
+   - Are the credentials correct?
+
+3. **Update `.env` file:**
+   ```env
+   DB_HOST=155.212.216.148
+   DB_PORT=5432
+   DB_NAME=fond_shnau
+   DB_USER=my_user
+   DB_PASSWORD=123456
+   DB_SSL=false  # or true if SSL is required
+   ```
+
+## Initialize Database Tables
+
+Once connected, run migrations to create tables:
 
 ```bash
+# This will be implemented in the next step
 npm run db:init
 ```
 
-Эта команда:
-- Подключится к PostgreSQL
-- Создаст все необходимые таблицы
-- Перенесёт данные из JSON файлов в БД
-- Создаст дефолтного админа
-
-**Дефолтные учётные данные админа:**
-- Логин: `admin`
-- Пароль: `admin123`
-
-⚠️ **ВАЖНО:** Сразу после первого входа смените пароль!
-
-## Структура БД
-
-### Таблицы
-
-1. **users** — пользователи админки
-2. **sessions** — сессии для аутентификации
-3. **dogs** — собаки на пристройство
-4. **news** — новости фонда
-5. **stories** — счастливые истории
-6. **memorial** — память об ушедших собаках
-7. **adopted** — пристроенные собаки
-
-## Доступ к админке
-
-После инициализации БД:
-
-1. Запустите сервер: `npm run dev`
-2. Откройте: http://localhost:3000/admin/login
-3. Войдите с дефолтными учётными данными
-4. Смените пароль (функционал нужно добавить)
-
-## API Endpoints
-
-### Публичные
-
-- `GET /api/dogs` — список собак
-- `GET /api/news` — список новостей (только опубликованные)
-- `GET /api/rss` — RSS лента
-- `GET /rss.xml` — RSS XML
-
-### Админские (требуют аутентификации)
-
-**Собаки:**
-- `GET /api/admin/dogs` — все собаки
-- `POST /api/admin/dogs` — добавить собаку
-- `PUT /api/admin/dogs/:id` — обновить собаку
-- `DELETE /api/admin/dogs/:id` — удалить собаку
-
-**Новости:**
-- `GET /api/admin/news` — все новости
-- `POST /api/admin/news` — добавить новость
-- `PUT /api/admin/news/:id` — обновить новость
-- `DELETE /api/admin/news/:id` — удалить новость
-
-**Аутентификация:**
-- `POST /api/admin/login` — вход
-- `POST /api/admin/logout` — выход
-
-## Миграция данных
-
-Если у вас уже есть JSON файлы с данными, они автоматически перенесутся в БД при запуске `npm run db:init`.
-
-После переноса можно удалить JSON файлы или оставить как резервную копию.
-
-## Бэкап БД
-
-Файл базы данных находится в `data/database.db`.
-
-Для бэкапа просто скопируйте этот файл:
-
-```bash
-cp data/database.db data/database.backup.db
-```
-
-## Изменение структуры БД
-
-Если нужно добавить новые поля:
-
-1. Откройте `server/database/db.ts`
-2. Добавьте новые поля в `CREATE TABLE` запросы
-3. Удалите `data/database.db`
-4. Запустите `npm run db:init` снова
-
-## Смена пароля админа
-
-Временное решение (через код):
-
-1. Откройте `server/utils/auth.ts`
-2. В функции `ensureAdminUser()` измените пароль
-3. Удалите `data/database.db`
-4. Запустите `npm run db:init`
-
-Лучшее решение — добавить в админку страницу изменения пароля.
-
 ## Troubleshooting
 
-**Ошибка: "database is locked"**
-- Закройте все процессы, использующие БД
-- Перезапустите сервер
+### Error: `ETIMEDOUT`
+- Database server is not reachable
+- Check network/firewall settings
+- Verify the server IP and port are correct
 
-**Ошибка при миграции JSON**
-- Проверьте формат JSON файлов
-- Убедитесь что все required поля заполнены
+### Error: `ECONNREFUSED`
+- PostgreSQL is not running on the target host
+- Check if the service is started
+- Verify the port number (default: 5432)
 
-**Не могу войти в админку**
-- Проверьте что БД инициализирована
-- Проверьте логин/пароль
-- Очистите cookies браузера
+### Error: `password authentication failed`
+- Username or password is incorrect
+- Check your `.env` file credentials
+
+### Error: `database "fond_shnau" does not exist`
+- Create the database first:
+  ```sql
+  CREATE DATABASE fond_shnau;
+  ```
+
+## Next Steps
+
+After setting up the database:
+1. Restart your dev server: `npm run dev`
+2. The application will automatically create tables on first connection
+3. You can migrate data from JSON files if needed

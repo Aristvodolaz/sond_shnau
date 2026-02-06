@@ -4,23 +4,89 @@ import { dbConfig } from './config'
 // Create PostgreSQL connection pool
 export const pool = new Pool(dbConfig)
 
+// Track connection status
+let isConnected = false
+
 // Test connection
 pool.on('connect', () => {
-  console.log('✅ Connected to PostgreSQL database')
+  isConnected = true
+  console.log('✅ Connected to PostgreSQL database:', {
+    host: dbConfig.host,
+    port: dbConfig.port,
+    database: dbConfig.database,
+    user: dbConfig.user
+  })
 })
 
 pool.on('error', (err) => {
-  console.error('❌ Unexpected error on idle client', err)
-  process.exit(-1)
+  isConnected = false
+  console.error('❌ Unexpected error on idle client:', err.message)
+  // Don't exit process in Nuxt/Nitro - let the app handle errors gracefully
 })
 
-// Helper function to execute queries
+// Connection health check with better error messages
+export async function checkConnection(): Promise<boolean> {
+  try {
+    await pool.query('SELECT 1')
+    isConnected = true
+    return true
+  } catch (error: any) {
+    isConnected = false
+    console.error('❌ Database connection check failed:', {
+      code: error.code,
+      message: error.message,
+      host: dbConfig.host,
+      port: dbConfig.port,
+      database: dbConfig.database
+    })
+    
+    // Provide helpful error messages
+    if (error.code === 'ETIMEDOUT' || error.code === 'ECONNREFUSED') {
+      console.error(`
+⚠️  Cannot connect to PostgreSQL database.
+   
+   Possible solutions:
+   1. Start a local PostgreSQL server:
+      - Using Docker: docker run --name postgres -e POSTGRES_PASSWORD=postgres -p 5432:5432 -d postgres
+      - Or install PostgreSQL locally
+   
+   2. Check your .env file configuration:
+      DB_HOST=${dbConfig.host}
+      DB_PORT=${dbConfig.port}
+      DB_NAME=${dbConfig.database}
+      
+   3. If using a remote database, ensure:
+      - The server is running and accessible
+      - Firewall allows connections to port ${dbConfig.port}
+      - Your IP is whitelisted in pg_hba.conf
+`)
+    }
+    return false
+  }
+}
+
+// Helper function to execute queries with better error handling
 export async function query<T = any>(text: string, params?: any[]): Promise<QueryResult<T>> {
-  const start = Date.now()
-  const res = await pool.query<T>(text, params)
-  const duration = Date.now() - start
-  console.log('Executed query', { text, duration, rows: res.rowCount })
-  return res
+  try {
+    const start = Date.now()
+    const res = await pool.query<T>(text, params)
+    const duration = Date.now() - start
+    console.log('Executed query', { text: text.substring(0, 50), duration, rows: res.rowCount })
+    return res
+  } catch (error: any) {
+    console.error('❌ Query execution failed:', {
+      error: error.message,
+      code: error.code,
+      query: text.substring(0, 100)
+    })
+    
+    // If connection error, suggest checking database
+    if (error.code === 'ETIMEDOUT' || error.code === 'ECONNREFUSED') {
+      throw new Error(`Database connection failed: ${error.message}. Please check your database configuration in .env file.`)
+    }
+    
+    throw error
+  }
 }
 
 // Initialize database tables
