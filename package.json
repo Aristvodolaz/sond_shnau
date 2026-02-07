@@ -10,7 +10,14 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "db:init": "tsx scripts/init-db.ts",
-    "db:check": "tsx -e \"import {checkConnection, pool} from './server/database/db'; checkConnection().then(() => pool.end())\""
+    "db:check": "tsx -e \"import {checkConnection, pool} from './server/database/db'; checkConnection().then(() => pool.end())\"",
+    "pm2:start": "pm2 start ecosystem.config.cjs --env production",
+    "pm2:stop": "pm2 stop fond-schnauzers",
+    "pm2:restart": "pm2 restart fond-schnauzers",
+    "pm2:reload": "pm2 reload fond-schnauzers",
+    "pm2:delete": "pm2 delete fond-schnauzers",
+    "pm2:logs": "pm2 logs fond-schnauzers",
+    "pm2:monit": "pm2 monit"
   },
   "dependencies": {
     "@nuxt/image": "^1.8.1",
