@@ -25,7 +25,8 @@ export default defineNuxtConfig({
       ],
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-        { rel: 'alternate', type: 'application/rss+xml', title: 'Новости фонда', href: '/rss.xml' }
+        { rel: 'alternate', type: 'application/rss+xml', title: 'Новости фонда', href: '/rss.xml' },
+        { rel: 'preload', as: 'font', type: 'font/ttf', href: '/fonts/HoboBT.ttf', crossorigin: 'anonymous' }
       ]
     }
   },

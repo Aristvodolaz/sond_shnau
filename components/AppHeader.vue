@@ -14,8 +14,8 @@
   />
 </div>
           <div class="hidden sm:block">
-            <div class="font-hobo text-xl md:text-xl text-primary-800 leading-tight">Фонд помощи</div>
-            <div class="font-hobo text-base md:text-lg text-primary-600 -mt-1">шнауцерам</div>
+            <div class="font-hobo text-xl md:text-xl text-primary-800 leading-tight tracking-wide">Фонд помощи</div>
+            <div class="font-hobo text-base md:text-lg text-primary-600 -mt-1 tracking-wide">шнауцерам</div>
           </div>
         </NuxtLink>
 
