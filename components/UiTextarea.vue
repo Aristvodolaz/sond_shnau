@@ -42,7 +42,7 @@ defineEmits<{
 }>()
 
 const textareaClasses = computed(() => {
-  const base = 'w-full px-4 py-3 border rounded-lg transition-all focus:outline-none focus:ring-2 focus:ring-offset-0 disabled:bg-warm-100 disabled:cursor-not-allowed resize-y'
+  const base = 'w-full px-4 py-3 text-base border rounded-lg transition-all focus:outline-none focus:ring-2 focus:ring-offset-0 disabled:bg-warm-100 disabled:cursor-not-allowed resize-y touch-manipulation'
   
   if (props.error) {
     return `${base} border-red-300 focus:border-red-500 focus:ring-red-500`

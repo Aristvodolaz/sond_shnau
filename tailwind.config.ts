@@ -38,7 +38,8 @@ export default {
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
-        display: ['Manrope', 'Inter', 'system-ui', 'sans-serif']
+        display: ['Manrope', 'Inter', 'system-ui', 'sans-serif'],
+        hobo: ['HoboBT', 'Manrope', 'Inter', 'system-ui', 'sans-serif']
       },
       container: {
         center: true,

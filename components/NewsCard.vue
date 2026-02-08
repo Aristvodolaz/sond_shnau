@@ -18,12 +18,12 @@
       </div>
     </div>
     
-    <div class="p-5 flex-1 flex flex-col">
-      <h3 class="font-display font-semibold text-lg text-warm-900 mb-3 group-hover:text-primary-600 transition-colors line-clamp-2">
+    <div class="p-4 sm:p-5 flex-1 flex flex-col">
+      <h3 class="font-display font-semibold text-base sm:text-lg text-warm-900 mb-2 sm:mb-3 group-hover:text-primary-600 transition-colors line-clamp-2">
         {{ news.title }}
       </h3>
-      <p class="text-warm-700 mb-4 line-clamp-3 flex-1">{{ news.preview }}</p>
-      <UiButton :to="`/news/${news.slug}`" variant="outline" size="sm" class="mt-auto group-hover:bg-primary-500 group-hover:text-white group-hover:border-primary-500">
+      <p class="text-sm sm:text-base text-warm-700 mb-3 sm:mb-4 line-clamp-3 flex-1">{{ news.preview }}</p>
+      <UiButton :to="`/news/${news.slug}`" variant="outline" size="sm" class="mt-auto w-full group-hover:bg-primary-500 group-hover:text-white group-hover:border-primary-500">
         Читать далее
         <svg class="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />

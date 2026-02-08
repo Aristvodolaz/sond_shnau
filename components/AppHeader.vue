@@ -5,7 +5,7 @@
         <!-- Logo -->
         <NuxtLink to="/" class="flex items-center space-x-3 group">
 <div
-  class="w-20 h-20 rounded-full flex items-center justify-center overflow-hidden transition-transform group-hover:scale-105"
+  class="w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center overflow-hidden transition-transform group-hover:scale-105"
 >
   <img
     src="/images/logo/logo.png"
@@ -14,8 +14,8 @@
   />
 </div>
           <div class="hidden sm:block">
-            <div class="font-display font-bold text-lg text-warm-900">Фонд помощи</div>
-            <div class="text-sm text-warm-600">шнауцерам</div>
+            <div class="font-hobo text-xl md:text-xl text-primary-800 leading-tight">Фонд помощи</div>
+            <div class="font-hobo text-base md:text-lg text-primary-600 -mt-1">шнауцерам</div>
           </div>
         </NuxtLink>
 

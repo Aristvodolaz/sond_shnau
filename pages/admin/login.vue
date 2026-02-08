@@ -58,11 +58,6 @@
           {{ loading ? 'Вход...' : 'Войти' }}
         </UiButton>
       </form>
-
-      <div class="mt-6 text-center text-sm text-warm-600">
-        <p>По умолчанию: <code class="bg-warm-200 px-2 py-1 rounded">admin / admin123</code></p>
-        <p class="mt-1 text-xs">Обязательно смените пароль после первого входа!</p>
-      </div>
     </UiCard>
   </div>
 </template>

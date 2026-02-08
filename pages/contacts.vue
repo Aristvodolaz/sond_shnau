@@ -1,14 +1,14 @@
 <template>
-  <div class="py-12 md:py-16">
+  <div class="py-8 sm:py-10 md:py-12 lg:py-16">
     <div class="container-custom max-w-5xl">
-      <h1 class="text-4xl md:text-5xl font-display font-bold text-warm-900 mb-6">
+      <h1 class="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-warm-900 mb-4 sm:mb-6">
         Контакты
       </h1>
-      <p class="text-xl text-warm-700 mb-12">
+      <p class="text-base sm:text-lg md:text-xl text-warm-700 mb-8 sm:mb-10 md:mb-12">
         Свяжитесь с нами любым удобным способом. Мы всегда рады помочь!
       </p>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
         <!-- Contact Information -->
         <div>
           <UiCard class="mb-6">

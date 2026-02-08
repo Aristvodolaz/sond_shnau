@@ -1,10 +1,10 @@
 <template>
-  <div class="bg-white rounded-xl shadow-lg p-6 sticky top-24">
-    <div class="flex items-center justify-between mb-6">
-      <h3 class="text-xl font-display font-bold text-warm-900">
+  <div class="bg-white rounded-xl shadow-lg p-4 sm:p-6 lg:sticky lg:top-24">
+    <div class="flex items-center justify-between mb-4 sm:mb-6">
+      <h3 class="text-lg sm:text-xl font-display font-bold text-warm-900">
         Новости форума
       </h3>
-      <svg class="w-5 h-5 text-primary-500" fill="currentColor" viewBox="0 0 20 20">
+      <svg class="w-5 h-5 text-primary-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
         <path d="M5 3a1 1 0 000 2c5.523 0 10 4.477 10 10a1 1 0 102 0C17 8.373 11.627 3 5 3z" />
         <path d="M4 9a1 1 0 011-1 7 7 0 017 7 1 1 0 11-2 0 5 5 0 00-5-5 1 1 0 01-1-1zM3 15a2 2 0 114 0 2 2 0 01-4 0z" />
       </svg>
@@ -24,7 +24,7 @@
     </div>
 
     <!-- RSS Items -->
-    <div v-else-if="items && items.length > 0" class="space-y-4">
+    <div v-else-if="items && items.length > 0" class="space-y-3 sm:space-y-4">
       <a
         v-for="(item, index) in items.slice(0, 5)"
         :key="item.link"
@@ -33,11 +33,11 @@
         rel="noopener noreferrer"
         class="block group"
       >
-        <div class="border-l-3 border-primary-500 pl-3 py-2 hover:bg-warm-50 transition-colors rounded-r">
-          <h4 class="text-sm font-semibold text-warm-900 group-hover:text-primary-600 transition-colors line-clamp-2 mb-1">
+        <div class="border-l-3 border-primary-500 pl-3 py-2 hover:bg-warm-50 active:bg-warm-100 transition-colors rounded-r">
+          <h4 class="text-sm sm:text-base font-semibold text-warm-900 group-hover:text-primary-600 transition-colors line-clamp-2 mb-1">
             {{ cleanTitle(item.title) }}
           </h4>
-          <p class="text-xs text-warm-600">
+          <p class="text-xs sm:text-sm text-warm-600">
             {{ formatDate(item.pubDate) }}
           </p>
         </div>
@@ -50,10 +50,10 @@
     </div>
 
     <!-- View All Link -->
-    <div v-if="items && items.length > 0" class="mt-6 pt-4 border-t border-warm-200">
+    <div v-if="items && items.length > 0" class="mt-4 sm:mt-6 pt-4 border-t border-warm-200">
       <NuxtLink
         to="/forum-news"
-        class="text-sm font-semibold text-primary-600 hover:text-primary-700 flex items-center justify-center gap-2 transition-colors"
+        class="text-sm sm:text-base font-semibold text-primary-600 hover:text-primary-700 active:text-primary-800 flex items-center justify-center gap-2 transition-colors py-2"
       >
         <span>Все новости форума</span>
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

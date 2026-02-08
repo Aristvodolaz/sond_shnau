@@ -26,42 +26,42 @@
       </button>
     </div>
 
-    <div class="p-5">
+    <div class="p-4 sm:p-5">
       <!-- Name and Type -->
       <div class="mb-3">
-        <h3 class="font-display font-bold text-xl text-warm-900 mb-1">{{ dog.name }}</h3>
+        <h3 class="font-display font-bold text-lg sm:text-xl text-warm-900 mb-1">{{ dog.name }}</h3>
         <p class="text-warm-600 text-sm">{{ getDogTypeName(dog.type) }}</p>
       </div>
 
       <!-- Quick Facts -->
       <div class="space-y-2 mb-4">
         <div class="flex items-center text-sm text-warm-700">
-          <svg class="w-4 h-4 mr-2 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg class="w-4 h-4 mr-2 flex-shrink-0 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
-          <span>{{ dog.age }}</span>
+          <span class="truncate">{{ dog.age }}</span>
         </div>
         <div class="flex items-center text-sm text-warm-700">
-          <svg class="w-4 h-4 mr-2 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg class="w-4 h-4 mr-2 flex-shrink-0 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
           </svg>
-          <span>{{ dog.city }}</span>
+          <span class="truncate">{{ dog.city }}</span>
         </div>
         <div class="flex items-center text-sm text-warm-700">
-          <svg class="w-4 h-4 mr-2 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg class="w-4 h-4 mr-2 flex-shrink-0 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
           </svg>
-          <span>{{ dog.curator.name }}</span>
+          <span class="truncate">{{ dog.curator.name }}</span>
         </div>
       </div>
 
       <!-- Actions -->
-      <div class="flex flex-col sm:flex-row gap-2">
-        <UiButton :to="`/dogs/${dog.slug}`" variant="primary" size="sm" class="flex-1">
+      <div class="flex flex-col gap-2">
+        <UiButton :to="`/dogs/${dog.slug}`" variant="primary" size="sm" class="w-full">
           Подробнее
         </UiButton>
-        <UiButton :href="dog.forumTopicUrl" variant="outline" size="sm" external class="flex-1">
+        <UiButton :href="dog.forumTopicUrl" variant="outline" size="sm" external class="w-full">
           <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
           </svg>
