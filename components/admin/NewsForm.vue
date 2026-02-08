@@ -113,8 +113,8 @@ const errors = reactive({
   content: ''
 })
 
-// Initialize form with news data if editing
-watch(() => props.news, (news) => {
+// Function to initialize form with news data
+const initializeForm = (news: any) => {
   if (news) {
     form.title = news.title || ''
     form.date = news.date || new Date().toISOString().split('T')[0]
@@ -123,7 +123,17 @@ watch(() => props.news, (news) => {
     form.image = news.image || ''
     form.published = news.published || false
   }
-}, { immediate: true })
+}
+
+// Initialize form with news data if editing
+watch(() => props.news, initializeForm, { immediate: true })
+
+// Also initialize on mount if news is already present
+onMounted(() => {
+  if (props.news) {
+    initializeForm(props.news)
+  }
+})
 
 // Form validation
 const validate = () => {

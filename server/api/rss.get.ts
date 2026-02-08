@@ -3,7 +3,7 @@ import Parser from 'rss-parser'
 import type { RssItem } from '~/types'
 
 // RSS feed URL from config
-const RSS_URL = 'https://pet-help.ru/rss.xml'
+const RSS_URL = 'https://pet-help.ru/forum/feed.php?mode=topics_active'
 
 // Create parser instance
 const parser = new Parser({

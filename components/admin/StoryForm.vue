@@ -158,18 +158,29 @@ const errors = reactive({
 })
 
 // Initialize form with story data if editing
-watch(() => props.story, (story) => {
+// Function to initialize form with story data
+const initializeForm = (story: any) => {
   if (story) {
-    form.dogName = story.dogName || ''
+    form.dogName = story.dog_name || story.dogName || ''
     form.year = story.year || new Date().getFullYear()
     form.part = story.part || null
     form.preview = story.preview || ''
     form.content = story.content || ''
-    form.beforePhoto = story.beforePhoto || ''
-    form.afterPhoto = story.afterPhoto || ''
+    form.beforePhoto = story.before_photo || story.beforePhoto || ''
+    form.afterPhoto = story.after_photo || story.afterPhoto || ''
     form.photos = story.photos && story.photos.length > 0 ? [...story.photos] : ['']
   }
-}, { immediate: true })
+}
+
+// Initialize form with story data if editing
+watch(() => props.story, initializeForm, { immediate: true })
+
+// Also initialize on mount if story is already present
+onMounted(() => {
+  if (props.story) {
+    initializeForm(props.story)
+  }
+})
 
 // Photo management
 const addPhoto = () => {

@@ -13,7 +13,22 @@ module.exports = {
       env_production: {
         NODE_ENV: 'production',
         PORT: 3000,
-        HOST: '0.0.0.0'
+        HOST: '0.0.0.0',
+        
+        // Admin credentials
+        ADMIN_USERNAME: 'fond_admin',
+        ADMIN_PASSWORD: 'Schnauzer2026!SecurePass',
+        
+        // Database
+        DB_HOST: '155.212.216.148',
+        DB_PORT: '5432',
+        DB_NAME: 'fond_shnau',
+        DB_USER: 'my_user',
+        DB_PASSWORD: '123456',
+        DB_SSL: 'false',
+        
+        // RSS Feed
+        RSS_FEED_URL: 'https://pet-help.ru/forum/feed.php?mode=topics_active'
       },
       
       // Auto restart configuration

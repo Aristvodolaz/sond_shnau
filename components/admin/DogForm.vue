@@ -280,26 +280,36 @@ const errors = reactive({
   dateAdded: ''
 })
 
-// Initialize form with dog data if editing
-watch(() => props.dog, (dog) => {
+// Function to initialize form with dog data
+const initializeForm = (dog: any) => {
   if (dog) {
     form.name = dog.name || ''
     form.type = dog.type || ''
     form.age = dog.age || ''
     form.city = dog.city || ''
     form.status = dog.status || 'looking'
-    form.curatorName = dog.curator?.name || ''
-    form.curatorPhone = dog.curator?.phone || ''
-    form.curatorEmail = dog.curator?.email || ''
+    form.curatorName = dog.curator_name || dog.curatorName || ''
+    form.curatorPhone = dog.curator_phone || dog.curatorPhone || ''
+    form.curatorEmail = dog.curator_email || dog.curatorEmail || ''
     form.description = dog.description || ''
     form.health = dog.health || ''
     form.character = dog.character || ''
     form.features = dog.features || { sterilized: false, vaccinated: false, treatedForParasites: false }
     form.photos = dog.photos && dog.photos.length > 0 ? [...dog.photos] : ['']
-    form.forumTopicUrl = dog.forumTopicUrl || ''
-    form.dateAdded = dog.dateAdded || new Date().toISOString().split('T')[0]
+    form.forumTopicUrl = dog.forum_topic_url || dog.forumTopicUrl || ''
+    form.dateAdded = dog.date_added || dog.dateAdded || new Date().toISOString().split('T')[0]
   }
-}, { immediate: true })
+}
+
+// Initialize form with dog data if editing
+watch(() => props.dog, initializeForm, { immediate: true })
+
+// Also initialize on mount if dog is already present
+onMounted(() => {
+  if (props.dog) {
+    initializeForm(props.dog)
+  }
+})
 
 // Photo management
 const addPhoto = () => {

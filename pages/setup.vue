@@ -63,9 +63,6 @@
             </ul>
             <div class="mt-4 p-3 bg-green-100 rounded border border-green-300">
               <p class="text-sm font-semibold text-green-900 mb-1">Учётные данные админа:</p>
-              <p class="text-sm text-green-800">Логин: <code class="bg-white px-2 py-1 rounded">admin</code></p>
-              <p class="text-sm text-green-800">Пароль: <code class="bg-white px-2 py-1 rounded">admin123</code></p>
-              <p class="text-xs text-green-700 mt-2">⚠️ Обязательно смените пароль после первого входа!</p>
             </div>
           </div>
         </div>

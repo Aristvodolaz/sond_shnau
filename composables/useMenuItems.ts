@@ -11,6 +11,10 @@ export const useMenuItems = () => {
       to: '/lost-found'
     },
     {
+      label: 'Новости форума',
+      to: '/forum-news'
+    },
+    {
       label: 'Наши результаты',
       children: [
         { label: 'Шнауцеры дома', to: '/results/adopted' },
