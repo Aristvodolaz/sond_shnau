@@ -63,9 +63,6 @@
             <UiButton to="/forum-news" variant="secondary" size="lg" class="w-full sm:w-auto">
               Новости форума
             </UiButton>
-            <UiButton href="/rss.xml" variant="outline" size="lg" external class="!border-white !text-white hover:!bg-white/10 w-full sm:w-auto">
-              RSS лента
-            </UiButton>
           </div>
         </div>
       </div>
