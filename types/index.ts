@@ -64,6 +64,7 @@ export interface AdoptedDog {
   city: string
   photo: string
   adoptionDate: string
+  forumUrl?: string
 }
 
 export interface RssItem {

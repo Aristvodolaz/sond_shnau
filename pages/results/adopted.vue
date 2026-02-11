@@ -52,26 +52,52 @@
 
       <!-- Dogs Grid -->
       <div v-if="filteredDogs.length > 0" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        <UiCard v-for="dog in filteredDogs" :key="dog.id" :padding="false" class="group">
-          <div class="relative aspect-square overflow-hidden">
-            <NuxtImg
-              :src="dog.photo"
-              :alt="dog.name"
-              class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-              loading="lazy"
-              width="300"
-              height="300"
-            />
-          </div>
-          <div class="p-4">
-            <h3 class="font-display font-semibold text-lg text-warm-900 mb-1">{{ dog.name }}</h3>
-            <p class="text-sm text-warm-600 mb-2">{{ dog.type }}</p>
-            <div class="flex items-center justify-between text-xs text-warm-500">
-              <span>{{ dog.city }}</span>
-              <UiTag variant="success" size="sm">{{ dog.year }}</UiTag>
+        <component 
+          :is="dog.forumUrl ? 'a' : 'div'"
+          v-for="dog in filteredDogs" 
+          :key="dog.id"
+          :href="dog.forumUrl || undefined"
+          :target="dog.forumUrl ? '_blank' : undefined"
+          :rel="dog.forumUrl ? 'noopener noreferrer' : undefined"
+          class="block"
+        >
+          <UiCard 
+            :padding="false" 
+            :class="[
+              'group transition-all duration-300',
+              dog.forumUrl ? 'cursor-pointer hover:shadow-lg hover:ring-2 hover:ring-primary-500' : ''
+            ]"
+          >
+            <div class="relative aspect-square overflow-hidden">
+              <NuxtImg
+                :src="dog.photo"
+                :alt="dog.name"
+                class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                loading="lazy"
+                width="300"
+                height="300"
+              />
+              <!-- Forum Link Badge -->
+              <div 
+                v-if="dog.forumUrl" 
+                class="absolute top-2 right-2 bg-white/90 backdrop-blur-sm rounded-lg px-2 py-1 text-xs font-medium text-primary-600 flex items-center gap-1 shadow-md"
+              >
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+                Форум
+              </div>
             </div>
-          </div>
-        </UiCard>
+            <div class="p-4">
+              <h3 class="font-display font-semibold text-lg text-warm-900 mb-1">{{ dog.name }}</h3>
+              <p class="text-sm text-warm-600 mb-2">{{ dog.type }}</p>
+              <div class="flex items-center justify-between text-xs text-warm-500">
+                <span>{{ dog.city }}</span>
+                <UiTag variant="success" size="sm">{{ dog.year }}</UiTag>
+              </div>
+            </div>
+          </UiCard>
+        </component>
       </div>
 
       <!-- Empty State -->

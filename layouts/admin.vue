@@ -30,6 +30,13 @@
               >
                 Истории
               </NuxtLink>
+              <NuxtLink
+                to="/admin/adopted"
+                class="px-4 py-2 rounded-lg text-warm-700 hover:bg-warm-100 transition-colors"
+                active-class="bg-primary-100 text-primary-700"
+              >
+                Шнауцеры дома
+              </NuxtLink>
             </nav>
           </div>
           <div class="flex items-center space-x-4">
