@@ -151,12 +151,11 @@
         <!-- Adoption Date -->
         <div>
           <label class="block text-sm font-medium text-warm-700 mb-2">
-            Дата пристройства *
+            Дата пристройства
           </label>
           <UiInput
             v-model="form.adoptionDate"
             type="date"
-            required
           />
         </div>
 
@@ -241,7 +240,7 @@ const form = ref({
   year: new Date().getFullYear(),
   city: '',
   photo: '',
-  adoptionDate: new Date().toISOString().split('T')[0],
+  adoptionDate: '',
   forumUrl: ''
 })
 
@@ -254,7 +253,7 @@ const openAddModal = () => {
     year: new Date().getFullYear(),
     city: '',
     photo: '',
-    adoptionDate: new Date().toISOString().split('T')[0],
+    adoptionDate: '',
     forumUrl: ''
   }
   showModal.value = true

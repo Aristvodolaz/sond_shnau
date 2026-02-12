@@ -10,7 +10,7 @@ export default defineEventHandler(async (event) => {
   const { name, type, year, city, photo, adoptionDate, forumUrl } = body
 
   // Validate required fields
-  if (!name || !type || !year || !city || !photo || !adoptionDate) {
+  if (!name || !type || !year || !city || !photo) {
     throw createError({
       statusCode: 400,
       message: 'Missing required fields'
@@ -24,7 +24,7 @@ export default defineEventHandler(async (event) => {
        SET name = $1, type = $2, year = $3, city = $4, photo = $5, adoption_date = $6, forum_url = $7
        WHERE id = $8
        RETURNING id, name, type, year, city, photo, adoption_date as "adoptionDate", forum_url as "forumUrl"`,
-      [name, type, year, city, photo, adoptionDate, forumUrl || null, id]
+      [name, type, year, city, photo, adoptionDate || null, forumUrl || null, id]
     )
 
     if (result.rows.length === 0) {

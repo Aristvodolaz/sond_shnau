@@ -9,10 +9,10 @@ export default defineEventHandler(async (event) => {
   const { name, type, year, city, photo, adoptionDate, forumUrl } = body
 
   // Validate required fields
-  if (!name || !type || !year || !city || !photo || !adoptionDate) {
+  if (!name || !type || !year || !city || !photo) {
     throw createError({
       statusCode: 400,
-      message: 'Missing required fields: name, type, year, city, photo, adoptionDate'
+      message: 'Missing required fields: name, type, year, city, photo'
     })
   }
 
@@ -22,7 +22,7 @@ export default defineEventHandler(async (event) => {
       `INSERT INTO adopted (name, type, year, city, photo, adoption_date, forum_url)
        VALUES ($1, $2, $3, $4, $5, $6, $7)
        RETURNING id, name, type, year, city, photo, adoption_date as "adoptionDate", forum_url as "forumUrl"`,
-      [name, type, year, city, photo, adoptionDate, forumUrl || null]
+      [name, type, year, city, photo, adoptionDate || null, forumUrl || null]
     )
 
     return result.rows[0]

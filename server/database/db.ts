@@ -185,7 +185,7 @@ export async function initDatabase() {
         year INTEGER NOT NULL,
         city VARCHAR(255) NOT NULL,
         photo TEXT NOT NULL,
-        adoption_date DATE NOT NULL,
+        adoption_date DATE,
         forum_url TEXT,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       )
