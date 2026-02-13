@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="flex items-center justify-between mb-8">
+    <div class="flex items-center justify-between mb-6">
       <h1 class="text-3xl font-display font-bold text-warm-900">
         Управление историями
       </h1>
@@ -11,6 +11,75 @@
         Добавить историю
       </UiButton>
     </div>
+
+    <!-- Search and Filters -->
+    <UiCard class="mb-6">
+      <div class="space-y-4">
+        <!-- Search -->
+        <div>
+          <label class="block text-sm font-medium text-warm-700 mb-2">
+            Поиск
+          </label>
+          <div class="relative">
+            <input
+              v-model="searchQuery"
+              type="text"
+              placeholder="Поиск по имени собаки, превью..."
+              class="w-full pl-10 pr-4 py-2 border border-warm-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+            />
+            <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-warm-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Year Filter -->
+          <div>
+            <label class="block text-sm font-medium text-warm-700 mb-2">
+              Год
+            </label>
+            <select
+              v-model="filterYear"
+              class="w-full px-4 py-2 border border-warm-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+            >
+              <option value="">Все годы</option>
+              <option v-for="year in availableYears" :key="year" :value="year">{{ year }}</option>
+            </select>
+          </div>
+
+          <!-- Photo Filter -->
+          <div>
+            <label class="block text-sm font-medium text-warm-700 mb-2">
+              Фото "До/После"
+            </label>
+            <select
+              v-model="filterPhoto"
+              class="w-full px-4 py-2 border border-warm-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+            >
+              <option value="">Все</option>
+              <option value="with">С фото</option>
+              <option value="without">Без фото</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Results Count & Reset -->
+        <div class="flex items-center justify-between pt-2 border-t border-warm-200">
+          <p class="text-sm text-warm-600">
+            Найдено историй: <span class="font-semibold text-warm-900">{{ filteredStories.length }}</span> из {{ stories?.length || 0 }}
+          </p>
+          <button
+            v-if="hasActiveFilters"
+            @click="resetFilters"
+            class="text-sm text-primary-600 hover:text-primary-700 font-medium"
+          >
+            Сбросить фильтры
+          </button>
+        </div>
+      </div>
+    </UiCard>
 
     <!-- Stories Table -->
     <UiCard :padding="false">
@@ -26,7 +95,15 @@
             </tr>
           </thead>
           <tbody class="divide-y divide-warm-200">
-            <tr v-for="story in stories" :key="story.id" class="hover:bg-warm-50 transition-colors">
+            <tr v-if="filteredStories.length === 0">
+              <td colspan="5" class="px-6 py-12 text-center text-warm-500">
+                <svg class="w-12 h-12 mx-auto mb-3 text-warm-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <p>Истории не найдены</p>
+              </td>
+            </tr>
+            <tr v-for="story in filteredStories" :key="story.id" class="hover:bg-warm-50 transition-colors">
               <td class="px-6 py-4 font-medium text-warm-900">{{ story.dogName }}</td>
               <td class="px-6 py-4 text-warm-600 text-sm">{{ story.year }}</td>
               <td class="px-6 py-4 text-warm-600 text-sm">{{ story.part || '—' }}</td>
@@ -110,6 +187,60 @@ const { adminFetch } = useAdminAuth()
 
 // Fetch stories from API
 const { data: stories, refresh } = await useFetch('/api/admin/stories')
+
+// Search and filter state
+const searchQuery = ref('')
+const filterYear = ref('')
+const filterPhoto = ref('')
+
+// Get available years for filter
+const availableYears = computed(() => {
+  if (!stories.value) return []
+  const years = [...new Set(stories.value.map((s: any) => s.year))]
+  return years.sort((a, b) => b - a)
+})
+
+// Filtered stories based on search and filters
+const filteredStories = computed(() => {
+  if (!stories.value) return []
+  
+  let result = stories.value
+
+  // Search filter
+  if (searchQuery.value) {
+    const query = searchQuery.value.toLowerCase()
+    result = result.filter((story: any) => 
+      story.dogName.toLowerCase().includes(query) ||
+      story.preview.toLowerCase().includes(query)
+    )
+  }
+
+  // Year filter
+  if (filterYear.value) {
+    result = result.filter((story: any) => story.year === parseInt(filterYear.value))
+  }
+
+  // Photo filter
+  if (filterPhoto.value === 'with') {
+    result = result.filter((story: any) => story.beforePhoto && story.afterPhoto)
+  } else if (filterPhoto.value === 'without') {
+    result = result.filter((story: any) => !story.beforePhoto || !story.afterPhoto)
+  }
+
+  return result
+})
+
+// Check if any filters are active
+const hasActiveFilters = computed(() => {
+  return searchQuery.value || filterYear.value || filterPhoto.value
+})
+
+// Reset all filters
+const resetFilters = () => {
+  searchQuery.value = ''
+  filterYear.value = ''
+  filterPhoto.value = ''
+}
 
 // Generate slug from dog name and year
 const generateSlug = (dogName: string, year: number, part?: number) => {

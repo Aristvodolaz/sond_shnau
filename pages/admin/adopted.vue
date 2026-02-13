@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="flex items-center justify-between mb-8">
+    <div class="flex items-center justify-between mb-6">
       <h1 class="text-3xl font-display font-bold text-warm-900">
         Управление "Шнауцеры дома"
       </h1>
@@ -11,6 +11,92 @@
         Добавить запись
       </UiButton>
     </div>
+
+    <!-- Search and Filters -->
+    <UiCard class="mb-6">
+      <div class="space-y-4">
+        <!-- Search -->
+        <div>
+          <label class="block text-sm font-medium text-warm-700 mb-2">
+            Поиск
+          </label>
+          <div class="relative">
+            <input
+              v-model="searchQuery"
+              type="text"
+              placeholder="Поиск по имени, городу..."
+              class="w-full pl-10 pr-4 py-2 border border-warm-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+            />
+            <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-warm-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <!-- Type Filter -->
+          <div>
+            <label class="block text-sm font-medium text-warm-700 mb-2">
+              Порода
+            </label>
+            <select
+              v-model="filterType"
+              class="w-full px-4 py-2 border border-warm-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+            >
+              <option value="">Все породы</option>
+              <option value="Ризеншнауцер">Ризеншнауцер</option>
+              <option value="Миттельшнауцер">Миттельшнауцер</option>
+              <option value="Цвергшнауцер">Цвергшнауцер</option>
+              <option value="Метис">Метис</option>
+            </select>
+          </div>
+
+          <!-- Year Filter -->
+          <div>
+            <label class="block text-sm font-medium text-warm-700 mb-2">
+              Год
+            </label>
+            <select
+              v-model="filterYear"
+              class="w-full px-4 py-2 border border-warm-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+            >
+              <option value="">Все годы</option>
+              <option v-for="year in availableYears" :key="year" :value="year">{{ year }}</option>
+            </select>
+          </div>
+
+          <!-- Forum Link Filter -->
+          <div>
+            <label class="block text-sm font-medium text-warm-700 mb-2">
+              Ссылка на форум
+            </label>
+            <select
+              v-model="filterForumLink"
+              class="w-full px-4 py-2 border border-warm-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+            >
+              <option value="">Все</option>
+              <option value="with">Со ссылкой</option>
+              <option value="without">Без ссылки</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Results Count & Reset -->
+        <div class="flex items-center justify-between pt-2 border-t border-warm-200">
+          <p class="text-sm text-warm-600">
+            Найдено записей: <span class="font-semibold text-warm-900">{{ filteredDogs.length }}</span> из {{ adoptedDogs?.length || 0 }}
+          </p>
+          <button
+            v-if="hasActiveFilters"
+            @click="resetFilters"
+            class="text-sm text-primary-600 hover:text-primary-700 font-medium"
+          >
+            Сбросить фильтры
+          </button>
+        </div>
+      </div>
+    </UiCard>
 
     <!-- Adopted Dogs Table -->
     <UiCard :padding="false">
@@ -28,7 +114,15 @@
             </tr>
           </thead>
           <tbody class="divide-y divide-warm-200">
-            <tr v-for="dog in adoptedDogs" :key="dog.id" class="hover:bg-warm-50 transition-colors">
+            <tr v-if="filteredDogs.length === 0">
+              <td colspan="7" class="px-6 py-12 text-center text-warm-500">
+                <svg class="w-12 h-12 mx-auto mb-3 text-warm-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <p>Записи не найдены</p>
+              </td>
+            </tr>
+            <tr v-for="dog in filteredDogs" :key="dog.id" class="hover:bg-warm-50 transition-colors">
               <td class="px-6 py-4">
                 <img 
                   :src="dog.photo" 
@@ -232,6 +326,68 @@ const { adminFetch } = useAdminAuth()
 
 // Fetch adopted dogs from API
 const { data: adoptedDogs, refresh } = await useFetch<AdoptedDog[]>('/api/admin/adopted')
+
+// Search and filter state
+const searchQuery = ref('')
+const filterType = ref('')
+const filterYear = ref('')
+const filterForumLink = ref('')
+
+// Get available years for filter
+const availableYears = computed(() => {
+  if (!adoptedDogs.value) return []
+  const years = [...new Set(adoptedDogs.value.map(d => d.year))]
+  return years.sort((a, b) => b - a)
+})
+
+// Filtered dogs based on search and filters
+const filteredDogs = computed(() => {
+  if (!adoptedDogs.value) return []
+  
+  let result = adoptedDogs.value
+
+  // Search filter
+  if (searchQuery.value) {
+    const query = searchQuery.value.toLowerCase()
+    result = result.filter(dog => 
+      dog.name.toLowerCase().includes(query) ||
+      dog.city.toLowerCase().includes(query) ||
+      dog.type.toLowerCase().includes(query)
+    )
+  }
+
+  // Type filter
+  if (filterType.value) {
+    result = result.filter(dog => dog.type === filterType.value)
+  }
+
+  // Year filter
+  if (filterYear.value) {
+    result = result.filter(dog => dog.year === parseInt(filterYear.value))
+  }
+
+  // Forum link filter
+  if (filterForumLink.value === 'with') {
+    result = result.filter(dog => dog.forumUrl)
+  } else if (filterForumLink.value === 'without') {
+    result = result.filter(dog => !dog.forumUrl)
+  }
+
+  return result
+})
+
+// Check if any filters are active
+const hasActiveFilters = computed(() => {
+  return searchQuery.value || filterType.value || filterYear.value || filterForumLink.value
+})
+
+// Reset all filters
+const resetFilters = () => {
+  searchQuery.value = ''
+  filterType.value = ''
+  filterYear.value = ''
+  filterForumLink.value = ''
+}
 
 // Form state
 const form = ref({
