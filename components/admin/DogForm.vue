@@ -294,7 +294,20 @@ const initializeForm = (dog: any) => {
     form.description = dog.description || ''
     form.health = dog.health || ''
     form.character = dog.character || ''
-    form.features = dog.features || { sterilized: false, vaccinated: false, treatedForParasites: false }
+    
+    // Convert features from array to object
+    if (Array.isArray(dog.features)) {
+      form.features = {
+        sterilized: dog.features.includes('sterilized'),
+        vaccinated: dog.features.includes('vaccinated'),
+        treatedForParasites: dog.features.includes('treatedForParasites')
+      }
+    } else if (typeof dog.features === 'object') {
+      form.features = dog.features
+    } else {
+      form.features = { sterilized: false, vaccinated: false, treatedForParasites: false }
+    }
+    
     form.photos = dog.photos && dog.photos.length > 0 ? [...dog.photos] : ['']
     form.forumTopicUrl = dog.forum_topic_url || dog.forumTopicUrl || ''
     form.dateAdded = dog.date_added || dog.dateAdded || new Date().toISOString().split('T')[0]
