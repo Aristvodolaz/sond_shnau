@@ -71,16 +71,17 @@
 
     <!-- Additional Photos -->
     <div class="pt-4 border-t border-warm-200">
-      <h3 class="text-lg font-semibold text-warm-900 mb-3">Дополнительные фотографии</h3>
+      <h3 class="text-lg font-semibold text-warm-900 mb-3">Дополнительные фотографии (необязательно)</h3>
       <div class="space-y-2">
+        <div v-if="form.photos.length === 0" class="text-sm text-warm-500 mb-2">
+          Нет добавленных фотографий
+        </div>
         <div v-for="(photo, index) in form.photos" :key="index" class="flex items-center space-x-2">
           <UiInput
             v-model="form.photos[index]"
             :placeholder="`URL фотографии ${index + 1}`"
-            required
           />
           <button
-            v-if="form.photos.length > 1"
             type="button"
             @click="removePhoto(index)"
             class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
@@ -146,7 +147,7 @@ const form = reactive({
   content: '',
   beforePhoto: '',
   afterPhoto: '',
-  photos: ['']
+  photos: [] as string[]
 })
 
 // Errors state
@@ -168,7 +169,7 @@ const initializeForm = (story: any) => {
     form.content = story.content || ''
     form.beforePhoto = story.before_photo || story.beforePhoto || ''
     form.afterPhoto = story.after_photo || story.afterPhoto || ''
-    form.photos = story.photos && story.photos.length > 0 ? [...story.photos] : ['']
+    form.photos = story.photos && story.photos.length > 0 ? [...story.photos] : []
   }
 }
 

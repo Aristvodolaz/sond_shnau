@@ -15,14 +15,14 @@ export default defineEventHandler(async (event) => {
     RETURNING *
   `, [
     body.slug,
-    body.dogName,
+    body.dog_name || body.dogName,
     body.year,
     body.part || null,
     body.preview,
     body.content,
     JSON.stringify(body.photos || []),
-    body.beforePhoto || null,
-    body.afterPhoto || null,
+    body.before_photo || body.beforePhoto || null,
+    body.after_photo || body.afterPhoto || null,
     id
   ])
 
