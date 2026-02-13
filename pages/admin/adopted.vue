@@ -49,6 +49,7 @@
               <option value="Миттельшнауцер">Миттельшнауцер</option>
               <option value="Цвергшнауцер">Цвергшнауцер</option>
               <option value="Метис">Метис</option>
+              <option value="Шнауцер">Шнауцер</option>
             </select>
           </div>
 
