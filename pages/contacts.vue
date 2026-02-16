@@ -15,17 +15,22 @@
             <h2 class="text-2xl font-display font-bold text-warm-900 mb-6">Связь с фондом</h2>
             
             <div class="space-y-5">
-              <!-- Phone -->
+              <!-- Phones -->
               <div class="flex items-start">
                 <div class="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center flex-shrink-0 mr-4">
                   <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                   </svg>
                 </div>
-                <div>
-                  <h3 class="font-semibold text-warm-900 mb-1">Телефон</h3>
-                  <a :href="`tel:${config.PHONE}`" class="link text-lg">{{ config.PHONE }}</a>
-                  <p class="text-sm text-warm-600 mt-1">Звоните с 10:00 до 20:00 (МСК)</p>
+                <div class="flex-1">
+                  <h3 class="font-semibold text-warm-900 mb-2">Телефоны</h3>
+                  <div class="space-y-1">
+                    <div v-for="phone in config.PHONES" :key="phone.number" class="flex items-center justify-between">
+                      <a :href="`tel:${phone.number.replace(/\s/g, '')}`" class="link text-base">{{ phone.number }}</a>
+                      <span class="text-sm text-warm-600 ml-2">{{ phone.name }}</span>
+                    </div>
+                  </div>
+                  <p class="text-sm text-warm-600 mt-2">Звоните с 10:00 до 20:00 (МСК)</p>
                 </div>
               </div>
 
@@ -104,6 +109,24 @@
                   <p class="text-sm text-warm-600">Оперативные новости и связь</p>
                 </div>
               </a>
+
+              <!-- Dzen -->
+              <a
+                :href="config.DZEN_URL"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="flex items-center p-4 bg-warm-100 rounded-lg hover:bg-warm-200 transition-colors group"
+              >
+                <div class="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center flex-shrink-0 mr-4 group-hover:scale-105 transition-transform">
+                  <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="font-semibold text-warm-900">Яндекс.Дзен</h3>
+                  <p class="text-sm text-warm-600">Статьи и истории о шнауцерах</p>
+                </div>
+              </a>
             </div>
           </UiCard>
         </div>
@@ -119,23 +142,10 @@
             </p>
 
             <div class="bg-warm-100 rounded-lg p-6 mb-6">
-              <h3 class="font-semibold text-warm-900 mb-4">Реквизиты для перевода</h3>
-              <div class="space-y-3 text-sm">
-                <div>
-                  <span class="text-warm-600">Банк:</span>
-                  <p class="font-medium text-warm-900">{{ config.BANK_NAME }}</p>
-                </div>
-                <div>
-                  <span class="text-warm-600">Получатель:</span>
-                  <p class="font-medium text-warm-900">{{ config.RECIPIENT }}</p>
-                </div>
-                <div>
-                  <span class="text-warm-600">Номер счёта:</span>
-                  <p class="font-mono font-medium text-warm-900">{{ config.BANK_ACCOUNT }}</p>
-                </div>
-              </div>
-              <p class="text-xs text-warm-600 mt-4">
-                * Реквизиты являются примерными. Для актуальной информации свяжитесь с нами.
+              <h3 class="font-semibold text-warm-900 mb-4">Как помочь финансово</h3>
+              <p class="text-warm-700">
+                Для получения актуальных реквизитов для перевода, пожалуйста, свяжитесь с нами по телефону или email. 
+                Мы предоставим вам всю необходимую информацию для помощи.
               </p>
             </div>
 
