@@ -17,8 +17,8 @@ export const config = {
   
   // Phone contacts
   PHONES: [
-    { number: '+7 903 739 5049', name: 'Ирина' },
     { number: '+7 909 962 3000', name: 'Мила' },
+    { number: '+7 903 739 5049', name: 'Ирина' },
     { number: '+7 911 941 2205', name: 'Ирина' },
     { number: '+7 968 596 4053', name: 'Ася' }
   ]

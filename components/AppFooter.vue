@@ -79,7 +79,7 @@
           </div>
           <div class="space-y-2 text-warm-300 text-sm">
             <p>{{ config.EMAIL }}</p>
-            <p>{{ config.PHONE }}</p>
+            <p>{{ config.PHONES[0].number }}</p>
           </div>
         </div>
       </div>

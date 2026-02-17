@@ -15,12 +15,8 @@ export const useMenuItems = () => {
       to: '/forum-news'
     },
     {
-      label: 'Наши результаты',
-      children: [
-        { label: 'Шнауцеры дома', to: '/results/adopted' },
-        { label: 'Счастливые истории', to: '/results/stories' },
-        { label: 'В памяти', to: '/results/memorial' }
-      ]
+      label: 'Шнауцеры дома',
+      to: '/results/adopted'
     },
     {
       label: 'О нас',
