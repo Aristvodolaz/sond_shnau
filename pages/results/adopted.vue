@@ -36,17 +36,6 @@
           >
             {{ year }}
           </button>
-          <button
-            @click="selectedYear = 'pre2015'"
-            :class="[
-              'px-4 py-2 rounded-lg font-medium transition-colors',
-              selectedYear === 'pre2015' 
-                ? 'bg-primary-500 text-white' 
-                : 'bg-warm-200 text-warm-700 hover:bg-warm-300'
-            ]"
-          >
-            До 2015
-          </button>
         </div>
       </div>
 
@@ -135,7 +124,7 @@ useHead({
 // Fetch adopted dogs from API
 const { data } = await useFetch<AdoptedDog[]>('/api/adopted')
 const adoptedDogs = ref<AdoptedDog[]>(data.value || [])
-const selectedYear = ref<number | string | null>(null)
+const selectedYear = ref<number | null>(null)
 
 // Get unique years sorted descending
 const availableYears = computed(() => {
@@ -147,9 +136,6 @@ const availableYears = computed(() => {
 const filteredDogs = computed(() => {
   if (selectedYear.value === null) {
     return adoptedDogs.value
-  }
-  if (selectedYear.value === 'pre2015') {
-    return adoptedDogs.value.filter(d => d.year < 2015)
   }
   return adoptedDogs.value.filter(d => d.year === selectedYear.value)
 })
