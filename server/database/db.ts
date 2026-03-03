@@ -191,6 +191,23 @@ export async function initDatabase() {
       )
     `)
 
+    // Media table for uploaded files
+    await query(`
+      CREATE TABLE IF NOT EXISTS media (
+        id SERIAL PRIMARY KEY,
+        key TEXT NOT NULL,
+        url TEXT NOT NULL,
+        mime_type TEXT NOT NULL,
+        size INTEGER NOT NULL,
+        width INTEGER,
+        height INTEGER,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      )
+    `)
+
+    await query(`CREATE INDEX IF NOT EXISTS idx_media_created_at ON media(created_at DESC)`)
+
     // Sessions table
     await query(`
       CREATE TABLE IF NOT EXISTS sessions (

@@ -99,8 +99,8 @@
             </UiButton>
           </div>
 
-          <!-- Description -->
-          <div class="prose prose-warm max-w-none mb-6">
+          <!-- Description (только для пенсионеров; у собак «ищут дом» не показываем) -->
+          <div v-if="dog.status !== 'looking'" class="prose prose-warm max-w-none mb-6">
             <h3 class="text-xl font-display font-semibold text-warm-900 mb-3">Описание</h3>
             <p class="text-warm-700 leading-relaxed">{{ dog.description }}</p>
           </div>
@@ -189,7 +189,12 @@ const displayFeatures = computed(() => {
 useHead({
   title: dog.value ? dog.value.name : 'Собака не найдена',
   meta: dog.value ? [
-    { name: 'description', content: `${dog.value.name} — ${getDogTypeName(dog.value.type)}, ${dog.value.age}, ${dog.value.city}. ${dog.value.description}` }
+    {
+      name: 'description',
+      content: dog.value.status === 'looking'
+        ? `${dog.value.name} — ${getDogTypeName(dog.value.type)}, ${dog.value.age}, ${dog.value.city}. Ищет дом.`
+        : `${dog.value.name} — ${getDogTypeName(dog.value.type)}, ${dog.value.age}, ${dog.value.city}. ${dog.value.description}`
+    }
   ] : []
 })
 
