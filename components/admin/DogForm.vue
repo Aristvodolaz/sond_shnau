@@ -91,8 +91,8 @@
       />
     </div>
 
-    <!-- Description, здоровье, характер — только для пенсионеров -->
-    <div v-if="form.status !== 'looking'" class="pt-4 border-t border-warm-200">
+    <!-- Description -->
+    <div class="pt-4 border-t border-warm-200">
       <h3 class="text-lg font-semibold text-warm-900 mb-3">Описание</h3>
       
       <UiTextarea
@@ -368,20 +368,19 @@ const validate = () => {
     isValid = false
   }
 
-  // Описание, здоровье, характер обязательны только для пенсионеров
-  if (form.status !== 'looking') {
-    if (!form.description.trim()) {
-      errors.description = 'Описание обязательно'
-      isValid = false
-    }
-    if (!form.health.trim()) {
-      errors.health = 'Информация о здоровье обязательна'
-      isValid = false
-    }
-    if (!form.character.trim()) {
-      errors.character = 'Описание характера обязательно'
-      isValid = false
-    }
+  if (!form.description.trim()) {
+    errors.description = 'Описание обязательно'
+    isValid = false
+  }
+
+  if (!form.health.trim()) {
+    errors.health = 'Информация о здоровье обязательна'
+    isValid = false
+  }
+
+  if (!form.character.trim()) {
+    errors.character = 'Описание характера обязательно'
+    isValid = false
   }
 
   if (!form.forumTopicUrl.trim()) {

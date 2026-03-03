@@ -12,10 +12,10 @@ const dogSchema = z.object({
   curator_phone: z.string().min(1),
   curator_email: z.string().nullable().optional(),
   photos: z.array(z.string()),
-  description: z.string(), // для «ищет дом» может быть пустым
+  description: z.string().min(1),
   features: z.array(z.string()),
-  health: z.string(),
-  character: z.string(),
+  health: z.string().min(1),
+  character: z.string().min(1),
   forum_topic_url: z.string().url(),
   status: z.enum(['looking', 'pensioner']),
   date_added: z.string()
