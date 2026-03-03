@@ -122,14 +122,14 @@
             </div>
           </div>
 
-          <!-- Character -->
-          <div class="mb-6">
+          <!-- Character (только для пенсионеров) -->
+          <div v-if="dog.status !== 'looking'" class="mb-6">
             <h3 class="text-xl font-display font-semibold text-warm-900 mb-3">Характер</h3>
             <p class="text-warm-700 leading-relaxed">{{ dog.character }}</p>
           </div>
 
-          <!-- Health -->
-          <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+          <!-- Health (только для пенсионеров) -->
+          <div v-if="dog.status !== 'looking'" class="bg-blue-50 border border-blue-200 rounded-lg p-4">
             <h3 class="text-lg font-display font-semibold text-blue-900 mb-2 flex items-center">
               <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
