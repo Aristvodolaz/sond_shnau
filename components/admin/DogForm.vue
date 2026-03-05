@@ -91,18 +91,9 @@
       />
     </div>
 
-    <!-- Description -->
+    <!-- Здоровье и характер -->
     <div class="pt-4 border-t border-warm-200">
-      <h3 class="text-lg font-semibold text-warm-900 mb-3">Описание</h3>
-      
-      <UiTextarea
-        v-model="form.description"
-        label="Общее описание"
-        placeholder="Краткое описание собаки..."
-        required
-        :rows="3"
-        :error="errors.description"
-      />
+      <h3 class="text-lg font-semibold text-warm-900 mb-3">Здоровье и характер</h3>
       
       <UiTextarea
         v-model="form.health"
@@ -253,7 +244,6 @@ const form = reactive({
   curatorName: '',
   curatorPhone: '',
   curatorEmail: '',
-  description: '',
   health: '',
   character: '',
   features: {
@@ -273,7 +263,6 @@ const errors = reactive({
   city: '',
   curatorName: '',
   curatorPhone: '',
-  description: '',
   health: '',
   character: '',
   forumTopicUrl: '',
@@ -291,7 +280,6 @@ const initializeForm = (dog: any) => {
     form.curatorName = dog.curator_name || dog.curatorName || ''
     form.curatorPhone = dog.curator_phone || dog.curatorPhone || ''
     form.curatorEmail = dog.curator_email || dog.curatorEmail || ''
-    form.description = dog.description || ''
     form.health = dog.health || ''
     form.character = dog.character || ''
     
@@ -368,11 +356,6 @@ const validate = () => {
     isValid = false
   }
 
-  if (!form.description.trim()) {
-    errors.description = 'Описание обязательно'
-    isValid = false
-  }
-
   if (!form.health.trim()) {
     errors.health = 'Информация о здоровье обязательна'
     isValid = false
@@ -412,7 +395,7 @@ const handleSubmit = () => {
       phone: form.curatorPhone.trim(),
       email: form.curatorEmail.trim() || null
     },
-    description: form.description.trim(),
+    description: '',
     health: form.health.trim(),
     character: form.character.trim(),
     features: form.features,

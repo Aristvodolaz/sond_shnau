@@ -12,7 +12,7 @@ const dogSchema = z.object({
   curator_phone: z.string().min(1),
   curator_email: z.string().nullable().optional(),
   photos: z.array(z.string()),
-  description: z.string().min(1),
+  description: z.string().optional().default(''),
   features: z.array(z.string()),
   health: z.string().min(1),
   character: z.string().min(1),
@@ -35,7 +35,7 @@ export default defineEventHandler(async (event) => {
   `, [
     data.slug, data.name, data.type, data.age, data.city,
     data.curator_name, data.curator_phone, data.curator_email || null,
-    JSON.stringify(data.photos), data.description, JSON.stringify(data.features),
+    JSON.stringify(data.photos), data.description ?? '', JSON.stringify(data.features),
     data.health, data.character, data.forum_topic_url, data.status, data.date_added
   ])
 

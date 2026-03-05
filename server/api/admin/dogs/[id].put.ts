@@ -18,7 +18,7 @@ export default defineEventHandler(async (event) => {
   `, [
     body.slug, body.name, body.type, body.age, body.city,
     body.curator_name, body.curator_phone, body.curator_email || null,
-    JSON.stringify(body.photos), body.description, JSON.stringify(body.features),
+    JSON.stringify(body.photos), body.description ?? '', JSON.stringify(body.features),
     body.health, body.character, body.forum_topic_url, body.status, body.date_added,
     id
   ])
