@@ -258,6 +258,9 @@ const emit = defineEmits<{
 const { adminFetch } = useAdminAuth()
 const { resolveMediaUrl } = useMediaUrl()
 
+/** Keep in sync with UPLOAD_MAX_FILE_SIZE_MB / server upload route */
+const UPLOAD_MAX_BYTES = 25 * 1024 * 1024
+
 // Check if we're editing or creating
 const editMode = computed(() => !!props.dog)
 
@@ -366,9 +369,8 @@ const onPhotoFileChange = async (index: number, event: Event) => {
     return
   }
 
-  const maxSize = 10 * 1024 * 1024
-  if (file.size > maxSize) {
-    uploadErrorByIndex[index] = 'Файл слишком большой (максимум 10MB)'
+  if (file.size > UPLOAD_MAX_BYTES) {
+    uploadErrorByIndex[index] = 'Файл слишком большой (максимум 25MB)'
     target.value = ''
     return
   }

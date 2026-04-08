@@ -2,7 +2,8 @@ import { requireAuth } from '~/server/utils/auth'
 import { query } from '~/server/database/db'
 import { uploadBufferToS3 } from '~/server/utils/storage'
 
-const DEFAULT_MAX_MB = 10
+// Must stay below reverse-proxy limits (nginx default is 1m — raise client_max_body_size on the server)
+const DEFAULT_MAX_MB = 25
 const allowedMimeTypes =
   process.env.UPLOAD_ALLOWED_MIME?.split(',').map((t) => t.trim()) ||
   ['image/jpeg', 'image/png', 'image/webp']

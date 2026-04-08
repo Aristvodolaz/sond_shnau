@@ -149,3 +149,23 @@ npm run pm2:monit
 
 ### Порт занят
 - Измените порт в `ecosystem.config.cjs` в секции `env_production.PORT`
+
+### 413 Request Entity Too Large при загрузке фото
+
+Чаще всего это **Nginx** (лимит по умолчанию **1MB**). Файл больше 1MB отбрасывается **до** Node/Nuxt.
+
+В блок `server { ... }` или в `location /` добавьте:
+
+```nginx
+client_max_body_size 25m;
+```
+
+Перезагрузите Nginx:
+
+```bash
+sudo nginx -t && sudo systemctl reload nginx
+```
+
+Убедитесь, что в `.env` на сервере `UPLOAD_MAX_FILE_SIZE_MB` не меньше этого лимита (см. `.env.example`).
+
+Готовый фрагмент: `deploy/nginx-upload-snippet.conf`.
