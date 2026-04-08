@@ -9,7 +9,7 @@ const dogSchema = z.object({
   age: z.string().min(1),
   city: z.string().min(1),
   curator_name: z.string().min(1),
-  curator_phone: z.string().min(1),
+  curator_phone: z.string().min(1).max(255, 'Телефон слишком длинный (макс. 255 символов)'),
   curator_email: z.string().nullable().optional(),
   photos: z.array(z.string()),
   description: z.string().optional().default(''),

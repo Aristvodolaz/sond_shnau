@@ -1,55 +1,80 @@
+const fs = require('fs')
+const path = require('path')
+
+/**
+ * Load .env from project root so PM2 picks up S3_*, DB_*, etc.
+ * Values from .env override defaults below.
+ */
+function loadDotEnv(filePath) {
+  const out = {}
+  if (!fs.existsSync(filePath)) return out
+  const txt = fs.readFileSync(filePath, 'utf8')
+  for (const line of txt.split(/\r?\n/)) {
+    const s = line.trim()
+    if (!s || s.startsWith('#')) continue
+    const eq = s.indexOf('=')
+    if (eq <= 0) continue
+    const key = s.slice(0, eq).trim()
+    let val = s.slice(eq + 1).trim()
+    if (
+      (val.startsWith('"') && val.endsWith('"')) ||
+      (val.startsWith("'") && val.endsWith("'"))
+    ) {
+      val = val.slice(1, -1)
+    }
+    out[key] = val
+  }
+  return out
+}
+
+const root = __dirname
+const fileEnv = loadDotEnv(path.join(root, '.env'))
+
+const defaults = {
+  NODE_ENV: 'production',
+  PORT: 3000,
+  HOST: '0.0.0.0',
+  RSS_FEED_URL: 'https://pet-help.ru/forum/feed.php?mode=topics_active',
+}
+
+/** Fallback if .env is missing (prefer setting everything in .env on the server) */
+const legacyFallback = {
+  ADMIN_USERNAME: 'fond_admin',
+  ADMIN_PASSWORD: 'Schnauzer2026!SecurePass',
+  DB_HOST: '155.212.216.148',
+  DB_PORT: '5432',
+  DB_NAME: 'fond_shnau',
+  DB_USER: 'my_user',
+  DB_PASSWORD: '123456',
+  DB_SSL: 'false',
+}
+
 module.exports = {
   apps: [
     {
       name: 'fond-schnauzers',
-      // Path to the built Nuxt server after running 'npm run build'
       script: './.output/server/index.mjs',
-      
-      // Cluster mode for better performance
       instances: 'max',
       exec_mode: 'cluster',
-      
-      // Environment variables
-      env_production: {
-        NODE_ENV: 'production',
-        PORT: 3000,
-        HOST: '0.0.0.0',
-        
-        // Admin credentials
-        ADMIN_USERNAME: 'fond_admin',
-        ADMIN_PASSWORD: 'Schnauzer2026!SecurePass',
-        
-        // Database
-        DB_HOST: '155.212.216.148',
-        DB_PORT: '5432',
-        DB_NAME: 'fond_shnau',
-        DB_USER: 'my_user',
-        DB_PASSWORD: '123456',
-        DB_SSL: 'false',
-        
-        // RSS Feed
-        RSS_FEED_URL: 'https://pet-help.ru/forum/feed.php?mode=topics_active'
-      },
-      
-      // Auto restart configuration
+
+      // Priority: .env > legacyFallback > defaults (S3_* only from .env)
+      env_production: { ...defaults, ...legacyFallback, ...fileEnv },
+
       autorestart: true,
       watch: false,
       max_memory_restart: '1G',
-      
-      // Logging
+
       error_file: './logs/pm2-error.log',
       out_file: './logs/pm2-out.log',
       log_file: './logs/pm2-combined.log',
       time: true,
-      
-      // Graceful shutdown
+
       kill_timeout: 5000,
       wait_ready: true,
       listen_timeout: 10000,
-      
-      // Advanced features
+
       merge_logs: true,
-      log_date_format: 'YYYY-MM-DD HH:mm:ss Z'
-    }
-  ]
-};
+      log_date_format: 'YYYY-MM-DD HH:mm:ss Z',
+    },
+  ],
+}

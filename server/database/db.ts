@@ -112,7 +112,7 @@ export async function initDatabase() {
         age VARCHAR(100) NOT NULL,
         city VARCHAR(255) NOT NULL,
         curator_name VARCHAR(255) NOT NULL,
-        curator_phone VARCHAR(50) NOT NULL,
+        curator_phone VARCHAR(255) NOT NULL,
         curator_email VARCHAR(255),
         photos JSONB NOT NULL,
         description TEXT NOT NULL,
@@ -222,6 +222,13 @@ export async function initDatabase() {
 
     // Create indexes for better performance
     await query(`CREATE INDEX IF NOT EXISTS idx_dogs_status ON dogs(status)`)
+
+    // Existing deployments may still have curator_phone VARCHAR(50) — widen for long numbers / formatting
+    try {
+      await query(`ALTER TABLE dogs ALTER COLUMN curator_phone TYPE VARCHAR(255)`)
+    } catch {
+      // ignore if already VARCHAR(255) or insufficient permissions
+    }
     await query(`CREATE INDEX IF NOT EXISTS idx_dogs_slug ON dogs(slug)`)
     await query(`CREATE INDEX IF NOT EXISTS idx_news_published ON news(published)`)
     await query(`CREATE INDEX IF NOT EXISTS idx_news_date ON news(date DESC)`)
