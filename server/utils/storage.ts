@@ -1,4 +1,9 @@
-import { S3Client, PutObjectCommand, DeleteObjectCommand } from '@aws-sdk/client-s3'
+import {
+  S3Client,
+  PutObjectCommand,
+  DeleteObjectCommand,
+  GetObjectCommand,
+} from '@aws-sdk/client-s3'
 import { randomUUID } from 'node:crypto'
 
 const bucket = process.env.S3_BUCKET || ''
@@ -88,6 +93,19 @@ export async function deleteFromS3(key: string): Promise<void> {
 
   await s3Client.send(
     new DeleteObjectCommand({
+      Bucket: bucket,
+      Key: key,
+    }),
+  )
+}
+
+export async function getObjectFromS3(key: string) {
+  if (!key) {
+    throw new Error('Object key is required')
+  }
+
+  return s3Client.send(
+    new GetObjectCommand({
       Bucket: bucket,
       Key: key,
     }),

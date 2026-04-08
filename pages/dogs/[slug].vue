@@ -21,12 +21,10 @@
         <!-- Photos -->
         <div>
           <div class="relative aspect-square rounded-xl overflow-hidden mb-4">
-            <NuxtImg
-              :src="currentPhoto"
+            <img
+              :src="resolveMediaUrl(currentPhoto)"
               :alt="dog.name"
               class="w-full h-full object-cover"
-              width="800"
-              height="800"
             />
           </div>
           <div v-if="dog.photos.length > 1" class="grid grid-cols-4 gap-3">
@@ -39,12 +37,10 @@
                 currentPhoto === photo ? 'border-primary-500' : 'border-transparent hover:border-warm-300'
               ]"
             >
-              <NuxtImg
-                :src="photo"
+              <img
+                :src="resolveMediaUrl(photo)"
                 :alt="`${dog.name} фото ${index + 1}`"
                 class="w-full h-full object-cover"
-                width="200"
-                height="200"
               />
             </button>
           </div>
@@ -158,6 +154,7 @@ import type { Dog } from '~/types'
 
 const route = useRoute()
 const slug = route.params.slug as string
+const { resolveMediaUrl } = useMediaUrl()
 
 // Fetch dog data from API with loading state
 const { data: dog, pending } = await useFetch<Dog>(`/api/dogs/${slug}`)

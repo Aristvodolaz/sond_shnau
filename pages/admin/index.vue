@@ -124,7 +124,7 @@
             </tr>
             <tr v-for="dog in filteredDogs" :key="dog.id" class="hover:bg-warm-50 transition-colors">
               <td class="px-6 py-4">
-                <img :src="dog.photos[0]" :alt="dog.name" class="w-16 h-16 object-cover rounded-lg" />
+                <img :src="resolveMediaUrl(dog.photos[0])" :alt="dog.name" class="w-16 h-16 object-cover rounded-lg" />
               </td>
               <td class="px-6 py-4 font-medium text-warm-900">{{ dog.name }}</td>
               <td class="px-6 py-4 text-warm-600 text-sm">{{ getDogTypeName(dog.type) }}</td>
@@ -193,6 +193,7 @@ const editingDog = ref<any>(null)
 const saving = ref(false)
 const toast = useToast()
 const { adminFetch } = useAdminAuth()
+const { resolveMediaUrl } = useMediaUrl()
 
 // Fetch dogs from API
 const { data: dogs, refresh } = await useFetch('/api/admin/dogs')

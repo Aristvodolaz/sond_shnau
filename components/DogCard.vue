@@ -1,13 +1,11 @@
 <template>
   <UiCard :padding="false" class="group hover:shadow-2xl transition-all duration-300">
     <div class="relative aspect-square overflow-hidden">
-      <NuxtImg
-        :src="dog.photos[0]"
+      <img
+        :src="resolveMediaUrl(dog.photos[0])"
         :alt="dog.name"
         class="w-full h-full object-cover transition-all duration-500 group-hover:scale-110 group-hover:brightness-105"
         loading="lazy"
-        width="400"
-        height="400"
       />
       <!-- Gradient overlay on hover -->
       <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -80,6 +78,7 @@ interface Props {
 }
 
 defineProps<Props>()
+const { resolveMediaUrl } = useMediaUrl()
 
 const getDogTypeName = (type: string) => {
   const types: Record<string, string> = {

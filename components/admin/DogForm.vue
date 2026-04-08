@@ -151,23 +151,48 @@
     <div class="pt-4 border-t border-warm-200">
       <h3 class="text-lg font-semibold text-warm-900 mb-3">Фотографии</h3>
       <div class="space-y-2">
-        <div v-for="(photo, index) in form.photos" :key="index" class="flex items-center space-x-2">
-          <UiInput
-            v-model="form.photos[index]"
-            :placeholder="`URL фотографии ${index + 1}`"
-            required
+        <div v-for="(photo, index) in form.photos" :key="index" class="rounded-lg border border-warm-200 p-3">
+          <div class="flex items-center space-x-2">
+            <UiInput
+              v-model="form.photos[index]"
+              :placeholder="`URL фотографии ${index + 1}`"
+              required
+            />
+            <button
+              v-if="form.photos.length > 1"
+              type="button"
+              @click="removePhoto(index)"
+              class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+              title="Удалить"
+            >
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+          <div class="mt-2 flex items-center gap-3">
+            <input
+              type="file"
+              accept="image/jpeg,image/png,image/webp"
+              @change="onPhotoFileChange(index, $event)"
+              class="block w-full text-sm text-warm-700 file:mr-4 file:rounded-md file:border-0 file:bg-primary-50 file:px-3 file:py-2 file:text-sm file:font-medium file:text-primary-700 hover:file:bg-primary-100"
+            />
+            <span
+              v-if="uploadingPhotoIndex === index"
+              class="text-sm text-primary-600 whitespace-nowrap"
+            >
+              Загрузка...
+            </span>
+          </div>
+          <p v-if="uploadErrorByIndex[index]" class="mt-1 text-sm text-red-600">
+            {{ uploadErrorByIndex[index] }}
+          </p>
+          <img
+            v-if="form.photos[index]"
+            :src="resolveMediaUrl(form.photos[index])"
+            :alt="`Предпросмотр ${index + 1}`"
+            class="mt-3 h-40 w-full max-w-xs rounded-lg border border-warm-200 object-cover bg-warm-50"
           />
-          <button
-            v-if="form.photos.length > 1"
-            type="button"
-            @click="removePhoto(index)"
-            class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
-            title="Удалить"
-          >
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
         </div>
         <button
           type="button"
@@ -230,6 +255,8 @@ const emit = defineEmits<{
   submit: [data: any]
   cancel: []
 }>()
+const { adminFetch } = useAdminAuth()
+const { resolveMediaUrl } = useMediaUrl()
 
 // Check if we're editing or creating
 const editMode = computed(() => !!props.dog)
@@ -319,6 +346,50 @@ const addPhoto = () => {
 
 const removePhoto = (index: number) => {
   form.photos.splice(index, 1)
+}
+
+const uploadingPhotoIndex = ref<number | null>(null)
+const uploadErrorByIndex = reactive<Record<number, string>>({})
+
+const onPhotoFileChange = async (index: number, event: Event) => {
+  const target = event.target as HTMLInputElement
+  const file = target.files?.[0]
+
+  uploadErrorByIndex[index] = ''
+
+  if (!file) return
+
+  const allowedTypes = ['image/jpeg', 'image/png', 'image/webp']
+  if (!allowedTypes.includes(file.type)) {
+    uploadErrorByIndex[index] = 'Разрешены только JPG, PNG, WEBP'
+    target.value = ''
+    return
+  }
+
+  const maxSize = 10 * 1024 * 1024
+  if (file.size > maxSize) {
+    uploadErrorByIndex[index] = 'Файл слишком большой (максимум 10MB)'
+    target.value = ''
+    return
+  }
+
+  try {
+    uploadingPhotoIndex.value = index
+    const formData = new FormData()
+    formData.append('file', file)
+
+    const response = await adminFetch<{ id: number; url: string }>('/api/admin/upload', {
+      method: 'POST',
+      body: formData
+    })
+
+    form.photos[index] = response.url
+  } catch (error: any) {
+    uploadErrorByIndex[index] = error?.data?.message || 'Ошибка загрузки изображения'
+  } finally {
+    uploadingPhotoIndex.value = null
+    target.value = ''
+  }
 }
 
 // Form validation
