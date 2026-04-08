@@ -41,6 +41,8 @@ npm run pm2:start
 pm2 start ecosystem.config.cjs --env production
 ```
 
+Переменные из `.env` подмешиваются в `ecosystem.config.cjs`. В актуальной версии они попадают и в `env`, и в `env_production`, чтобы **S3/DB подхватывались даже без флага** `--env production` (раньше без него `env_production` PM2 игнорировал — из‑за этого в логах было `[storage] S3 is not fully configured`).
+
 ## Управление приложением
 
 ### Основные команды

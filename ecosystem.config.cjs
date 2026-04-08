@@ -18,8 +18,8 @@ function loadDotEnv(filePath) {
     if (!s || s.startsWith('#')) continue
     const eq = s.indexOf('=')
     if (eq <= 0) continue
-    const key = s.slice(0, eq).trim()
-    let val = s.slice(eq + 1).trim()
+    const key = s.slice(0, eq).trim().replace(/\r/g, '')
+    let val = s.slice(eq + 1).trim().replace(/\r/g, '')
     if (
       (val.startsWith('"') && val.endsWith('"')) ||
       (val.startsWith("'") && val.endsWith("'"))
@@ -53,6 +53,10 @@ const legacyFallback = {
   DB_SSL: 'false',
 }
 
+// PM2 applies env_production only with: pm2 start ecosystem.config.cjs --env production
+// Without --env production, only `env` is used — duplicate merged vars so S3_* always load.
+const mergedEnv = { ...defaults, ...legacyFallback, ...fileEnv }
+
 module.exports = {
   apps: [
     {
@@ -62,8 +66,8 @@ module.exports = {
       instances: 'max',
       exec_mode: 'cluster',
 
-      // Priority: .env > legacyFallback > defaults (S3_* only from .env)
-      env_production: { ...defaults, ...legacyFallback, ...fileEnv },
+      env: mergedEnv,
+      env_production: mergedEnv,
 
       autorestart: true,
       watch: false,
