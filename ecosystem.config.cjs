@@ -8,7 +8,11 @@ const path = require('path')
 function loadDotEnv(filePath) {
   const out = {}
   if (!fs.existsSync(filePath)) return out
-  const txt = fs.readFileSync(filePath, 'utf8')
+  let txt = fs.readFileSync(filePath, 'utf8')
+  // UTF-8 BOM breaks first key name if file was saved from Windows editors
+  if (txt.charCodeAt(0) === 0xfeff) {
+    txt = txt.slice(1)
+  }
   for (const line of txt.split(/\r?\n/)) {
     const s = line.trim()
     if (!s || s.startsWith('#')) continue
@@ -53,6 +57,7 @@ module.exports = {
   apps: [
     {
       name: 'fond-schnauzers',
+      cwd: root,
       script: './.output/server/index.mjs',
       instances: 'max',
       exec_mode: 'cluster',
