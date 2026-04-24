@@ -36,7 +36,7 @@ const fileEnv = loadDotEnv(path.join(root, '.env'))
 
 const defaults = {
   NODE_ENV: 'production',
-  PORT: 3000,
+  PORT: 8448,
   HOST: '0.0.0.0',
   RSS_FEED_URL: 'https://pet-help.ru/forum/feed.php?mode=topics_active',
 }

@@ -1,173 +1,283 @@
-# Production Deployment с PM2
+# Деплой fond-schnauzers на сервер (PM2 + Nginx)
 
-## Предварительные требования
+Приложение: **Nuxt 3 SSR** | Порт Node: **8448** | PM2 cluster mode
 
-1. Установите PM2 глобально:
+---
+
+## Требования к серверу
+
+| Компонент | Версия |
+|-----------|--------|
+| Node.js   | ≥ 18.x |
+| npm       | ≥ 9.x  |
+| PM2       | любая последняя |
+| Nginx     | ≥ 1.18 |
+| PostgreSQL| ≥ 14   |
+
+---
+
+## Быстрый старт (первый деплой)
+
+### 1. Установить зависимости
+
 ```bash
+# PM2 глобально (один раз на сервере)
 npm install -g pm2
-```
 
-2. Убедитесь, что все зависимости установлены:
-```bash
+# Зависимости проекта
 npm install
 ```
 
-## Деплой на production
+### 2. Создать `.env` из примера
 
-### Шаг 1: Сборка приложения
+```bash
+cp .env.example .env
+nano .env
+```
+
+Минимальные переменные которые нужно заполнить:
+
+```env
+PORT=8448
+HOST=0.0.0.0
+NODE_ENV=production
+
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=fond_shnau
+DB_USER=your_db_user
+DB_PASSWORD=your_db_password
+DB_SSL=false
+
+S3_ENDPOINT=https://storage.yandexcloud.net
+S3_REGION=ru-central1
+S3_BUCKET=your_bucket_name
+S3_ACCESS_KEY_ID=your_access_key
+S3_SECRET_ACCESS_KEY=your_secret_key
+S3_PUBLIC_BASE_URL=https://your_bucket.storage.yandexcloud.net
+
+ADMIN_USERNAME=your_admin_login
+ADMIN_PASSWORD=your_secure_password
+```
+
+### 3. Инициализировать БД (только первый раз)
+
+```bash
+npm run db:init
+```
+
+### 4. Собрать приложение
+
 ```bash
 npm run build
 ```
 
-Эта команда создаст оптимизированную production сборку в папке `.output/`
+Создаёт оптимизированную сборку в `.output/`
 
-### Шаг 2: Настройка переменных окружения
+### 5. Запустить через PM2
 
-Создайте файл `.env` в корне проекта с необходимыми переменными:
-```env
-NODE_ENV=production
-PORT=3000
-DATABASE_URL=postgresql://user:password@localhost:5432/fond_db
-# Добавьте другие переменные окружения
-```
-
-### Шаг 3: Запуск с PM2
 ```bash
 npm run pm2:start
-```
-
-Или напрямую:
-```bash
+# или напрямую:
 pm2 start ecosystem.config.cjs --env production
 ```
 
-Переменные из `.env` подмешиваются в `ecosystem.config.cjs`. В актуальной версии они попадают и в `env`, и в `env_production`, чтобы **S3/DB подхватывались даже без флага** `--env production` (раньше без него `env_production` PM2 игнорировал — из‑за этого в логах было `[storage] S3 is not fully configured`).
+Проверить что запустилось:
+
+```bash
+pm2 status
+# должно показать fond-schnauzers online на нескольких инстансах
+```
+
+Проверить доступность приложения:
+
+```bash
+curl http://localhost:8448
+```
+
+### 6. Настроить Nginx
+
+```bash
+# Скопировать конфиг (замените YOUR_DOMAIN на ваш домен)
+sudo cp deploy/nginx.conf /etc/nginx/sites-available/fond-schnauzers
+
+# Отредактировать: заменить YOUR_DOMAIN на реальный домен
+sudo nano /etc/nginx/sites-available/fond-schnauzers
+
+# Активировать сайт
+sudo ln -s /etc/nginx/sites-available/fond-schnauzers /etc/nginx/sites-enabled/
+
+# Проверить конфиг и перезагрузить
+sudo nginx -t && sudo systemctl reload nginx
+```
+
+### 7. Получить SSL-сертификат (опционально, Let's Encrypt)
+
+```bash
+sudo apt install certbot python3-certbot-nginx
+sudo certbot --nginx -d YOUR_DOMAIN -d www.YOUR_DOMAIN
+```
+
+Certbot сам обновит nginx конфиг и настроит автопродление.
+
+### 8. Автозапуск PM2 при перезагрузке сервера
+
+```bash
+pm2 save
+pm2 startup
+# Выполнить команду которую покажет PM2 (с sudo)
+```
+
+---
 
 ## Управление приложением
 
-### Основные команды
+| Действие | Команда |
+|----------|---------|
+| Запуск | `npm run pm2:start` |
+| Остановка | `npm run pm2:stop` |
+| Перезапуск (с downtime) | `npm run pm2:restart` |
+| Плавный перезапуск (zero-downtime) | `npm run pm2:reload` |
+| Удалить из PM2 | `npm run pm2:delete` |
+| Статус | `pm2 status` |
+| Логи в реальном времени | `npm run pm2:logs` |
+| Мониторинг CPU/RAM | `npm run pm2:monit` |
 
-- **Запуск**: `npm run pm2:start`
-- **Остановка**: `npm run pm2:stop`
-- **Перезапуск**: `npm run pm2:restart`
-- **Плавная перезагрузка без даунтайма**: `npm run pm2:reload`
-- **Удаление из PM2**: `npm run pm2:delete`
-- **Просмотр логов**: `npm run pm2:logs`
-- **Мониторинг**: `npm run pm2:monit`
-
-### Просмотр статуса
-```bash
-pm2 status
-pm2 list
-```
-
-### Детальная информация
-```bash
-pm2 show fond-schnauzers
-```
-
-## Логи
-
-Логи сохраняются в папке `logs/`:
-- `pm2-error.log` - ошибки
-- `pm2-out.log` - стандартный вывод
-- `pm2-combined.log` - комбинированные логи
-
-Просмотр логов в реальном времени:
-```bash
-npm run pm2:logs
-# или
-pm2 logs fond-schnauzers --lines 100
-```
-
-## Автозапуск при перезагрузке сервера
-
-Сохраните текущий список процессов PM2:
-```bash
-pm2 save
-```
-
-Настройте автозапуск PM2 при старте системы:
-```bash
-pm2 startup
-```
-
-Выполните команду, которую покажет PM2 (она будет специфична для вашей ОС).
+---
 
 ## Обновление приложения
 
-1. Остановите текущую версию:
 ```bash
-npm run pm2:stop
-```
+# 1. Получить новый код
+git pull
 
-2. Получите новый код (git pull, etc.)
-
-3. Установите зависимости (если изменились):
-```bash
+# 2. Установить новые зависимости (если изменились)
 npm install
-```
 
-4. Пересоберите приложение:
-```bash
+# 3. Пересобрать
 npm run build
-```
 
-5. Перезапустите с плавной перезагрузкой:
-```bash
+# 4. Перезапустить без даунтайма
 npm run pm2:reload
 ```
 
-## Настройки производительности
+---
 
-В `ecosystem.config.cjs` настроены:
-- **Cluster mode**: Использует все доступные CPU ядра
-- **Auto-restart**: Автоматический перезапуск при падении
-- **Memory limit**: Перезапуск при превышении 1GB памяти
-- **Graceful shutdown**: Корректное завершение запросов перед перезапуском
+## Логи
 
-## Мониторинг
+Логи сохраняются в `logs/` в корне проекта:
 
-Для расширенного мониторинга используйте PM2 Plus:
-```bash
-pm2 link <secret_key> <public_key>
+```
+logs/
+  pm2-error.log     — ошибки
+  pm2-out.log       — stdout
+  pm2-combined.log  — всё вместе
 ```
 
-Или используйте встроенный мониторинг:
+Просмотр:
+
 ```bash
-npm run pm2:monit
+npm run pm2:logs
+# или конкретное количество строк:
+pm2 logs fond-schnauzers --lines 100
 ```
+
+---
+
+## Настройки PM2 (`ecosystem.config.cjs`)
+
+| Параметр | Значение | Описание |
+|----------|----------|----------|
+| `PORT` | `8448` | Порт Node-сервера |
+| `HOST` | `0.0.0.0` | Слушать все интерфейсы |
+| `instances` | `max` | Кластер на все CPU ядра |
+| `exec_mode` | `cluster` | Режим кластера |
+| `max_memory_restart` | `1G` | Перезапуск при >1GB RAM |
+| `autorestart` | `true` | Автоперезапуск при падении |
+
+> Значения из `.env` перекрывают defaults в `ecosystem.config.cjs`. Если в `.env` указан `PORT=8448`, он всегда будет применяться.
+
+---
+
+## Архитектура деплоя
+
+```
+Пользователь
+    │
+    ▼ :80 / :443
+ Nginx (reverse proxy)
+    │
+    ▼ localhost:8448
+ PM2 Cluster (fond-schnauzers)
+  ├── Worker 0  ─┐
+  ├── Worker 1   ├── Nuxt 3 SSR + Nitro API
+  └── Worker N  ─┘
+    │
+    ├──▶ PostgreSQL :5432
+    └──▶ Yandex S3 (media)
+```
+
+---
 
 ## Troubleshooting
 
 ### Приложение не запускается
-1. Проверьте, что сборка выполнена: `ls .output/server/index.mjs`
-2. Проверьте логи: `npm run pm2:logs`
-3. Проверьте переменные окружения
 
-### Высокое потребление памяти
-- Уменьшите количество инстансов в `ecosystem.config.cjs`
-- Измените `instances: 'max'` на конкретное число, например `instances: 2`
+```bash
+# Проверить что сборка существует
+ls .output/server/index.mjs
+
+# Смотреть логи PM2
+pm2 logs fond-schnauzers --lines 50
+
+# Проверить что порт 8448 слушается
+ss -tlnp | grep 8448
+```
 
 ### Порт занят
-- Измените порт в `ecosystem.config.cjs` в секции `env_production.PORT`
+
+```bash
+# Найти процесс на 8448
+ss -tlnp | grep 8448
+# или
+lsof -i :8448
+
+# Убить процесс
+kill -9 <PID>
+```
+
+Или изменить `PORT` в `.env` и перезапустить PM2.
 
 ### 413 Request Entity Too Large при загрузке фото
 
-Чаще всего это **Nginx** (лимит по умолчанию **1MB**). Файл больше 1MB отбрасывается **до** Node/Nuxt.
-
-В блок `server { ... }` или в `location /` добавьте:
+Nginx по умолчанию ограничивает размер тела запроса до 1MB. Проверить что в конфиге nginx есть:
 
 ```nginx
 client_max_body_size 25m;
 ```
 
-Перезагрузите Nginx:
+Это уже включено в `deploy/nginx.conf`. Проверить что `UPLOAD_MAX_FILE_SIZE_MB=25` в `.env` совпадает.
 
-```bash
-sudo nginx -t && sudo systemctl reload nginx
+### Высокое потребление памяти
+
+Уменьшить число инстансов в `ecosystem.config.cjs`:
+
+```js
+instances: 2,  // вместо 'max'
 ```
 
-Убедитесь, что в `.env` на сервере `UPLOAD_MAX_FILE_SIZE_MB` не меньше этого лимита (см. `.env.example`).
+Затем:
 
-Готовый фрагмент: `deploy/nginx-upload-snippet.conf`.
+```bash
+npm run pm2:reload
+```
+
+### Nginx 502 Bad Gateway
+
+Приложение не запущено или упало. Проверить:
+
+```bash
+pm2 status
+pm2 logs fond-schnauzers --lines 30
+curl http://localhost:8448  # должен отвечать
+```
