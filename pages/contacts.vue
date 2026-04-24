@@ -117,10 +117,8 @@
                 rel="noopener noreferrer"
                 class="flex items-center p-4 bg-warm-100 rounded-lg hover:bg-warm-200 transition-colors group"
               >
-                <div class="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center flex-shrink-0 mr-4 group-hover:scale-105 transition-transform">
-                  <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
-                  </svg>
+                <div class="w-12 h-12 flex-shrink-0 mr-4 group-hover:scale-105 transition-transform">
+                  <img src="/icons/dzen.svg" class="w-12 h-12" alt="Яндекс Дзен" />
                 </div>
                 <div>
                   <h3 class="font-semibold text-warm-900">Яндекс.Дзен</h3>
