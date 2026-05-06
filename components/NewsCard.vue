@@ -1,49 +1,68 @@
 <template>
-  <UiCard :padding="false" class="h-full flex flex-col group hover:shadow-2xl transition-all duration-300">
-    <div class="relative overflow-hidden">
+  <article class="group bg-white rounded-2xl border border-warm-100 overflow-hidden flex flex-col h-full transition-all duration-300 hover:-translate-y-1"
+    style="box-shadow: var(--shadow-card);"
+    :style="{ '--hover-shadow': 'var(--shadow-card-hover)' }"
+    @mouseenter="hovered = true"
+    @mouseleave="hovered = false"
+  >
+    <!-- Photo -->
+    <NuxtLink :to="`/news/${news.slug}`" class="block relative overflow-hidden bg-warm-100 shrink-0" style="aspect-ratio: 16/9;">
       <NuxtImg
         v-if="news.image"
         :src="news.image"
         :alt="news.title"
-        class="w-full h-48 object-cover transition-all duration-500 group-hover:scale-110"
+        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
         loading="lazy"
-        width="400"
-        height="300"
+        width="600"
+        height="338"
       />
-      <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-      
-      <!-- Date badge overlay -->
-      <div class="absolute bottom-3 left-3 bg-white/90 backdrop-blur-sm rounded-lg px-3 py-1 transform translate-y-12 group-hover:translate-y-0 transition-transform duration-300">
-        <div class="text-xs font-semibold text-primary-600">{{ formatDate(news.date) }}</div>
+      <div v-else class="w-full h-full flex items-center justify-center bg-gradient-to-br from-warm-100 to-primary-50">
+        <svg class="w-10 h-10 text-primary-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+        </svg>
       </div>
-    </div>
-    
-    <div class="p-4 sm:p-5 flex-1 flex flex-col">
-      <h3 class="font-display font-semibold text-base sm:text-lg text-warm-900 mb-2 sm:mb-3 group-hover:text-primary-600 transition-colors line-clamp-2">
-        {{ news.title }}
-      </h3>
-      <p class="text-sm sm:text-base text-warm-700 mb-3 sm:mb-4 line-clamp-3 flex-1">{{ news.preview }}</p>
-      <UiButton :to="`/news/${news.slug}`" variant="outline" size="sm" class="mt-auto w-full group-hover:bg-primary-500 group-hover:text-white group-hover:border-primary-500">
+    </NuxtLink>
+
+    <!-- Body -->
+    <div class="p-5 flex-1 flex flex-col gap-3">
+      <!-- Date -->
+      <time class="text-xs font-medium text-warm-400" :datetime="news.date">
+        {{ formatDate(news.date) }}
+      </time>
+
+      <!-- Title -->
+      <NuxtLink :to="`/news/${news.slug}`" class="block group/title">
+        <h3 class="font-display font-semibold text-base text-warm-900 leading-snug line-clamp-2 group-hover/title:text-primary-600 transition-colors duration-200">
+          {{ news.title }}
+        </h3>
+      </NuxtLink>
+
+      <!-- Preview -->
+      <p class="text-sm text-warm-500 line-clamp-3 leading-relaxed flex-1">{{ news.preview }}</p>
+
+      <!-- CTA -->
+      <NuxtLink
+        :to="`/news/${news.slug}`"
+        class="inline-flex items-center gap-1.5 text-sm font-semibold text-primary-600 hover:text-primary-700 transition-colors mt-auto pt-1 group/link"
+      >
         Читать далее
-        <svg class="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg class="w-3.5 h-3.5 group-hover/link:translate-x-0.5 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
         </svg>
-      </UiButton>
+      </NuxtLink>
     </div>
-  </UiCard>
+  </article>
 </template>
 
 <script setup lang="ts">
 import type { NewsItem } from '~/types'
 
-interface Props {
-  news: NewsItem
-}
+defineProps<{ news: NewsItem }>()
 
-defineProps<Props>()
+const hovered = ref(false)
 
 const formatDate = (dateString: string) => {
   const date = new Date(dateString)
-  return date.toLocaleDateString('ru-RU', { year: 'numeric', month: 'long', day: 'numeric' })
+  return date.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' })
 }
 </script>

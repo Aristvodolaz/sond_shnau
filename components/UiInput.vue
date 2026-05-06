@@ -47,13 +47,9 @@ defineEmits<{
 }>()
 
 const inputClasses = computed(() => {
-  const base = 'w-full px-4 py-3 text-base border rounded-lg transition-all focus:outline-none focus:ring-2 focus:ring-offset-0 disabled:bg-warm-100 disabled:cursor-not-allowed touch-manipulation min-h-[44px]'
   const hasIcon = !!useSlots().icon
-  
-  if (props.error) {
-    return `${base} border-red-300 focus:border-red-500 focus:ring-red-500 ${hasIcon ? 'pl-10' : ''}`
-  }
-  
-  return `${base} border-warm-300 focus:border-primary-500 focus:ring-primary-500 ${hasIcon ? 'pl-10' : ''}`
+  const base = `input-field disabled:opacity-50 disabled:cursor-not-allowed ${hasIcon ? 'pl-10' : ''}`
+  if (props.error) return `${base} input-error`
+  return base
 })
 </script>

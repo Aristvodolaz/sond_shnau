@@ -4,7 +4,7 @@ import type { MenuItem } from '~/types'
 const menuPrimary: MenuItem[] = [
   { label: 'Главная', to: '/' },
   { label: 'Животные', to: '/animals' },
-  { label: 'Избранное', to: '/favorites' },
+  { label: 'Шнауцеры дома', to: '/results/adopted' },
   { label: 'Помочь фонду', to: '/support' },
   { label: 'Контакты', to: '/contacts' }
 ]

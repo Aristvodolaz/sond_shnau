@@ -2,45 +2,48 @@
   <div class="min-h-screen bg-warm-50">
 
     <!-- Page header -->
-    <section class="bg-white border-b border-warm-100 py-8 md:py-10">
+    <section class="bg-white border-b border-warm-100 pt-8 md:pt-10 pb-5">
       <div class="container-custom">
-        <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
-          <div>
-            <h1 class="font-display font-semibold text-2xl md:text-3xl text-warm-900 leading-tight">Все животные</h1>
-            <p class="text-warm-500 mt-2 text-sm">
-              <template v-if="!pending">Найдено: <strong class="text-warm-800">{{ data?.total ?? 0 }}</strong> {{ pluralAnimals(data?.total ?? 0) }}</template>
-              <template v-else>Поиск…</template>
-            </p>
-          </div>
-          <div class="flex items-center gap-3">
-            <!-- Mobile filter button -->
-            <button
-              type="button"
-              class="lg:hidden flex items-center gap-2 px-4 py-2.5 rounded-xl border-2 border-warm-200 text-warm-700 font-semibold text-sm hover:border-primary-300 hover:text-primary-600 transition-colors"
-              @click="mobileFiltersOpen = true"
-            >
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
-              </svg>
-              Фильтры
-              <span
-                v-if="activeFilterCount > 0"
-                class="w-5 h-5 bg-primary-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center"
-              >{{ activeFilterCount }}</span>
-            </button>
-            <NuxtLink
-              to="/favorites"
-              class="flex items-center gap-2 px-4 py-2.5 rounded-xl border-2 border-warm-200 text-warm-700 font-semibold text-sm hover:border-primary-300 hover:text-primary-600 transition-colors"
-            >
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-              </svg>
-              Избранное
-            </NuxtLink>
-          </div>
-        </div>
+        <h1 class="font-display font-semibold text-2xl md:text-3xl text-warm-900 leading-tight">Все животные</h1>
+        <p class="text-warm-500 mt-1.5 text-sm">
+          <template v-if="!pending">Найдено: <strong class="text-warm-800">{{ data?.total ?? 0 }}</strong> {{ pluralAnimals(data?.total ?? 0) }}</template>
+          <template v-else>Поиск…</template>
+        </p>
       </div>
     </section>
+
+    <!-- Sticky filter bar -->
+    <div class="sticky top-16 z-30 bg-white/95 backdrop-blur-md border-b border-warm-100">
+      <div class="container-custom">
+        <div class="flex items-center gap-3 py-2.5">
+          <!-- Mobile filter button -->
+          <button
+            type="button"
+            class="lg:hidden flex items-center gap-2 px-4 py-2 rounded-xl border-2 border-warm-200 text-warm-700 font-semibold text-sm hover:border-primary-300 hover:text-primary-600 transition-colors"
+            @click="mobileFiltersOpen = true"
+          >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+            </svg>
+            Фильтры
+            <span
+              v-if="activeFilterCount > 0"
+              class="w-5 h-5 bg-primary-500 text-white text-[10px] font-semibold rounded-full flex items-center justify-center"
+            >{{ activeFilterCount }}</span>
+          </button>
+          <!-- Desktop: active filter hint -->
+          <span v-if="activeFilterCount > 0" class="hidden lg:flex items-center gap-1.5 text-xs font-semibold text-primary-600 bg-primary-50 border border-primary-100 px-2.5 py-1 rounded-full">
+            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+            </svg>
+            {{ activeFilterCount }} {{ activeFilterCount === 1 ? 'фильтр' : 'фильтра' }}
+          </span>
+          <span v-if="!pending && data" class="ml-auto text-xs text-warm-400 font-medium">
+            {{ data.total }} {{ pluralAnimals(data.total) }}
+          </span>
+        </div>
+      </div>
+    </div>
 
     <div class="container-custom py-8 md:py-10">
       <div class="lg:grid lg:grid-cols-[280px_1fr] xl:grid-cols-[300px_1fr] lg:gap-8 xl:gap-10">

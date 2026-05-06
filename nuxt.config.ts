@@ -24,13 +24,11 @@ export default defineNuxtConfig({
         { name: 'twitter:card', content: 'summary_large_image' }
       ],
       link: [
-        {
-          rel: 'icon',
-          type: 'image/png',
-          href: '/images/logo/logo.png'
-        },
-                { rel: 'alternate', type: 'application/rss+xml', title: 'Новости фонда', href: '/rss.xml' },
-        { rel: 'preload', as: 'font', type: 'font/ttf', href: '/fonts/HoboBT.ttf', crossorigin: 'anonymous' }
+        { rel: 'icon', type: 'image/png', href: '/images/logo/logo.png' },
+        { rel: 'alternate', type: 'application/rss+xml', title: 'Новости фонда', href: '/rss.xml' },
+        { rel: 'preload', as: 'font', type: 'font/ttf', href: '/fonts/HoboBT.ttf', crossorigin: 'anonymous' },
+        { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+        { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: 'anonymous' }
       ]
     }
   },

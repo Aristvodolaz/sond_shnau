@@ -6,8 +6,8 @@
     :target="external ? '_blank' : undefined"
     :rel="external ? 'noopener noreferrer' : undefined"
     :type="tag === 'button' ? type : undefined"
-    :class="buttonClasses"
     :disabled="disabled"
+    :class="buttonClasses"
   >
     <slot />
   </component>
@@ -15,8 +15,8 @@
 
 <script setup lang="ts">
 interface Props {
-  variant?: 'primary' | 'secondary' | 'outline'
-  size?: 'sm' | 'md' | 'lg'
+  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger'
+  size?: 'xs' | 'sm' | 'md' | 'lg'
   to?: string
   href?: string
   external?: boolean
@@ -40,27 +40,25 @@ const tag = computed(() => {
 })
 
 const buttonClasses = computed(() => {
-  const baseClasses = 'inline-flex items-center justify-center font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed rounded-lg touch-manipulation'
-  
-  const variantClasses = {
-    primary: 'bg-primary-500 text-white hover:bg-primary-600 active:bg-primary-700 focus:ring-primary-500 active:scale-95 shadow-sm hover:shadow-md',
-    secondary: 'bg-warm-200 text-warm-900 hover:bg-warm-300 active:bg-warm-400 focus:ring-warm-400 active:scale-95',
-    outline: 'border-2 border-primary-500 text-primary-500 hover:bg-primary-50 active:bg-primary-100 focus:ring-primary-500'
+  const variantMap = {
+    primary:   'btn-primary',
+    secondary: 'btn-ghost bg-warm-100 text-warm-800 hover:bg-warm-200',
+    outline:   'btn-outline',
+    ghost:     'btn-ghost',
+    danger:    'btn-danger'
   }
-  
-  const sizeClasses = {
-    sm: 'px-4 py-2.5 text-sm min-h-[40px]',
-    md: 'px-6 py-3 text-base min-h-[44px]',
-    lg: 'px-8 py-4 text-lg min-h-[48px]'
+
+  const sizeMap = {
+    xs: 'px-3 py-1.5 text-xs min-h-[32px]',
+    sm: 'px-4 py-2 text-sm min-h-[36px]',
+    md: 'px-5 py-2.5 text-sm min-h-[40px]',
+    lg: 'px-7 py-3.5 text-base min-h-[48px]'
   }
-  
-  const widthClass = props.fullWidth ? 'w-full' : ''
-  
+
   return [
-    baseClasses,
-    variantClasses[props.variant],
-    sizeClasses[props.size],
-    widthClass
+    variantMap[props.variant],
+    sizeMap[props.size],
+    props.fullWidth ? 'w-full' : ''
   ].filter(Boolean).join(' ')
 })
 </script>

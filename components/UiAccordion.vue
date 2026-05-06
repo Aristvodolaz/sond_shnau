@@ -1,13 +1,14 @@
 <template>
-  <div class="border border-warm-200 rounded-lg overflow-hidden">
+  <div class="border border-warm-100 rounded-xl overflow-hidden bg-white" style="box-shadow: var(--shadow-card);">
     <button
-      @click="isOpen = !isOpen"
-      class="w-full px-6 py-4 bg-white hover:bg-warm-50 transition-colors flex items-center justify-between text-left"
+      type="button"
+      class="w-full px-5 py-4 bg-white hover:bg-warm-50 transition-colors duration-200 flex items-center justify-between text-left gap-4"
       :aria-expanded="isOpen"
+      @click="isOpen = !isOpen"
     >
-      <span class="font-semibold text-warm-900">{{ title }}</span>
+      <span class="font-semibold text-warm-900 text-sm leading-snug">{{ title }}</span>
       <svg
-        class="w-5 h-5 text-warm-600 transition-transform duration-200"
+        class="w-4 h-4 text-warm-400 transition-transform duration-200 shrink-0"
         :class="{ 'rotate-180': isOpen }"
         fill="none"
         stroke="currentColor"
@@ -17,14 +18,14 @@
       </svg>
     </button>
     <Transition
-      enter-active-class="transition-all duration-200 ease-out"
-      enter-from-class="max-h-0 opacity-0"
-      enter-to-class="max-h-96 opacity-100"
-      leave-active-class="transition-all duration-200 ease-in"
-      leave-from-class="max-h-96 opacity-100"
-      leave-to-class="max-h-0 opacity-0"
+      enter-active-class="transition-all duration-250 ease-out"
+      enter-from-class="opacity-0"
+      enter-to-class="opacity-100"
+      leave-active-class="transition-all duration-150 ease-in"
+      leave-from-class="opacity-100"
+      leave-to-class="opacity-0"
     >
-      <div v-if="isOpen" class="px-6 py-4 bg-warm-50 border-t border-warm-200 overflow-hidden">
+      <div v-if="isOpen" class="px-5 py-4 bg-warm-50 border-t border-warm-100 text-sm text-warm-700 leading-relaxed">
         <slot />
       </div>
     </Transition>

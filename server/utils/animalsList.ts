@@ -1,5 +1,5 @@
 import type { H3Event } from 'h3'
-import { query, checkConnection } from '~/server/database/db'
+import { query } from '~/server/database/db'
 import { mapDogRow } from '~/server/utils/dogMapper'
 import type { AnimalListResponse } from '~/types'
 
@@ -57,15 +57,7 @@ export function parseAnimalsQuery(event: H3Event): AnimalsQuery {
 
 /** Fetches filtered animals from DB; throws createError if DB unavailable */
 export async function fetchAnimalsList(opts: AnimalsQuery): Promise<AnimalListResponse> {
-  const isConnected = await checkConnection()
-  if (!isConnected) {
-    throw createError({
-      statusCode: 503,
-      statusMessage: 'Database connection unavailable.'
-    })
-  }
-
-  const conditions: string[] = ['1=1']
+  const conditions: string[] = []
   const params: unknown[] = []
   let i = 1
 
@@ -103,35 +95,44 @@ export async function fetchAnimalsList(opts: AnimalsQuery): Promise<AnimalListRe
     i += 5
   }
 
-  const whereSql = conditions.join(' AND ')
+  const whereSql = conditions.length ? `WHERE ${conditions.join(' AND ')}` : ''
   const orderSql = opts.sort === 'date_asc' ? 'date_added ASC, id ASC' : 'date_added DESC, id DESC'
 
-  const countResult = await query<{ count: string }>(
-    `SELECT COUNT(*)::text AS count FROM dogs WHERE ${whereSql}`,
-    params
-  )
-  const total = Number.parseInt(countResult.rows[0]?.count || '0', 10)
+  try {
+    if (opts.legacyAll) {
+      const [countResult, listResult] = await Promise.all([
+        query<{ count: string }>(`SELECT COUNT(*)::text AS count FROM dogs ${whereSql}`, params),
+        query(`SELECT * FROM dogs ${whereSql} ORDER BY ${orderSql}`, params)
+      ])
+      const total = Number.parseInt(countResult.rows[0]?.count || '0', 10)
+      return {
+        items: listResult.rows.map(r => mapDogRow(r as Record<string, unknown>)),
+        total,
+        page: 1,
+        pageSize: total
+      }
+    }
 
-  if (opts.legacyAll) {
-    const listResult = await query(`SELECT * FROM dogs WHERE ${whereSql} ORDER BY ${orderSql}`, params)
+    const offset = (opts.page - 1) * opts.pageSize
+    const [countResult, listResult] = await Promise.all([
+      query<{ count: string }>(`SELECT COUNT(*)::text AS count FROM dogs ${whereSql}`, params),
+      query(
+        `SELECT * FROM dogs ${whereSql} ORDER BY ${orderSql} LIMIT $${i} OFFSET $${i + 1}`,
+        [...params, opts.pageSize, offset]
+      )
+    ])
+
+    const total = Number.parseInt(countResult.rows[0]?.count || '0', 10)
     return {
       items: listResult.rows.map(r => mapDogRow(r as Record<string, unknown>)),
       total,
-      page: 1,
-      pageSize: total
+      page: opts.page,
+      pageSize: opts.pageSize
     }
-  }
-
-  const offset = (opts.page - 1) * opts.pageSize
-  const listResult = await query(
-    `SELECT * FROM dogs WHERE ${whereSql} ORDER BY ${orderSql} LIMIT $${i} OFFSET $${i + 1}`,
-    [...params, opts.pageSize, offset]
-  )
-
-  return {
-    items: listResult.rows.map(r => mapDogRow(r as Record<string, unknown>)),
-    total,
-    page: opts.page,
-    pageSize: opts.pageSize
+  } catch (error: any) {
+    throw createError({
+      statusCode: error.code === 'ECONNREFUSED' || error.code === 'ETIMEDOUT' ? 503 : 500,
+      statusMessage: 'Failed to fetch animals'
+    })
   }
 }

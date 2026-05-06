@@ -105,7 +105,7 @@
     <!-- Reset -->
     <button
       type="button"
-      class="w-full py-2.5 rounded-xl border-2 border-warm-200 text-warm-600 text-sm font-semibold hover:bg-warm-100 hover:border-warm-300 transition-colors"
+      class="w-full btn-ghost text-sm py-2.5 px-4 text-warm-500 hover:text-warm-700 border border-warm-200 hover:border-warm-300 rounded-xl"
       @click="$emit('reset')"
     >
       Сбросить фильтры
@@ -154,9 +154,6 @@ const ageOptions = [
   { value: 'senior', label: '7+ лет' }
 ]
 
-const inputClass = 'w-full min-h-[44px] px-4 py-2.5 text-sm text-warm-900 bg-warm-50 border border-warm-200 rounded-xl transition-all placeholder:text-warm-400 focus:outline-none focus:ring-2 focus:ring-primary-400/30 focus:border-primary-400 hover:border-warm-300'
-
-const selectArrow = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%235F4D3A'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E")`
-
-const selectClass = `w-full min-h-[44px] pl-4 pr-10 py-2.5 text-sm text-warm-900 bg-warm-50 border border-warm-200 rounded-xl transition-all focus:outline-none focus:ring-2 focus:ring-primary-400/30 focus:border-primary-400 hover:border-warm-300 appearance-none bg-no-repeat bg-[right_0.75rem_center] bg-[length:1.1rem] cursor-pointer`
+const inputClass = 'input-field'
+const selectClass = 'select-field'
 </script>
