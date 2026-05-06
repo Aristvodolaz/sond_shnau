@@ -15,7 +15,7 @@
           <UiTag variant="info">{{ story.year }}</UiTag>
           <UiTag v-if="story.part" variant="default">Часть {{ story.part }}</UiTag>
         </div>
-        <h1 class="text-4xl md:text-5xl font-display font-bold text-warm-900 mb-4">
+        <h1 class="text-2xl md:text-3xl font-display font-semibold text-warm-900 mb-4">
           История {{ story.dogName }}
         </h1>
       </header>
@@ -57,7 +57,7 @@
 
       <!-- Photo Gallery -->
       <div v-if="story.photos && story.photos.length > 0" class="mb-10">
-        <h2 class="text-2xl font-display font-bold text-warm-900 mb-6">Фотогалерея</h2>
+        <h2 class="text-xl font-display font-semibold text-warm-900 mb-6">Фотогалерея</h2>
         <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
           <div v-for="(photo, index) in story.photos" :key="index" class="aspect-square rounded-lg overflow-hidden">
             <NuxtImg
@@ -74,7 +74,7 @@
 
       <!-- CTA -->
       <div class="bg-primary-50 border border-primary-200 rounded-xl p-8 text-center">
-        <h3 class="text-2xl font-display font-bold text-primary-900 mb-3">
+        <h3 class="text-xl font-display font-semibold text-primary-900 mb-3">
           Вы тоже можете изменить чью-то жизнь
         </h3>
         <p class="text-primary-800 mb-6">

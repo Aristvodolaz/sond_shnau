@@ -1,17 +1,16 @@
 <template>
-  <div class="py-12 md:py-16">
-    <div class="container-custom max-w-4xl">
-      <h1 class="text-4xl md:text-5xl font-display font-bold text-warm-900 mb-6">
-        Кто мы
-      </h1>
-      <p class="text-xl text-warm-700 mb-12">
-        Мы — команда волонтёров, объединённых любовью к шнауцерам и желанием помогать тем, 
-        кто оказался в беде.
-      </p>
+  <div class="min-h-screen bg-warm-50">
+    <section class="bg-white border-b border-warm-100 py-8 md:py-10">
+      <div class="container-custom max-w-4xl">
+        <h1 class="font-display font-semibold text-2xl md:text-3xl text-warm-900 leading-tight">Кто мы</h1>
+        <p class="text-warm-500 mt-2 text-sm">Команда волонтёров, объединённых любовью к шнауцерам</p>
+      </div>
+    </section>
+    <div class="container-custom max-w-4xl py-8 md:py-10">
 
       <!-- Mission -->
       <UiCard class="mb-8">
-        <h2 class="text-2xl font-display font-bold text-warm-900 mb-4">Наша миссия</h2>
+        <h2 class="text-xl font-display font-semibold text-warm-900 mb-4">Наша миссия</h2>
         <p class="text-warm-700 leading-relaxed mb-4">
           Мы работаем для того, чтобы каждый шнауцер, оказавшийся без дома или в опасности, 
           получил второй шанс на счастливую жизнь в любящей семье.
@@ -24,7 +23,7 @@
 
       <!-- What We Do -->
       <UiCard class="mb-8">
-        <h2 class="text-2xl font-display font-bold text-warm-900 mb-6">Чем мы занимаемся</h2>
+        <h2 class="text-xl font-display font-semibold text-warm-900 mb-6">Чем мы занимаемся</h2>
         <div class="space-y-6">
           <div class="flex items-start">
             <div class="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center flex-shrink-0 mr-4">
@@ -100,7 +99,7 @@
 
       <!-- Our Values -->
       <UiCard class="mb-8">
-        <h2 class="text-2xl font-display font-bold text-warm-900 mb-4">Наши ценности</h2>
+        <h2 class="text-xl font-display font-semibold text-warm-900 mb-4">Наши ценности</h2>
         <ul class="space-y-3 text-warm-700">
           <li class="flex items-start">
             <span class="text-primary-500 mr-2">•</span>
@@ -123,7 +122,7 @@
 
       <!-- Join Us -->
       <div class="bg-primary-50 border border-primary-200 rounded-xl p-8 text-center">
-        <h2 class="text-2xl font-display font-bold text-primary-900 mb-4">
+        <h2 class="text-xl font-display font-semibold text-primary-900 mb-4">
           Присоединяйтесь к нам
         </h2>
         <p class="text-primary-800 mb-6">

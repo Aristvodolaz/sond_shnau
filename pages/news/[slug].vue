@@ -12,7 +12,7 @@
       <!-- Article Header -->
       <header class="mb-8">
         <div class="text-warm-600 mb-3">{{ formatDate(newsItem.date) }}</div>
-        <h1 class="text-4xl md:text-5xl font-display font-bold text-warm-900 mb-6">
+        <h1 class="text-2xl md:text-3xl font-display font-semibold text-warm-900 mb-6">
           {{ newsItem.title }}
         </h1>
         <NuxtImg

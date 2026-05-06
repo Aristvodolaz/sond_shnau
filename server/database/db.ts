@@ -223,6 +223,10 @@ export async function initDatabase() {
     // Create indexes for better performance
     await query(`CREATE INDEX IF NOT EXISTS idx_dogs_status ON dogs(status)`)
 
+    // Incremental schema updates (idempotent)
+    await applyDogsCatalogMigrations()
+    await applyAdoptionRequestsTable()
+
     // Existing deployments may still have curator_phone VARCHAR(50) — widen for long numbers / formatting
     try {
       await query(`ALTER TABLE dogs ALTER COLUMN curator_phone TYPE VARCHAR(255)`)
@@ -239,6 +243,47 @@ export async function initDatabase() {
     console.error('❌ Error initializing database:', error)
     throw error
   }
+}
+
+/** Adds columns and indexes for catalog filters, messengers, story — safe to run repeatedly */
+async function applyDogsCatalogMigrations() {
+  const stmts = [
+    `ALTER TABLE dogs ADD COLUMN IF NOT EXISTS sex VARCHAR(20) DEFAULT 'unknown'`,
+    `ALTER TABLE dogs ADD COLUMN IF NOT EXISTS size VARCHAR(20) DEFAULT 'medium'`,
+    `ALTER TABLE dogs ADD COLUMN IF NOT EXISTS age_months INTEGER`,
+    `ALTER TABLE dogs ADD COLUMN IF NOT EXISTS curator_whatsapp VARCHAR(255)`,
+    `ALTER TABLE dogs ADD COLUMN IF NOT EXISTS curator_telegram VARCHAR(255)`,
+    `ALTER TABLE dogs ADD COLUMN IF NOT EXISTS story TEXT`,
+    `ALTER TABLE dogs ALTER COLUMN forum_topic_url DROP NOT NULL`
+  ]
+  for (const sql of stmts) {
+    try {
+      await query(sql)
+    } catch (e: any) {
+      // DROP NOT NULL may fail on some PG versions if already nullable — log and continue
+      console.warn('Migration step warning:', sql.substring(0, 60), e?.message || e)
+    }
+  }
+  await query(`CREATE INDEX IF NOT EXISTS idx_dogs_city ON dogs(city)`)
+  await query(`CREATE INDEX IF NOT EXISTS idx_dogs_type ON dogs(type)`)
+}
+
+async function applyAdoptionRequestsTable() {
+  await query(`
+    CREATE TABLE IF NOT EXISTS adoption_requests (
+      id SERIAL PRIMARY KEY,
+      dog_id INTEGER REFERENCES dogs(id) ON DELETE SET NULL,
+      applicant_name VARCHAR(255) NOT NULL,
+      phone VARCHAR(100) NOT NULL,
+      email VARCHAR(255),
+      message TEXT,
+      preferred_channel VARCHAR(32) NOT NULL DEFAULT 'phone',
+      status VARCHAR(32) NOT NULL DEFAULT 'new',
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )
+  `)
+  await query(`CREATE INDEX IF NOT EXISTS idx_adoption_requests_created ON adoption_requests(created_at DESC)`)
+  await query(`CREATE INDEX IF NOT EXISTS idx_adoption_requests_dog ON adoption_requests(dog_id)`)
 }
 
 // Migrate data from JSON files to database

@@ -1,49 +1,49 @@
-<template>
-  <div class="py-12 md:py-16">
-    <div class="container-custom max-w-4xl">
-      <h1 class="text-4xl md:text-5xl font-display font-bold text-warm-900 mb-6">
-        Пропал или найден шнауцер?
-      </h1>
-      <p class="text-xl text-warm-700 mb-12">
-        Потеря питомца — это стресс. Мы поможем вам действовать быстро и эффективно.
-      </p>
+﻿<template>
+  <div class="min-h-screen bg-warm-50">
+    <section class="bg-white border-b border-warm-100 py-8 md:py-10">
+      <div class="container-custom max-w-4xl">
+        <h1 class="font-display font-semibold text-2xl md:text-3xl text-warm-900 leading-tight">Пропал или найден шнауцер?</h1>
+        <p class="text-warm-500 mt-2 text-sm">Действуйте быстро — мы поможем координировать поиск</p>
+      </div>
+    </section>
+    <div class="container-custom max-w-4xl py-8 md:py-10">
 
       <!-- If Dog is Lost -->
       <UiCard class="mb-8">
-        <h2 class="text-2xl font-display font-bold text-warm-900 mb-4">
+        <h2 class="text-xl font-display font-semibold text-warm-900 mb-4">
           Если ваша собака потерялась
         </h2>
         <div class="space-y-4 text-warm-700">
           <div class="flex items-start">
-            <div class="w-8 h-8 bg-primary-500 text-white rounded-full flex items-center justify-center flex-shrink-0 mr-4 font-bold">1</div>
+            <div class="w-9 h-9 bg-primary-500 text-white rounded-full flex items-center justify-center flex-shrink-0 mr-4 text-sm font-semibold shrink-0">1</div>
             <div>
               <h3 class="font-semibold text-warm-900 mb-1">Немедленно начните поиск</h3>
               <p>Обойдите близлежащие территории, спросите у соседей, проверьте места, где собака любит гулять.</p>
             </div>
           </div>
           <div class="flex items-start">
-            <div class="w-8 h-8 bg-primary-500 text-white rounded-full flex items-center justify-center flex-shrink-0 mr-4 font-bold">2</div>
+            <div class="w-9 h-9 bg-primary-500 text-white rounded-full flex items-center justify-center flex-shrink-0 mr-4 text-sm font-semibold shrink-0">2</div>
             <div>
               <h3 class="font-semibold text-warm-900 mb-1">Оповестите всех</h3>
               <p>Разместите объявления в соцсетях, на нашем форуме, в местных группах потерянных животных. Расклейте объявления в районе.</p>
             </div>
           </div>
           <div class="flex items-start">
-            <div class="w-8 h-8 bg-primary-500 text-white rounded-full flex items-center justify-center flex-shrink-0 mr-4 font-bold">3</div>
+            <div class="w-9 h-9 bg-primary-500 text-white rounded-full flex items-center justify-center flex-shrink-0 mr-4 text-sm font-semibold shrink-0">3</div>
             <div>
               <h3 class="font-semibold text-warm-900 mb-1">Обзвоните приюты и ветклиники</h3>
               <p>Возможно, вашего питомца уже нашли и доставили туда. Оставьте свои контакты и описание собаки.</p>
             </div>
           </div>
           <div class="flex items-start">
-            <div class="w-8 h-8 bg-primary-500 text-white rounded-full flex items-center justify-center flex-shrink-0 mr-4 font-bold">4</div>
+            <div class="w-9 h-9 bg-primary-500 text-white rounded-full flex items-center justify-center flex-shrink-0 mr-4 text-sm font-semibold shrink-0">4</div>
             <div>
               <h3 class="font-semibold text-warm-900 mb-1">Проверяйте онлайн-базы</h3>
               <p>Регулярно просматривайте объявления о найденных собаках на сайтах и в группах.</p>
             </div>
           </div>
           <div class="flex items-start">
-            <div class="w-8 h-8 bg-primary-500 text-white rounded-full flex items-center justify-center flex-shrink-0 mr-4 font-bold">5</div>
+            <div class="w-9 h-9 bg-primary-500 text-white rounded-full flex items-center justify-center flex-shrink-0 mr-4 text-sm font-semibold shrink-0">5</div>
             <div>
               <h3 class="font-semibold text-warm-900 mb-1">Не теряйте надежду</h3>
               <p>Многие собаки находятся спустя дни и даже недели. Продолжайте поиск и верьте в лучшее.</p>
@@ -54,33 +54,33 @@
 
       <!-- If Dog is Found -->
       <UiCard class="mb-8">
-        <h2 class="text-2xl font-display font-bold text-warm-900 mb-4">
+        <h2 class="text-xl font-display font-semibold text-warm-900 mb-4">
           Если вы нашли шнауцера
         </h2>
         <div class="space-y-4 text-warm-700">
           <div class="flex items-start">
-            <div class="w-8 h-8 bg-primary-500 text-white rounded-full flex items-center justify-center flex-shrink-0 mr-4 font-bold">1</div>
+            <div class="w-9 h-9 bg-primary-500 text-white rounded-full flex items-center justify-center flex-shrink-0 mr-4 text-sm font-semibold shrink-0">1</div>
             <div>
               <h3 class="font-semibold text-warm-900 mb-1">Обеспечьте безопасность</h3>
               <p>Аккуратно подойдите к собаке, не пугайте её. Если есть возможность, отведите в безопасное место.</p>
             </div>
           </div>
           <div class="flex items-start">
-            <div class="w-8 h-8 bg-primary-500 text-white rounded-full flex items-center justify-center flex-shrink-0 mr-4 font-bold">2</div>
+            <div class="w-9 h-9 bg-primary-500 text-white rounded-full flex items-center justify-center flex-shrink-0 mr-4 text-sm font-semibold shrink-0">2</div>
             <div>
               <h3 class="font-semibold text-warm-900 mb-1">Проверьте наличие идентификации</h3>
               <p>Осмотрите ошейник на наличие бирки с телефоном или адресом. Если есть чип — обратитесь в ветклинику для считывания.</p>
             </div>
           </div>
           <div class="flex items-start">
-            <div class="w-8 h-8 bg-primary-500 text-white rounded-full flex items-center justify-center flex-shrink-0 mr-4 font-bold">3</div>
+            <div class="w-9 h-9 bg-primary-500 text-white rounded-full flex items-center justify-center flex-shrink-0 mr-4 text-sm font-semibold shrink-0">3</div>
             <div>
               <h3 class="font-semibold text-warm-900 mb-1">Разместите объявление</h3>
               <p>Сфотографируйте собаку и разместите объявление о находке на форуме, в соцсетях, группах помощи животным.</p>
             </div>
           </div>
           <div class="flex items-start">
-            <div class="w-8 h-8 bg-primary-500 text-white rounded-full flex items-center justify-center flex-shrink-0 mr-4 font-bold">4</div>
+            <div class="w-9 h-9 bg-primary-500 text-white rounded-full flex items-center justify-center flex-shrink-0 mr-4 text-sm font-semibold shrink-0">4</div>
             <div>
               <h3 class="font-semibold text-warm-900 mb-1">Свяжитесь с нами</h3>
               <p>Позвоните или напишите в фонд. Мы поможем найти хозяев или временную передержку.</p>

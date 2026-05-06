@@ -1,20 +1,19 @@
-<template>
-  <div class="py-12 md:py-16">
-    <div class="container-custom max-w-5xl">
-      <h1 class="text-4xl md:text-5xl font-display font-bold text-warm-900 mb-6">
-        В памяти
-      </h1>
-      <p class="text-xl text-warm-700 mb-12 max-w-3xl">
-        Эта страница посвящена тем, кто ушёл от нас, но навсегда остался в наших сердцах. 
-        Мы помним каждого и благодарны за время, проведённое вместе.
-      </p>
+﻿<template>
+  <div class="min-h-screen bg-warm-50">
+    <section class="bg-white border-b border-warm-100 py-8 md:py-10">
+      <div class="container-custom max-w-5xl">
+        <h1 class="font-display font-semibold text-2xl md:text-3xl text-warm-900 leading-tight">В памяти</h1>
+        <p class="text-warm-500 mt-2 text-sm">Те, кто ушёл, но навсегда останется в наших сердцах</p>
+      </div>
+    </section>
+    <div class="container-custom max-w-5xl py-8 md:py-10">
 
       <!-- Memorial Entries -->
       <div class="space-y-8">
         <div
           v-for="entry in memorialEntries"
           :key="entry.id"
-          class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow"
+          class="bg-white rounded-2xl border border-warm-100 shadow-sm overflow-hidden hover:shadow-md transition-shadow"
         >
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6 p-6 md:p-8">
             <!-- Photo -->
@@ -33,7 +32,7 @@
             <!-- Info -->
             <div class="md:col-span-2 flex flex-col">
               <div class="mb-4">
-                <h2 class="text-2xl md:text-3xl font-display font-bold text-warm-900 mb-2">
+                <h2 class="text-xl md:text-2xl font-display font-semibold text-warm-900 mb-2">
                   {{ entry.name }}
                 </h2>
                 <p class="text-warm-600 mb-1">{{ entry.type }}</p>

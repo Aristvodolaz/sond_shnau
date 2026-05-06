@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="flex items-center justify-between mb-6">
-      <h1 class="text-3xl font-display font-bold text-warm-900">
+      <h1 class="text-3xl font-display font-semibold text-warm-900">
         Управление собаками
       </h1>
       <UiButton @click="openAddModal" variant="primary">
@@ -63,6 +63,7 @@
             >
               <option value="">Все статусы</option>
               <option value="looking">Ищет дом</option>
+              <option value="foster">На передержке</option>
               <option value="pensioner">Пенсионер</option>
             </select>
           </div>
@@ -131,8 +132,8 @@
               <td class="px-6 py-4 text-warm-600 text-sm">{{ dog.age }}</td>
               <td class="px-6 py-4 text-warm-600 text-sm">{{ dog.city }}</td>
               <td class="px-6 py-4">
-                <UiTag :variant="dog.status === 'pensioner' ? 'info' : 'success'" size="sm">
-                  {{ dog.status === 'pensioner' ? 'Пенсионер' : 'Ищет дом' }}
+                <UiTag :variant="statusVariant(dog.status)" size="sm">
+                  {{ statusLabel(dog.status) }}
                 </UiTag>
               </td>
               <td class="px-6 py-4">
@@ -188,7 +189,7 @@ useHead({
   title: 'Управление собаками - Админка'
 })
 
-const showModal = ref(false)
+const { statusLabel, statusVariant } = useAnimalLabels()
 const editingDog = ref<any>(null)
 const saving = ref(false)
 const toast = useToast()
@@ -320,15 +321,19 @@ const handleSubmit = async (data: any) => {
       curator_name: data.curator.name,
       curator_phone: data.curator.phone,
       curator_email: data.curator.email || null,
+      curator_whatsapp: data.curator.whatsapp || null,
+      curator_telegram: data.curator.telegram || null,
       photos: data.photos,
-      description: data.description,
+      description: data.description || '',
+      story: data.story || '',
       features: Object.entries(data.features)
         .filter(([_, value]) => value)
         .map(([key]) => key),
       health: data.health,
       character: data.character,
-      forum_topic_url: data.forumTopicUrl,
+      forum_topic_url: data.forumTopicUrl?.trim() || null,
       status: data.status,
+      age_months: data.ageMonths ?? null,
       date_added: data.dateAdded
     }
 

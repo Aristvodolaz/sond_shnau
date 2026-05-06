@@ -1,110 +1,139 @@
 <template>
-  <div class="py-12 md:py-16">
-    <div class="container-custom">
-      <h1 class="text-4xl md:text-5xl font-display font-bold text-warm-900 mb-6">
-        Шнауцеры дома
-      </h1>
-      <p class="text-xl text-warm-700 mb-10 max-w-3xl">
-        Это наша радость и гордость — собаки, которые нашли любящие семьи. 
-        Каждая история — это маленькое чудо и большая победа любви над равнодушием.
-      </p>
+  <div class="min-h-screen bg-warm-50">
 
-      <!-- Year Filter -->
-      <div class="mb-8">
-        <div class="flex flex-wrap gap-2">
-          <button
-            @click="selectedYear = null"
-            :class="[
-              'px-4 py-2 rounded-lg font-medium transition-colors',
-              selectedYear === null 
-                ? 'bg-primary-500 text-white' 
-                : 'bg-warm-200 text-warm-700 hover:bg-warm-300'
-            ]"
-          >
-            Все года
-          </button>
-          <button
-            v-for="year in availableYears"
-            :key="year"
-            @click="selectedYear = year"
-            :class="[
-              'px-4 py-2 rounded-lg font-medium transition-colors',
-              selectedYear === year 
-                ? 'bg-primary-500 text-white' 
-                : 'bg-warm-200 text-warm-700 hover:bg-warm-300'
-            ]"
-          >
-            {{ year }}
-          </button>
+    <!-- Header -->
+    <section class="bg-white border-b border-warm-100 py-8 md:py-10">
+      <div class="container-custom">
+        <h1 class="font-display font-semibold text-2xl md:text-3xl text-warm-900 leading-tight">Шнауцеры дома</h1>
+        <p class="text-warm-500 mt-2 text-sm">Собаки, которые нашли любящие семьи. Каждая история — маленькое чудо.</p>
+      </div>
+    </section>
+
+    <div class="container-custom py-8 md:py-10">
+
+      <!-- Stats strip -->
+      <div class="grid grid-cols-3 gap-4 mb-8">
+        <div class="bg-white rounded-xl p-4 text-center border border-warm-100 shadow-sm">
+          <p class="font-display font-semibold text-2xl text-primary-600">{{ adoptedDogs.length }}</p>
+          <p class="text-xs text-warm-500 mt-0.5">всего пристроено</p>
+        </div>
+        <div class="bg-white rounded-xl p-4 text-center border border-warm-100 shadow-sm">
+          <p class="font-display font-semibold text-2xl text-primary-600">{{ availableYears.length }}</p>
+          <p class="text-xs text-warm-500 mt-0.5">лет работы</p>
+        </div>
+        <div class="bg-white rounded-xl p-4 text-center border border-warm-100 shadow-sm">
+          <p class="font-display font-semibold text-2xl text-primary-600">{{ currentYearCount }}</p>
+          <p class="text-xs text-warm-500 mt-0.5">в этом году</p>
         </div>
       </div>
 
-      <!-- Dogs Grid -->
-      <div v-if="filteredDogs.length > 0" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        <component 
+      <!-- Year filter pills -->
+      <div class="flex flex-wrap gap-2 mb-8">
+        <button
+          type="button"
+          :class="['pill-filter', selectedYear === null ? 'pill-filter-active' : 'pill-filter-inactive']"
+          @click="selectedYear = null"
+        >
+          Все годы
+        </button>
+        <button
+          v-for="year in availableYears"
+          :key="year"
+          type="button"
+          :class="['pill-filter', selectedYear === year ? 'pill-filter-active' : 'pill-filter-inactive']"
+          @click="selectedYear = year"
+        >
+          {{ year }}
+        </button>
+      </div>
+
+      <!-- Grid -->
+      <div v-if="pagedDogs.length > 0" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+        <component
           :is="dog.forumUrl ? 'a' : 'div'"
-          v-for="dog in filteredDogs" 
+          v-for="dog in pagedDogs"
           :key="dog.id"
           :href="dog.forumUrl || undefined"
           :target="dog.forumUrl ? '_blank' : undefined"
           :rel="dog.forumUrl ? 'noopener noreferrer' : undefined"
-          class="block"
+          class="group block"
         >
-          <UiCard 
-            :padding="false" 
-            :class="[
-              'group transition-all duration-300',
-              dog.forumUrl ? 'cursor-pointer hover:shadow-lg hover:ring-2 hover:ring-primary-500' : ''
-            ]"
-          >
-            <div class="relative aspect-square overflow-hidden">
+          <div class="bg-white rounded-xl overflow-hidden border border-warm-100 shadow-sm hover:shadow-md transition-all duration-200 hover:-translate-y-0.5">
+            <div class="relative overflow-hidden aspect-square bg-warm-100">
               <NuxtImg
                 :src="dog.photo"
                 :alt="dog.name"
-                class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                class="w-full h-full object-cover transition-transform duration-400 group-hover:scale-[1.04]"
                 loading="lazy"
-                width="300"
-                height="300"
+                width="240"
+                height="240"
               />
-              <!-- Forum Link Badge -->
-              <div 
-                v-if="dog.forumUrl" 
-                class="absolute top-2 right-2 bg-white/90 backdrop-blur-sm rounded-lg px-2 py-1 text-xs font-medium text-primary-600 flex items-center gap-1 shadow-md"
-              >
-                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <!-- Forum link indicator -->
+              <div v-if="dog.forumUrl" class="absolute bottom-2 right-2 w-6 h-6 bg-white/90 backdrop-blur-sm rounded-md flex items-center justify-center shadow-sm">
+                <svg class="w-3.5 h-3.5 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                 </svg>
-                Форум
               </div>
             </div>
-            <div class="p-4">
-              <h3 class="font-display font-semibold text-lg text-warm-900 mb-1">{{ dog.name }}</h3>
-              <p class="text-sm text-warm-600 mb-2">{{ dog.type }}</p>
-              <div class="flex items-center justify-between text-xs text-warm-500">
-                <span>{{ dog.city }}</span>
-                <UiTag variant="success" size="sm">{{ dog.year }}</UiTag>
+            <div class="px-3 py-2.5">
+              <p class="font-semibold text-warm-900 text-sm truncate leading-snug">{{ dog.name }}</p>
+              <div class="flex items-center justify-between mt-1 gap-1">
+                <span class="text-xs text-warm-500 truncate">{{ dog.city }}</span>
+                <span class="text-xs font-semibold text-primary-600 shrink-0">{{ dog.year }}</span>
               </div>
             </div>
-          </UiCard>
+          </div>
         </component>
       </div>
 
-      <!-- Empty State -->
-      <div v-else class="text-center py-12">
-        <svg class="w-16 h-16 mx-auto text-warm-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-        <p class="text-warm-600">Нет пристроенных собак за выбранный период</p>
+      <!-- Pagination -->
+      <div v-if="totalPages > 1" class="mt-8 flex justify-center items-center gap-2">
+        <button
+          class="w-10 h-10 rounded-xl border-2 border-warm-200 flex items-center justify-center hover:border-primary-400 disabled:opacity-40 transition-colors"
+          :disabled="currentPage <= 1"
+          @click="currentPage = Math.max(1, currentPage - 1)"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+        <div class="flex items-center gap-1">
+          <template v-for="p in pageNumbers" :key="p">
+            <span v-if="p === '...'" class="px-1 text-warm-400">…</span>
+            <button
+              v-else
+              type="button"
+              :class="[
+                'w-10 h-10 rounded-xl text-sm font-semibold transition-colors',
+                p === currentPage
+                  ? 'bg-primary-500 text-white'
+                  : 'border-2 border-warm-200 text-warm-700 hover:border-primary-300'
+              ]"
+              @click="currentPage = Number(p)"
+            >
+              {{ p }}
+            </button>
+          </template>
+        </div>
+        <button
+          class="w-10 h-10 rounded-xl border-2 border-warm-200 flex items-center justify-center hover:border-primary-400 disabled:opacity-40 transition-colors"
+          :disabled="currentPage >= totalPages"
+          @click="currentPage = Math.min(totalPages, currentPage + 1)"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
       </div>
 
-      <!-- Stats -->
-      <div class="mt-16 bg-primary-50 rounded-xl p-8 text-center">
-        <h2 class="text-3xl font-display font-bold text-primary-900 mb-2">
-          {{ adoptedDogs.length }}
-        </h2>
-        <p class="text-lg text-primary-700">
-          Счастливых историй за всё время работы фонда
-        </p>
+      <!-- Empty -->
+      <div v-else-if="filteredDogs.length === 0" class="text-center py-16">
+        <div class="w-16 h-16 bg-warm-100 rounded-full flex items-center justify-center mx-auto mb-4">
+          <svg class="w-8 h-8 text-warm-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
+        <p class="text-warm-600 text-sm">Нет пристроенных за выбранный период</p>
       </div>
     </div>
   </div>
@@ -113,30 +142,52 @@
 <script setup lang="ts">
 import type { AdoptedDog } from '~/types'
 
-// SEO
 useHead({
   title: 'Шнауцеры дома',
-  meta: [
-    { name: 'description', content: 'Архив пристроенных шнауцеров. Счастливые истории собак, которые обрели любящие семьи.' }
-  ]
+  meta: [{ name: 'description', content: 'Архив пристроенных шнауцеров. Счастливые истории собак, которые обрели любящие семьи.' }]
 })
 
-// Fetch adopted dogs from API
+const PAGE_SIZE = 30
+
 const { data } = await useFetch<AdoptedDog[]>('/api/adopted')
 const adoptedDogs = ref<AdoptedDog[]>(data.value || [])
 const selectedYear = ref<number | null>(null)
+const currentPage = ref(1)
 
-// Get unique years sorted descending
 const availableYears = computed(() => {
   const years = [...new Set(adoptedDogs.value.map(d => d.year))]
   return years.sort((a, b) => b - a)
 })
 
-// Filter dogs by selected year
-const filteredDogs = computed(() => {
-  if (selectedYear.value === null) {
-    return adoptedDogs.value
-  }
-  return adoptedDogs.value.filter(d => d.year === selectedYear.value)
+const filteredDogs = computed(() =>
+  selectedYear.value === null
+    ? adoptedDogs.value
+    : adoptedDogs.value.filter(d => d.year === selectedYear.value)
+)
+
+const totalPages = computed(() => Math.max(1, Math.ceil(filteredDogs.value.length / PAGE_SIZE)))
+
+const pagedDogs = computed(() => {
+  const start = (currentPage.value - 1) * PAGE_SIZE
+  return filteredDogs.value.slice(start, start + PAGE_SIZE)
+})
+
+const pageNumbers = computed(() => {
+  const total = totalPages.value
+  const cur = currentPage.value
+  if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1)
+  const pages: (number | '...')[] = [1]
+  if (cur > 3) pages.push('...')
+  for (let p = Math.max(2, cur - 1); p <= Math.min(total - 1, cur + 1); p++) pages.push(p)
+  if (cur < total - 2) pages.push('...')
+  pages.push(total)
+  return pages
+})
+
+watch(selectedYear, () => { currentPage.value = 1 })
+
+const currentYearCount = computed(() => {
+  const year = new Date().getFullYear()
+  return adoptedDogs.value.filter(d => d.year === year).length
 })
 </script>

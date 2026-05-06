@@ -7,7 +7,7 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
           </svg>
         </div>
-        <h1 class="text-3xl font-display font-bold text-warm-900 mb-2">
+        <h1 class="text-3xl font-display font-semibold text-warm-900 mb-2">
           Инициализация базы данных
         </h1>
         <p class="text-warm-600">

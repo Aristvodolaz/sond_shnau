@@ -1,7 +1,7 @@
 <template>
   <div class="bg-white rounded-xl shadow-lg p-4 sm:p-6 lg:sticky lg:top-24">
     <div class="flex items-center justify-between mb-4 sm:mb-6">
-      <h3 class="text-lg sm:text-xl font-display font-bold text-warm-900">
+      <h3 class="text-base font-display font-semibold text-warm-900">
         Новости форума
       </h3>
       <svg class="w-5 h-5 text-primary-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">

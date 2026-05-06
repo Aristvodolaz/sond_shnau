@@ -9,6 +9,7 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
+    "cleanup:nuxt": "nuxi cleanup && nuxt prepare",
     "db:init": "tsx scripts/init-db.ts",
     "db:check": "tsx -e \"import {checkConnection, pool} from './server/database/db'; checkConnection().then(() => pool.end())\"",
     "admin:reset": "tsx scripts/reset-admin.ts",

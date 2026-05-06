@@ -1,19 +1,14 @@
-<template>
+﻿<template>
   <div class="min-h-screen bg-warm-50">
-    <!-- Hero Section -->
-    <section class="bg-gradient-to-br from-primary-600 to-primary-700 text-white py-8 sm:py-12 md:py-16">
+    <section class="bg-white border-b border-warm-100 py-8 md:py-10">
       <div class="container-custom">
-        <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold mb-3 md:mb-4">
-          Новости фонда
-        </h1>
-        <p class="text-base sm:text-lg md:text-xl text-primary-100 max-w-2xl">
-          Актуальные новости и истории о работе фонда помощи шнауцерам
-        </p>
+        <h1 class="font-display font-semibold text-2xl md:text-3xl text-warm-900 leading-tight">Новости фонда</h1>
+        <p class="text-warm-500 mt-2 text-sm">Актуальные новости и истории о работе фонда</p>
       </div>
     </section>
 
     <!-- News Grid -->
-    <section class="py-8 sm:py-10 md:py-12">
+    <section class="py-8 md:py-10">
       <div class="container-custom">
         <!-- Loading State -->
         <div v-if="pending" class="flex justify-center py-12">
@@ -50,20 +45,14 @@
     </section>
 
     <!-- CTA Section -->
-    <section class="py-8 sm:py-10 md:py-12 bg-warm-100">
+    <section class="py-8 md:py-10">
       <div class="container-custom">
-        <div class="bg-primary-500 rounded-xl md:rounded-2xl p-6 sm:p-8 md:p-12 text-white text-center">
-          <h2 class="text-2xl sm:text-3xl md:text-4xl font-display font-bold mb-3 md:mb-4">
-            Будьте в курсе событий
-          </h2>
-          <p class="text-base sm:text-lg md:text-xl mb-6 md:mb-8 text-primary-50 max-w-2xl mx-auto">
-            Подпишитесь на наш форум, чтобы узнавать о новых собаках и историях спасения первыми
-          </p>
-          <div class="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center">
-            <UiButton to="/forum-news" variant="secondary" size="lg" class="w-full sm:w-auto">
-              Новости форума
-            </UiButton>
-          </div>
+        <div class="bg-primary-500 rounded-2xl p-8 md:p-10 text-white text-center">
+          <h2 class="font-display font-semibold text-xl md:text-2xl mb-3">Будьте в курсе событий</h2>
+          <p class="text-primary-100 text-sm mb-6 max-w-lg mx-auto">Следите за обновлениями форума — там публикуются новые собаки и истории спасения</p>
+          <NuxtLink to="/forum-news" class="btn bg-white text-primary-700 hover:bg-primary-50 px-6 py-3 rounded-xl transition-all">
+            Новости форума
+          </NuxtLink>
         </div>
       </div>
     </section>

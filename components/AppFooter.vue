@@ -1,64 +1,31 @@
 <template>
-  <footer class="bg-warm-800 text-warm-100 mt-auto">
-    <div class="container-custom py-12">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <!-- Mission -->
-        <div>
-          <h3 class="font-display font-bold text-xl mb-4 text-white">Наша миссия</h3>
-          <p class="text-warm-300 leading-relaxed">
-            Мы помогаем шнауцерам найти любящий дом, спасаем потерявшихся питомцев и поддерживаем ответственное владение собаками.
+  <footer class="bg-warm-800 text-warm-200">
+    <!-- Top accent line -->
+    <div class="h-1 bg-gradient-to-r from-primary-700 via-primary-500 to-primary-400" />
+
+    <div class="container-custom py-14 md:py-16">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
+
+        <!-- Brand -->
+        <div class="lg:col-span-2">
+          <div class="flex items-center gap-3 mb-5">
+            <div class="w-12 h-12 rounded-full overflow-hidden ring-2 ring-primary-500/40">
+              <img src="/images/logo/logo.png" alt="Логотип" class="w-full h-full object-cover" />
+            </div>
+            <div>
+              <div class="font-hobo text-base text-white leading-none tracking-wide">Фонд помощи</div>
+              <div class="font-hobo text-sm text-primary-300 tracking-wide">шнауцерам</div>
+            </div>
+          </div>
+          <p class="text-warm-400 leading-relaxed text-sm max-w-xs">
+            Спасаем, лечим и пристраиваем шнауцеров в добрые руки. Каждая собака заслуживает любви и безопасного дома.
           </p>
-        </div>
-
-        <!-- Quick Links -->
-        <div>
-          <h3 class="font-display font-bold text-xl mb-4 text-white">Быстрые ссылки</h3>
-          <ul class="space-y-2">
-            <li>
-              <NuxtLink to="/" class="text-warm-300 hover:text-primary-400 transition-colors">
-                Главная
-              </NuxtLink>
-            </li>
-            <li>
-              <NuxtLink to="/about" class="text-warm-300 hover:text-primary-400 transition-colors">
-                О нас
-              </NuxtLink>
-            </li>
-            <li>
-              <NuxtLink to="/useful/adopt" class="text-warm-300 hover:text-primary-400 transition-colors">
-                Взять шнауцера
-              </NuxtLink>
-            </li>
-            <li>
-              <NuxtLink to="/contacts" class="text-warm-300 hover:text-primary-400 transition-colors">
-                Контакты
-              </NuxtLink>
-            </li>
-            <li>
-              <a
-                :href="config.FORUM_URL"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="text-warm-300 hover:text-primary-400 transition-colors inline-flex items-center space-x-1"
-              >
-                <span>Форум</span>
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                </svg>
-              </a>
-            </li>
-          </ul>
-        </div>
-
-        <!-- Social & Contact -->
-        <div>
-          <h3 class="font-display font-bold text-xl mb-4 text-white">Мы в соцсетях</h3>
-          <div class="flex space-x-4 mb-6">
+          <div class="flex items-center gap-3 mt-6">
             <a
               :href="config.VK_URL"
               target="_blank"
               rel="noopener noreferrer"
-              class="w-10 h-10 bg-warm-700 rounded-full flex items-center justify-center hover:bg-primary-500 transition-colors"
+              class="w-10 h-10 bg-warm-700 hover:bg-primary-500 rounded-xl flex items-center justify-center transition-colors duration-200"
               aria-label="ВКонтакте"
             >
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -69,7 +36,7 @@
               :href="config.TG_URL"
               target="_blank"
               rel="noopener noreferrer"
-              class="w-10 h-10 bg-warm-700 rounded-full flex items-center justify-center hover:bg-primary-500 transition-colors"
+              class="w-10 h-10 bg-warm-700 hover:bg-primary-500 rounded-xl flex items-center justify-center transition-colors duration-200"
               aria-label="Telegram"
             >
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -77,14 +44,47 @@
               </svg>
             </a>
           </div>
-          <div class="space-y-2 text-warm-300 text-sm">
-            <p>{{ config.EMAIL }}</p>
-            <p>{{ config.PHONES[0].number }}</p>
+        </div>
+
+        <!-- Links -->
+        <div>
+          <h3 class="font-display font-semibold text-white text-sm mb-4">Разделы</h3>
+          <ul class="space-y-3">
+            <li v-for="link in quickLinks" :key="link.label">
+              <NuxtLink :to="link.to" class="text-warm-400 hover:text-primary-300 transition-colors text-sm">
+                {{ link.label }}
+              </NuxtLink>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Contact -->
+        <div>
+          <h3 class="font-display font-semibold text-white text-sm mb-4">Контакты</h3>
+          <div class="space-y-3">
+            <a :href="`tel:${config.PHONES[0].number.replace(/\s/g, '')}`" class="flex items-center gap-2 text-warm-400 hover:text-primary-300 transition-colors text-sm">
+              <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+              </svg>
+              {{ config.PHONES[0].number }}
+            </a>
+            <a :href="`mailto:${config.EMAIL}`" class="flex items-center gap-2 text-warm-400 hover:text-primary-300 transition-colors text-sm">
+              <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+              {{ config.EMAIL }}
+            </a>
           </div>
+          <NuxtLink to="/animals" class="inline-flex items-center gap-2 mt-6 btn-primary px-5 py-2.5 text-sm">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+            </svg>
+            Взять питомца
+          </NuxtLink>
         </div>
       </div>
 
-      <div class="border-t border-warm-700 mt-8 pt-8 text-center text-warm-400 text-sm">
+      <div class="border-t border-warm-700 mt-12 pt-8 text-center text-warm-500 text-sm">
         <p>&copy; {{ new Date().getFullYear() }} Фонд помощи шнауцерам. Все права защищены.</p>
       </div>
     </div>
@@ -93,4 +93,13 @@
 
 <script setup lang="ts">
 import { config } from '~/utils/config'
+
+const quickLinks = [
+  { label: 'Главная', to: '/' },
+  { label: 'Все животные', to: '/animals' },
+  { label: 'Избранное', to: '/favorites' },
+  { label: 'Помочь фонду', to: '/support' },
+  { label: 'О нас', to: '/about' },
+  { label: 'Контакты', to: '/contacts' }
+]
 </script>

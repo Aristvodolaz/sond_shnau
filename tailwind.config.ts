@@ -23,6 +23,18 @@ export default {
           800: '#184f79',
           900: '#123d5e'
         },
+        terra: {
+          50: '#FCF1EB',
+          100: '#F5D9C6',
+          200: '#EBB89D',
+          300: '#DE9573',
+          400: '#CF7349',
+          500: '#BE5C30',
+          600: '#994928',
+          700: '#75381E',
+          800: '#512615',
+          900: '#31160C'
+        },
         warm: {
           50: '#f8fbfd',
           100: '#e8f2f8',
@@ -49,6 +61,25 @@ export default {
           lg: '4rem',
           xl: '5rem',
           '2xl': '6rem'
+        }
+      },
+      animation: {
+        'fade-up': 'fadeUp 0.65s ease-out forwards',
+        'fade-in': 'fadeIn 0.45s ease-out forwards',
+        shimmer: 'shimmer 2s infinite linear'
+      },
+      keyframes: {
+        fadeUp: {
+          '0%': { opacity: '0', transform: 'translateY(20px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' }
+        },
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' }
+        },
+        shimmer: {
+          '0%': { backgroundPosition: '-600px 0' },
+          '100%': { backgroundPosition: '600px 0' }
         }
       }
     }

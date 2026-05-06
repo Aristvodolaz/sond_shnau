@@ -1,18 +1,18 @@
 <template>
-  <div class="py-8 sm:py-10 md:py-12 lg:py-16">
-    <div class="container-custom max-w-5xl">
-      <h1 class="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-warm-900 mb-4 sm:mb-6">
-        Контакты
-      </h1>
-      <p class="text-base sm:text-lg md:text-xl text-warm-700 mb-8 sm:mb-10 md:mb-12">
-        Свяжитесь с нами любым удобным способом. Мы всегда рады помочь!
-      </p>
+  <div class="min-h-screen bg-warm-50">
+    <section class="bg-white border-b border-warm-100 py-8 md:py-10">
+      <div class="container-custom max-w-5xl">
+        <h1 class="font-display font-semibold text-2xl md:text-3xl text-warm-900 leading-tight">Контакты</h1>
+        <p class="text-warm-500 mt-2 text-sm">Свяжитесь с нами любым удобным способом — телефон, email, соцсети</p>
+      </div>
+    </section>
+    <div class="container-custom max-w-5xl py-8 md:py-10">
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
         <!-- Contact Information -->
         <div>
           <UiCard class="mb-6">
-            <h2 class="text-2xl font-display font-bold text-warm-900 mb-6">Связь с фондом</h2>
+            <h2 class="text-xl font-display font-semibold text-warm-900 mb-6">Связь с фондом</h2>
             
             <div class="space-y-5">
               <!-- Phones -->
@@ -71,7 +71,7 @@
 
           <!-- Social Media -->
           <UiCard>
-            <h2 class="text-2xl font-display font-bold text-warm-900 mb-6">Социальные сети</h2>
+            <h2 class="text-xl font-display font-semibold text-warm-900 mb-6">Социальные сети</h2>
             
             <div class="space-y-4">
               <!-- VK -->
@@ -79,7 +79,7 @@
                 :href="config.VK_URL"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="flex items-center p-4 bg-warm-100 rounded-lg hover:bg-warm-200 transition-colors group"
+                class="flex items-center p-4 bg-warm-50 border border-warm-200 rounded-2xl hover:bg-warm-100 hover:border-warm-300 transition-all group"
               >
                 <div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0 mr-4 group-hover:scale-105 transition-transform">
                   <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
@@ -97,7 +97,7 @@
                 :href="config.TG_URL"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="flex items-center p-4 bg-warm-100 rounded-lg hover:bg-warm-200 transition-colors group"
+                class="flex items-center p-4 bg-warm-50 border border-warm-200 rounded-2xl hover:bg-warm-100 hover:border-warm-300 transition-all group"
               >
                 <div class="w-12 h-12 bg-blue-400 rounded-full flex items-center justify-center flex-shrink-0 mr-4 group-hover:scale-105 transition-transform">
                   <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
@@ -115,7 +115,7 @@
                 :href="config.DZEN_URL"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="flex items-center p-4 bg-warm-100 rounded-lg hover:bg-warm-200 transition-colors group"
+                class="flex items-center p-4 bg-warm-50 border border-warm-200 rounded-2xl hover:bg-warm-100 hover:border-warm-300 transition-all group"
               >
                 <div class="w-12 h-12 flex-shrink-0 mr-4 group-hover:scale-105 transition-transform">
                   <img src="/icons/dzen.svg" class="w-12 h-12" alt="Яндекс Дзен" />
@@ -132,7 +132,7 @@
         <!-- Financial Help -->
         <div>
           <UiCard class="h-full">
-            <h2 class="text-2xl font-display font-bold text-warm-900 mb-6">Как помочь финансово</h2>
+            <h2 class="text-xl font-display font-semibold text-warm-900 mb-6">Как помочь финансово</h2>
             
             <p class="text-warm-700 mb-6">
               Ваша помощь спасает жизни. Все средства идут на лечение, питание, содержание собак. 
@@ -186,8 +186,8 @@
       </div>
 
       <!-- Quick Links -->
-      <div class="mt-12 bg-warm-100 rounded-xl p-8">
-        <h2 class="text-2xl font-display font-bold text-warm-900 mb-6 text-center">
+      <div class="mt-10 bg-white border border-warm-100 rounded-2xl shadow-sm p-8">
+        <h2 class="text-xl font-display font-semibold text-warm-900 mb-6 text-center">
           Частые вопросы
         </h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">

@@ -1,5 +1,8 @@
 // Type definitions for the application
 
+/** looking — ищет дом; foster — на передержке; pensioner — программа пенсионеров */
+export type AnimalStatus = 'looking' | 'foster' | 'pensioner'
+
 export interface Dog {
   id: string
   slug: string
@@ -11,15 +14,37 @@ export interface Dog {
     name: string
     phone: string
     email?: string
+    whatsapp?: string
+    telegram?: string
   }
   photos: string[]
   description: string
   features: string[]
   health: string
   character: string
-  forumTopicUrl: string
-  status: 'looking' | 'pensioner'
+  /** Необязательно: старые темы форума, без редиректа из основного сценария */
+  forumTopicUrl?: string
+  status: AnimalStatus
   dateAdded: string
+  /** Для фильтров по возрасту в API; если null — не участвует в возрастном фильтре */
+  ageMonths: number | null
+  story: string
+}
+
+export interface AnimalListResponse {
+  items: Dog[]
+  total: number
+  page: number
+  pageSize: number
+}
+
+export interface AdoptionRequestBody {
+  animalId?: string
+  applicantName: string
+  phone: string
+  email?: string
+  message?: string
+  preferredChannel: 'phone' | 'whatsapp' | 'telegram' | 'email'
 }
 
 export interface NewsItem {

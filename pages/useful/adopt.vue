@@ -1,17 +1,16 @@
-<template>
-  <div class="py-12 md:py-16">
-    <div class="container-custom max-w-4xl">
-      <h1 class="text-4xl md:text-5xl font-display font-bold text-warm-900 mb-6">
-        Взять шнауцера
-      </h1>
-      <p class="text-xl text-warm-700 mb-12">
-        Взять собаку из фонда — это подарить ей второй шанс на счастье. 
-        Мы поможем вам на каждом этапе: от выбора до адаптации.
-      </p>
+﻿<template>
+  <div class="min-h-screen bg-warm-50">
+    <section class="bg-white border-b border-warm-100 py-8 md:py-10">
+      <div class="container-custom max-w-4xl">
+        <h1 class="font-display font-semibold text-2xl md:text-3xl text-warm-900 leading-tight">Взять шнауцера</h1>
+        <p class="text-warm-500 mt-2 text-sm">Как взять собаку из фонда — пошагово, с поддержкой куратора</p>
+      </div>
+    </section>
+    <div class="container-custom max-w-4xl py-8 md:py-10">
 
       <!-- Why Adopt -->
       <UiCard class="mb-8">
-        <h2 class="text-2xl font-display font-bold text-warm-900 mb-4">Почему стоит взять собаку из фонда</h2>
+        <h2 class="text-xl font-display font-semibold text-warm-900 mb-4">Почему стоит взять собаку из фонда</h2>
         <div class="space-y-4 text-warm-700">
           <div class="flex items-start">
             <svg class="w-6 h-6 text-primary-500 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -57,10 +56,10 @@
 
       <!-- Process -->
       <UiCard class="mb-8">
-        <h2 class="text-2xl font-display font-bold text-warm-900 mb-6">Как взять собаку: пошаговая инструкция</h2>
+        <h2 class="text-xl font-display font-semibold text-warm-900 mb-6">Как взять собаку: пошаговая инструкция</h2>
         <div class="space-y-6">
           <div class="flex items-start">
-            <div class="w-10 h-10 bg-primary-500 text-white rounded-full flex items-center justify-center flex-shrink-0 mr-4 font-bold">1</div>
+            <div class="w-9 h-9 bg-primary-500 text-white rounded-full flex items-center justify-center flex-shrink-0 mr-4 text-sm font-semibold shrink-0">1</div>
             <div>
               <h3 class="font-semibold text-warm-900 mb-2">Выберите собаку</h3>
               <p class="text-warm-700 mb-2">
@@ -72,7 +71,7 @@
           </div>
 
           <div class="flex items-start">
-            <div class="w-10 h-10 bg-primary-500 text-white rounded-full flex items-center justify-center flex-shrink-0 mr-4 font-bold">2</div>
+            <div class="w-9 h-9 bg-primary-500 text-white rounded-full flex items-center justify-center flex-shrink-0 mr-4 text-sm font-semibold shrink-0">2</div>
             <div>
               <h3 class="font-semibold text-warm-900 mb-2">Свяжитесь с куратором</h3>
               <p class="text-warm-700">
@@ -83,7 +82,7 @@
           </div>
 
           <div class="flex items-start">
-            <div class="w-10 h-10 bg-primary-500 text-white rounded-full flex items-center justify-center flex-shrink-0 mr-4 font-bold">3</div>
+            <div class="w-9 h-9 bg-primary-500 text-white rounded-full flex items-center justify-center flex-shrink-0 mr-4 text-sm font-semibold shrink-0">3</div>
             <div>
               <h3 class="font-semibold text-warm-900 mb-2">Познакомьтесь с собакой</h3>
               <p class="text-warm-700">
@@ -94,7 +93,7 @@
           </div>
 
           <div class="flex items-start">
-            <div class="w-10 h-10 bg-primary-500 text-white rounded-full flex items-center justify-center flex-shrink-0 mr-4 font-bold">4</div>
+            <div class="w-9 h-9 bg-primary-500 text-white rounded-full flex items-center justify-center flex-shrink-0 mr-4 text-sm font-semibold shrink-0">4</div>
             <div>
               <h3 class="font-semibold text-warm-900 mb-2">Заполните анкету</h3>
               <p class="text-warm-700">
@@ -105,7 +104,7 @@
           </div>
 
           <div class="flex items-start">
-            <div class="w-10 h-10 bg-primary-500 text-white rounded-full flex items-center justify-center flex-shrink-0 mr-4 font-bold">5</div>
+            <div class="w-9 h-9 bg-primary-500 text-white rounded-full flex items-center justify-center flex-shrink-0 mr-4 text-sm font-semibold shrink-0">5</div>
             <div>
               <h3 class="font-semibold text-warm-900 mb-2">Подготовьте дом</h3>
               <p class="text-warm-700">
@@ -116,7 +115,7 @@
           </div>
 
           <div class="flex items-start">
-            <div class="w-10 h-10 bg-primary-500 text-white rounded-full flex items-center justify-center flex-shrink-0 mr-4 font-bold">6</div>
+            <div class="w-9 h-9 bg-primary-500 text-white rounded-full flex items-center justify-center flex-shrink-0 mr-4 text-sm font-semibold shrink-0">6</div>
             <div>
               <h3 class="font-semibold text-warm-900 mb-2">Подпишите договор</h3>
               <p class="text-warm-700">
@@ -127,7 +126,7 @@
           </div>
 
           <div class="flex items-start">
-            <div class="w-10 h-10 bg-primary-500 text-white rounded-full flex items-center justify-center flex-shrink-0 mr-4 font-bold">7</div>
+            <div class="w-9 h-9 bg-primary-500 text-white rounded-full flex items-center justify-center flex-shrink-0 mr-4 text-sm font-semibold shrink-0">7</div>
             <div>
               <h3 class="font-semibold text-warm-900 mb-2">Заберите собаку домой</h3>
               <p class="text-warm-700">
@@ -137,7 +136,7 @@
           </div>
 
           <div class="flex items-start">
-            <div class="w-10 h-10 bg-primary-500 text-white rounded-full flex items-center justify-center flex-shrink-0 mr-4 font-bold">8</div>
+            <div class="w-9 h-9 bg-primary-500 text-white rounded-full flex items-center justify-center flex-shrink-0 mr-4 text-sm font-semibold shrink-0">8</div>
             <div>
               <h3 class="font-semibold text-warm-900 mb-2">Адаптация и поддержка</h3>
               <p class="text-warm-700">
@@ -152,7 +151,7 @@
       <!-- Questionnaire -->
       <UiCard class="mb-8">
         <div class="flex items-center justify-between mb-4">
-          <h2 class="text-2xl font-display font-bold text-warm-900">Анкета потенциального владельца</h2>
+          <h2 class="text-xl font-display font-semibold text-warm-900">Анкета потенциального владельца</h2>
           <button
             @click="copyQuestionnaire"
             class="text-primary-500 hover:text-primary-600 transition-colors text-sm font-medium flex items-center"
@@ -194,7 +193,7 @@
 
       <!-- Requirements -->
       <UiCard class="mb-8">
-        <h2 class="text-2xl font-display font-bold text-warm-900 mb-4">Что мы ожидаем от вас</h2>
+        <h2 class="text-xl font-display font-semibold text-warm-900 mb-4">Что мы ожидаем от вас</h2>
         <ul class="space-y-3 text-warm-700">
           <li class="flex items-start">
             <svg class="w-5 h-5 text-primary-500 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -237,7 +236,7 @@
 
       <!-- CTA -->
       <div class="bg-primary-50 border border-primary-200 rounded-xl p-8 text-center">
-        <h2 class="text-2xl font-display font-bold text-primary-900 mb-4">
+        <h2 class="text-xl font-display font-semibold text-primary-900 mb-4">
           Готовы подарить собаке дом?
         </h2>
         <p class="text-primary-800 mb-6">

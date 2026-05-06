@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="flex items-center justify-between mb-6">
-      <h1 class="text-3xl font-display font-bold text-warm-900">
+      <h1 class="text-3xl font-display font-semibold text-warm-900">
         Управление новостями
       </h1>
       <UiButton @click="openAddModal" variant="primary">

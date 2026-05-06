@@ -31,7 +31,7 @@
     <div class="grid grid-cols-2 gap-4">
       <UiInput
         v-model="form.age"
-        label="Возраст"
+        label="Возраст (текст)"
         placeholder="~5 лет"
         required
         :error="errors.age"
@@ -46,6 +46,13 @@
       />
     </div>
 
+    <UiInput
+      v-model="form.ageMonthsStr"
+      label="Возраст в месяцах (для фильтров, необязательно)"
+      type="text"
+      placeholder="Напр. 24"
+    />
+
     <div class="w-full">
       <label class="block text-sm font-medium text-warm-700 mb-2">
         Статус <span class="text-red-500">*</span>
@@ -56,6 +63,7 @@
         class="w-full px-4 py-3 border border-warm-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
       >
         <option value="looking">Ищет дом</option>
+        <option value="foster">На передержке</option>
         <option value="pensioner">Пенсионер</option>
       </select>
     </div>
@@ -79,6 +87,20 @@
           placeholder="+7 (999) 123-45-67"
           required
           :error="errors.curatorPhone"
+        />
+      </div>
+
+      <div class="grid grid-cols-2 gap-4 mt-4">
+        <UiInput
+          v-model="form.curatorWhatsapp"
+          label="WhatsApp (номер или как в телефоне)"
+          type="tel"
+          placeholder="+79991234567"
+        />
+        <UiInput
+          v-model="form.curatorTelegram"
+          label="Telegram (ник без @)"
+          placeholder="username"
         />
       </div>
       
@@ -115,6 +137,22 @@
         class="mt-4"
       />
     </div>
+
+    <UiTextarea
+      v-model="form.description"
+      label="Краткое описание (для карточки в списке)"
+      placeholder="2–3 предложения без телефона в тексте"
+      :rows="3"
+      class="mt-4"
+    />
+
+    <UiTextarea
+      v-model="form.story"
+      label="История (длинный блок на странице животного)"
+      placeholder="Как попал(а), что пережил(а)..."
+      :rows="4"
+      class="mt-4"
+    />
 
     <!-- Features -->
     <div class="pt-4 border-t border-warm-200">
@@ -204,14 +242,12 @@
       </div>
     </div>
 
-    <!-- Forum URL -->
+    <!-- Forum URL (optional — не используем в основном сценарии) -->
     <UiInput
       v-model="form.forumTopicUrl"
-      label="Ссылка на тему форума"
+      label="Ссылка на тему форума (необязательно)"
       type="url"
       placeholder="https://..."
-      required
-      :error="errors.forumTopicUrl"
     />
 
     <!-- Date Added -->
@@ -271,11 +307,16 @@ const form = reactive({
   age: '',
   city: '',
   status: 'looking',
+  ageMonthsStr: '',
   curatorName: '',
   curatorPhone: '',
   curatorEmail: '',
+  curatorWhatsapp: '',
+  curatorTelegram: '',
   health: '',
   character: '',
+  description: '',
+  story: '',
   features: {
     sterilized: false,
     vaccinated: false,
@@ -295,7 +336,6 @@ const errors = reactive({
   curatorPhone: '',
   health: '',
   character: '',
-  forumTopicUrl: '',
   dateAdded: ''
 })
 
@@ -307,11 +347,16 @@ const initializeForm = (dog: any) => {
     form.age = dog.age || ''
     form.city = dog.city || ''
     form.status = dog.status || 'looking'
+    form.ageMonthsStr = dog.age_months != null ? String(dog.age_months) : ''
     form.curatorName = dog.curator_name || dog.curatorName || ''
     form.curatorPhone = dog.curator_phone || dog.curatorPhone || ''
     form.curatorEmail = dog.curator_email || dog.curatorEmail || ''
+    form.curatorWhatsapp = dog.curator_whatsapp || dog.curatorWhatsapp || ''
+    form.curatorTelegram = dog.curator_telegram || dog.curatorTelegram || ''
     form.health = dog.health || ''
     form.character = dog.character || ''
+    form.description = dog.description || ''
+    form.story = dog.story || ''
     
     // Convert features from array to object
     if (Array.isArray(dog.features)) {
@@ -439,11 +484,6 @@ const validate = () => {
     isValid = false
   }
 
-  if (!form.forumTopicUrl.trim()) {
-    errors.forumTopicUrl = 'Ссылка на форум обязательна'
-    isValid = false
-  }
-
   if (!form.dateAdded) {
     errors.dateAdded = 'Дата добавления обязательна'
     isValid = false
@@ -463,12 +503,21 @@ const handleSubmit = () => {
     age: form.age.trim(),
     city: form.city.trim(),
     status: form.status,
+    ageMonths: (() => {
+      const t = form.ageMonthsStr.trim()
+      if (!t) return null
+      const n = Number.parseInt(t, 10)
+      return Number.isNaN(n) ? null : n
+    })(),
     curator: {
       name: form.curatorName.trim(),
       phone: form.curatorPhone.trim(),
-      email: form.curatorEmail.trim() || null
+      email: form.curatorEmail.trim() || null,
+      whatsapp: form.curatorWhatsapp.trim() || null,
+      telegram: form.curatorTelegram.trim() || null
     },
-    description: '',
+    description: form.description.trim(),
+    story: form.story.trim(),
     health: form.health.trim(),
     character: form.character.trim(),
     features: form.features,

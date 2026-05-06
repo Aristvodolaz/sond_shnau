@@ -1,80 +1,66 @@
 <template>
   <div class="min-h-screen bg-warm-50">
-    <!-- Hero Section -->
-    <section class="bg-gradient-to-br from-primary-600 to-primary-700 text-white py-8 sm:py-12 md:py-16">
-      <div class="container mx-auto px-4">
-        <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold mb-3 md:mb-4">
-          Новости форума
-        </h1>
-        <p class="text-base sm:text-lg md:text-xl text-primary-100 max-w-2xl">
-          Последние обновления и истории с форума помощи шнауцерам
-        </p>
+    <section class="bg-white border-b border-warm-100 py-8 md:py-10">
+      <div class="container-custom">
+        <h1 class="font-display font-semibold text-2xl md:text-3xl text-warm-900 leading-tight">Новости форума</h1>
+        <p class="text-warm-500 mt-2 text-sm">Последние обновления и истории с форума помощи шнауцерам</p>
       </div>
     </section>
 
-    <!-- Content Section -->
-    <section class="py-8 sm:py-10 md:py-12">
-      <div class="container mx-auto px-4">
+    <section class="py-8 md:py-10">
+      <div class="container-custom max-w-3xl">
         <!-- Loading State -->
-        <div v-if="pending" class="flex justify-center py-12">
-          <UiLoader text="Загрузка новостей..." />
+        <div v-if="pending" class="space-y-4">
+          <div v-for="i in 3" :key="i" class="animate-pulse bg-white rounded-2xl border border-warm-100 p-6">
+            <div class="h-5 bg-warm-200 rounded w-3/4 mb-3"></div>
+            <div class="h-3 bg-warm-100 rounded w-1/3 mb-4"></div>
+            <div class="space-y-2">
+              <div class="h-3 bg-warm-100 rounded"></div>
+              <div class="h-3 bg-warm-100 rounded w-5/6"></div>
+            </div>
+          </div>
         </div>
 
         <!-- Error State -->
-        <div v-else-if="error" class="bg-red-50 border border-red-200 rounded-lg p-4 sm:p-6 text-center">
-          <p class="text-sm sm:text-base text-red-800">Не удалось загрузить новости форума</p>
-          <button 
-            @click="refresh()" 
-            class="mt-4 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 active:bg-red-800 transition-colors text-sm sm:text-base"
+        <div v-else-if="error" class="bg-white border border-warm-200 rounded-2xl p-8 text-center">
+          <p class="text-warm-600 text-sm mb-4">Не удалось загрузить новости форума</p>
+          <button
+            @click="refresh()"
+            class="btn-primary px-5 py-2.5 text-sm"
           >
             Попробовать снова
           </button>
         </div>
 
-        <!-- News Grid -->
-        <div v-else-if="items && items.length > 0" class="space-y-4 sm:space-y-6">
+        <!-- News List -->
+        <div v-else-if="items && items.length > 0" class="space-y-4">
           <div
             v-for="item in items"
             :key="item.link"
-            class="bg-white rounded-lg shadow-md hover:shadow-lg active:shadow-xl transition-shadow p-4 sm:p-6"
+            class="bg-white rounded-2xl border border-warm-100 shadow-sm hover:shadow-md transition-shadow p-5 sm:p-6"
           >
-            <!-- Title -->
-            <h2 class="text-xl sm:text-2xl font-display font-bold text-warm-900 mb-2 sm:mb-3">
+            <h2 class="text-base font-display font-semibold text-warm-900 mb-2 leading-snug">
               {{ cleanTitle(item.title) }}
             </h2>
 
-            <!-- Meta Info -->
-            <div class="flex flex-wrap items-center gap-3 sm:gap-4 text-xs sm:text-sm text-warm-600 mb-3 sm:mb-4">
-              <div class="flex items-center gap-2">
-                <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                </svg>
-                <span class="truncate">{{ item.contentSnippet || 'Автор форума' }}</span>
-              </div>
-              <div class="flex items-center gap-2">
-                <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
-                <span>{{ formatDate(item.pubDate) }}</span>
-              </div>
+            <div class="flex items-center gap-4 text-xs text-warm-500 mb-3">
+              <span>{{ formatDate(item.pubDate) }}</span>
             </div>
 
-            <!-- Content Preview -->
-            <div 
-              v-if="item.content" 
-              class="prose prose-sm sm:prose prose-warm max-w-none mb-3 sm:mb-4 text-warm-700"
+            <div
+              v-if="item.content"
+              class="forum-prose text-sm text-warm-700 mb-4 line-clamp-3"
               v-html="sanitizeContent(item.content)"
             />
 
-            <!-- Link to Forum -->
             <a
               :href="item.link"
               target="_blank"
               rel="noopener noreferrer"
-              class="inline-flex items-center gap-2 text-sm sm:text-base text-primary-600 hover:text-primary-700 active:text-primary-800 font-semibold transition-colors py-2"
+              class="inline-flex items-center gap-1.5 text-sm font-semibold text-primary-600 hover:text-primary-700 transition-colors"
             >
-              <span>Читать на форуме</span>
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              Читать на форуме
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
               </svg>
             </a>
@@ -82,8 +68,13 @@
         </div>
 
         <!-- Empty State -->
-        <div v-else class="text-center py-12">
-          <p class="text-base sm:text-lg text-warm-600">Новостей пока нет</p>
+        <div v-else class="text-center py-16">
+          <div class="w-16 h-16 bg-warm-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-warm-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+            </svg>
+          </div>
+          <p class="text-warm-500 text-sm">Новостей пока нет</p>
         </div>
       </div>
     </section>
@@ -101,91 +92,64 @@ interface RssItem {
 
 useHead({
   title: 'Новости форума — Фонд помощи шнауцерам',
-  meta: [
-    {
-      name: 'description',
-      content: 'Последние новости и обновления с форума помощи шнауцерам'
-    }
-  ]
+  meta: [{ name: 'description', content: 'Последние новости и обновления с форума помощи шнауцерам' }]
 })
 
-// Fetch RSS feed
 const { data: items, pending, error, refresh } = await useFetch<RssItem[]>('/api/rss')
 
-// Clean title from HTML entities and extra formatting
 function cleanTitle(title: string): string {
-  // Remove HTML tags
   let cleaned = title.replace(/<[^>]*>/g, '')
-  
-  // Decode HTML entities (server-safe way)
   cleaned = cleaned
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
-    .replace(/&amp;/g, '&')
-    .replace(/&quot;/g, '"')
-    .replace(/&#039;/g, "'")
-    .replace(/&nbsp;/g, ' ')
-    .replace(/\[CDATA\[/g, '')
-    .replace(/\]\]/g, '')
-  
-  // Remove "Шнауцеры на пристройство •" prefix if present
+    .replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&')
+    .replace(/&quot;/g, '"').replace(/&#039;/g, "'").replace(/&nbsp;/g, ' ')
+    .replace(/\[CDATA\[/g, '').replace(/\]\]/g, '')
   cleaned = cleaned.replace(/^Шнауцеры на пристройство\s*•\s*/i, '')
   cleaned = cleaned.replace(/^Истории со счастливым концом \(шнауцеры\)\s*•\s*/i, '')
   return cleaned
 }
 
-// Format date to readable format
 function formatDate(dateString: string): string {
   const date = new Date(dateString)
-  return date.toLocaleDateString('ru-RU', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit'
-  })
+  const now = new Date()
+  const diffMs = now.getTime() - date.getTime()
+  const diffDays = Math.floor(diffMs / 86400000)
+  if (diffDays < 1) return 'Сегодня'
+  if (diffDays < 7) return `${diffDays} дн назад`
+  return date.toLocaleDateString('ru-RU', { day: 'numeric', month: 'short', year: 'numeric' })
 }
 
-// Sanitize HTML content - remove scripts, limit length
 function sanitizeContent(html: string): string {
   if (!html) return ''
-  
-  // Remove script tags
   let cleaned = html.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
-  
-  // Remove hr tags
   cleaned = cleaned.replace(/<hr\s*\/?>/gi, '')
-  
-  // Limit content length
-  const maxLength = 300
-  if (cleaned.length > maxLength) {
-    cleaned = cleaned.substring(0, maxLength) + '...'
-  }
-  
+  if (cleaned.length > 400) cleaned = cleaned.substring(0, 400) + '…'
   return cleaned
 }
 </script>
 
 <style scoped>
-.prose {
-  max-width: 100%;
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
-.prose :deep(img) {
-  max-width: 200px;
+.forum-prose :deep(img) {
+  max-width: 160px;
   height: auto;
   border-radius: 0.5rem;
 }
 
-.prose :deep(a) {
-  color: #d97706;
+.forum-prose :deep(a) {
+  color: #3a9cdc;
   text-decoration: underline;
 }
 
-.prose :deep(blockquote) {
-  border-left: 4px solid #d97706;
-  padding-left: 1rem;
+.forum-prose :deep(blockquote) {
+  border-left: 3px solid #e2eef7;
+  padding-left: 0.75rem;
   font-style: italic;
-  color: #78716c;
+  color: #8a9bb0;
 }
 </style>

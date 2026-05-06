@@ -1,12 +1,12 @@
 <template>
-  <div class="py-12 md:py-16">
-    <div class="container-custom max-w-4xl">
-      <h1 class="text-4xl md:text-5xl font-display font-bold text-warm-900 mb-6">
-        Правила Фонда
-      </h1>
-      <p class="text-xl text-warm-700 mb-12">
-        Эти правила помогают нам работать эффективно, прозрачно и в интересах каждой собаки.
-      </p>
+  <div class="min-h-screen bg-warm-50">
+    <section class="bg-white border-b border-warm-100 py-8 md:py-10">
+      <div class="container-custom max-w-4xl">
+        <h1 class="font-display font-semibold text-2xl md:text-3xl text-warm-900 leading-tight">Правила Фонда</h1>
+        <p class="text-warm-500 mt-2 text-sm">Принципы работы, прозрачность и интересы каждой собаки</p>
+      </div>
+    </section>
+    <div class="container-custom max-w-4xl py-8 md:py-10">
 
       <!-- Table of Contents -->
       <UiCard class="mb-8">
@@ -23,7 +23,7 @@
 
       <!-- Section 1 -->
       <section id="general" class="mb-10 scroll-mt-24">
-        <h2 class="text-2xl md:text-3xl font-display font-bold text-warm-900 mb-4">
+        <h2 class="text-xl md:text-2xl font-display font-semibold text-warm-900 mb-4">
           1. Общие положения
         </h2>
         <div class="prose prose-warm max-w-none text-warm-700 space-y-4">
@@ -43,7 +43,7 @@
 
       <!-- Section 2 -->
       <section id="admission" class="mb-10 scroll-mt-24">
-        <h2 class="text-2xl md:text-3xl font-display font-bold text-warm-900 mb-4">
+        <h2 class="text-xl md:text-2xl font-display font-semibold text-warm-900 mb-4">
           2. Приём собак в фонд
         </h2>
         <div class="bg-warm-100 rounded-lg p-6 mb-6">
@@ -80,7 +80,7 @@
 
       <!-- Section 3 -->
       <section id="adoption" class="mb-10 scroll-mt-24">
-        <h2 class="text-2xl md:text-3xl font-display font-bold text-warm-900 mb-4">
+        <h2 class="text-xl md:text-2xl font-display font-semibold text-warm-900 mb-4">
           3. Пристройство собак
         </h2>
         <div class="prose prose-warm max-w-none text-warm-700 space-y-4">
@@ -113,7 +113,7 @@
 
       <!-- Section 4 -->
       <section id="curators" class="mb-10 scroll-mt-24">
-        <h2 class="text-2xl md:text-3xl font-display font-bold text-warm-900 mb-4">
+        <h2 class="text-xl md:text-2xl font-display font-semibold text-warm-900 mb-4">
           4. Кураторы и волонтёры
         </h2>
         <div class="prose prose-warm max-w-none text-warm-700 space-y-4">
@@ -134,7 +134,7 @@
 
       <!-- Section 5 -->
       <section id="finance" class="mb-10 scroll-mt-24">
-        <h2 class="text-2xl md:text-3xl font-display font-bold text-warm-900 mb-4">
+        <h2 class="text-xl md:text-2xl font-display font-semibold text-warm-900 mb-4">
           5. Финансовая прозрачность
         </h2>
         <div class="prose prose-warm max-w-none text-warm-700 space-y-4">
@@ -155,7 +155,7 @@
 
       <!-- Section 6 -->
       <section id="responsibility" class="mb-10 scroll-mt-24">
-        <h2 class="text-2xl md:text-3xl font-display font-bold text-warm-900 mb-4">
+        <h2 class="text-xl md:text-2xl font-display font-semibold text-warm-900 mb-4">
           6. Ответственность
         </h2>
         <div class="prose prose-warm max-w-none text-warm-700 space-y-4">

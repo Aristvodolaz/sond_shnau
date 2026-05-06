@@ -1,13 +1,12 @@
-<template>
-  <div class="py-12 md:py-16">
-    <div class="container-custom max-w-4xl">
-      <h1 class="text-4xl md:text-5xl font-display font-bold text-warm-900 mb-6">
-        Отдать шнауцера
-      </h1>
-      <p class="text-xl text-warm-700 mb-12">
-        Если вы оказались в ситуации, когда не можете больше содержать собаку — мы поможем. 
-        Не бросайте животное на улице, обратитесь к нам.
-      </p>
+﻿<template>
+  <div class="min-h-screen bg-warm-50">
+    <section class="bg-white border-b border-warm-100 py-8 md:py-10">
+      <div class="container-custom max-w-4xl">
+        <h1 class="font-display font-semibold text-2xl md:text-3xl text-warm-900 leading-tight">Отдать шнауцера</h1>
+        <p class="text-warm-500 mt-2 text-sm">Если вы не можете больше содержать собаку — мы поможем найти ей дом</p>
+      </div>
+    </section>
+    <div class="container-custom max-w-4xl py-8 md:py-10">
 
       <!-- Important -->
       <div class="bg-amber-50 border border-amber-200 rounded-xl p-6 mb-10">
@@ -16,7 +15,7 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
           </svg>
           <div>
-            <h3 class="font-bold text-amber-900 mb-2">Важно понимать</h3>
+            <h3 class="font-semibold text-amber-900 mb-2">Важно понимать</h3>
             <p class="text-amber-800">
               Бросать собаку — это жестокое обращение и преступление. Собака, оказавшаяся на улице, 
               испытывает сильный стресс, может попасть под машину, заболеть, умереть от голода или холода. 
@@ -28,10 +27,10 @@
 
       <!-- Process -->
       <UiCard class="mb-8">
-        <h2 class="text-2xl font-display font-bold text-warm-900 mb-6">Как это работает</h2>
+        <h2 class="text-xl font-display font-semibold text-warm-900 mb-6">Как это работает</h2>
         <div class="space-y-6">
           <div class="flex items-start">
-            <div class="w-10 h-10 bg-primary-500 text-white rounded-full flex items-center justify-center flex-shrink-0 mr-4 font-bold">1</div>
+            <div class="w-9 h-9 bg-primary-500 text-white rounded-full flex items-center justify-center flex-shrink-0 mr-4 text-sm font-semibold shrink-0">1</div>
             <div>
               <h3 class="font-semibold text-warm-900 mb-2">Свяжитесь с нами</h3>
               <p class="text-warm-700">
@@ -42,7 +41,7 @@
           </div>
 
           <div class="flex items-start">
-            <div class="w-10 h-10 bg-primary-500 text-white rounded-full flex items-center justify-center flex-shrink-0 mr-4 font-bold">2</div>
+            <div class="w-9 h-9 bg-primary-500 text-white rounded-full flex items-center justify-center flex-shrink-0 mr-4 text-sm font-semibold shrink-0">2</div>
             <div>
               <h3 class="font-semibold text-warm-900 mb-2">Заполните анкету</h3>
               <p class="text-warm-700">
@@ -53,7 +52,7 @@
           </div>
 
           <div class="flex items-start">
-            <div class="w-10 h-10 bg-primary-500 text-white rounded-full flex items-center justify-center flex-shrink-0 mr-4 font-bold">3</div>
+            <div class="w-9 h-9 bg-primary-500 text-white rounded-full flex items-center justify-center flex-shrink-0 mr-4 text-sm font-semibold shrink-0">3</div>
             <div>
               <h3 class="font-semibold text-warm-900 mb-2">Предоставьте документы</h3>
               <p class="text-warm-700">
@@ -64,7 +63,7 @@
           </div>
 
           <div class="flex items-start">
-            <div class="w-10 h-10 bg-primary-500 text-white rounded-full flex items-center justify-center flex-shrink-0 mr-4 font-bold">4</div>
+            <div class="w-9 h-9 bg-primary-500 text-white rounded-full flex items-center justify-center flex-shrink-0 mr-4 text-sm font-semibold shrink-0">4</div>
             <div>
               <h3 class="font-semibold text-warm-900 mb-2">Передача собаки</h3>
               <p class="text-warm-700">
@@ -75,7 +74,7 @@
           </div>
 
           <div class="flex items-start">
-            <div class="w-10 h-10 bg-primary-500 text-white rounded-full flex items-center justify-center flex-shrink-0 mr-4 font-bold">5</div>
+            <div class="w-9 h-9 bg-primary-500 text-white rounded-full flex items-center justify-center flex-shrink-0 mr-4 text-sm font-semibold shrink-0">5</div>
             <div>
               <h3 class="font-semibold text-warm-900 mb-2">Поиск новых хозяев</h3>
               <p class="text-warm-700">
@@ -90,7 +89,7 @@
       <!-- Questionnaire -->
       <UiCard class="mb-8">
         <div class="flex items-center justify-between mb-4">
-          <h2 class="text-2xl font-display font-bold text-warm-900">Анкета для передачи собаки</h2>
+          <h2 class="text-xl font-display font-semibold text-warm-900">Анкета для передачи собаки</h2>
           <button
             @click="copyQuestionnaire"
             class="text-primary-500 hover:text-primary-600 transition-colors text-sm font-medium flex items-center"
@@ -135,7 +134,7 @@
 
       <!-- What We Need -->
       <UiCard class="mb-8">
-        <h2 class="text-2xl font-display font-bold text-warm-900 mb-4">Что нам понадобится</h2>
+        <h2 class="text-xl font-display font-semibold text-warm-900 mb-4">Что нам понадобится</h2>
         <div class="space-y-3 text-warm-700">
           <div class="flex items-start">
             <svg class="w-5 h-5 text-primary-500 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -172,7 +171,7 @@
 
       <!-- Contact CTA -->
       <div class="bg-primary-50 border border-primary-200 rounded-xl p-8 text-center">
-        <h2 class="text-2xl font-display font-bold text-primary-900 mb-4">
+        <h2 class="text-xl font-display font-semibold text-primary-900 mb-4">
           Готовы передать собаку?
         </h2>
         <p class="text-primary-800 mb-6">

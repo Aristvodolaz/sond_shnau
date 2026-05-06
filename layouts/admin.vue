@@ -5,7 +5,7 @@
       <div class="container-custom py-4">
         <div class="flex items-center justify-between">
           <div class="flex items-center space-x-8">
-            <h1 class="text-xl font-display font-bold text-warm-900">
+            <h1 class="text-xl font-display font-semibold text-warm-900">
               📊 Панель управления
             </h1>
             <nav class="hidden md:flex space-x-1">

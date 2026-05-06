@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap');
 
-/* Custom HoboBT font for logo */
 @font-face {
   font-family: 'HoboBT';
   src: url('/fonts/HoboBT.ttf') format('truetype');
@@ -14,34 +13,28 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --color-cream: #FDFAF6;
+    --color-forest: #3A7D68;
+    --color-terra: #BE5C30;
+    --radius-card: 1rem;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
-    @apply bg-warm-50 text-warm-900 antialiased;
+    @apply bg-warm-50 text-warm-900 antialiased font-sans;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    /* Prevent text size adjustment on mobile */
     -webkit-text-size-adjust: 100%;
-    /* Improve touch scrolling on iOS */
     -webkit-overflow-scrolling: touch;
+    overflow-x: hidden;
   }
 
   h1, h2, h3, h4, h5, h6 {
     @apply font-display font-semibold;
-  }
-
-  h1 {
-    @apply text-3xl md:text-4xl lg:text-5xl;
-  }
-
-  h2 {
-    @apply text-2xl md:text-3xl lg:text-4xl;
-  }
-
-  h3 {
-    @apply text-xl md:text-2xl lg:text-3xl;
-  }
-
-  h4 {
-    @apply text-lg md:text-xl;
   }
 
   p {
@@ -50,48 +43,57 @@
 
   a {
     @apply transition-colors duration-200;
-    /* Better tap targets on mobile */
-    -webkit-tap-highlight-color: rgba(59, 156, 220, 0.2);
+    -webkit-tap-highlight-color: rgba(58, 125, 104, 0.15);
   }
 
-  /* Improve form inputs on mobile */
-  input, textarea, select {
-    font-size: 16px; /* Prevents zoom on iOS */
-  }
-
-  /* Better button tap on mobile */
   button {
-    -webkit-tap-highlight-color: rgba(59, 156, 220, 0.2);
+    -webkit-tap-highlight-color: rgba(58, 125, 104, 0.15);
+  }
+
+  input, textarea, select {
+    font-size: 16px;
   }
 }
 
 @layer components {
-  .btn {
-    @apply inline-flex items-center justify-center px-6 py-3 rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2;
-  }
-
-  .btn-primary {
-    @apply btn bg-primary-500 text-white hover:bg-primary-600 focus:ring-primary-500 active:scale-95;
-  }
-
-  .btn-secondary {
-    @apply btn bg-warm-200 text-warm-900 hover:bg-warm-300 focus:ring-warm-400;
-  }
-
-  .btn-outline {
-    @apply btn border-2 border-primary-500 text-primary-500 hover:bg-primary-50 focus:ring-primary-500;
+  .container-custom {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
   }
 
   .card {
-    @apply bg-white rounded-xl shadow-md overflow-hidden transition-shadow duration-300 hover:shadow-xl;
+    @apply bg-white rounded-2xl shadow-sm overflow-hidden transition-all duration-300;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center font-medium font-sans transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation;
+  }
+
+  .btn-primary {
+    @apply btn bg-primary-500 text-white hover:bg-primary-600 active:scale-95 focus:ring-primary-500 rounded-xl;
+  }
+
+  .btn-outline {
+    @apply btn border-2 border-primary-500 text-primary-600 hover:bg-primary-50 active:bg-primary-100 focus:ring-primary-400 rounded-xl;
+  }
+
+  .section-title {
+    @apply font-display font-bold text-warm-900;
+  }
+
+  .pill-filter {
+    @apply px-3.5 py-1.5 rounded-full text-sm font-medium transition-all duration-200 cursor-pointer whitespace-nowrap;
+  }
+
+  .pill-filter-active {
+    @apply bg-primary-500 text-white shadow-sm;
+  }
+
+  .pill-filter-inactive {
+    @apply bg-warm-100 text-warm-700 hover:bg-warm-200;
   }
 
   .link {
-    @apply text-primary-500 hover:text-primary-600 underline-offset-2 hover:underline;
-  }
-
-  .container-custom {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+    @apply text-primary-600 hover:text-primary-700 underline-offset-2 hover:underline;
   }
 }
 
@@ -100,84 +102,64 @@
     text-wrap: balance;
   }
 
-  /* Fade in animations */
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  .animate-fade-up {
+    animation: fadeUp 0.65s ease-out forwards;
   }
 
-  .animate-fade-in-up {
-    animation: fadeInUp 0.6s ease-out forwards;
+  .animate-fade-in {
+    animation: fadeIn 0.45s ease-out forwards;
   }
 
-  .delay-200 {
-    animation-delay: 200ms;
+  .delay-100 { animation-delay: 100ms; }
+  .delay-200 { animation-delay: 200ms; }
+  .delay-300 { animation-delay: 300ms; }
+  .delay-400 { animation-delay: 400ms; }
+  .delay-500 { animation-delay: 500ms; }
+  .delay-600 { animation-delay: 600ms; }
+  .delay-700 { animation-delay: 700ms; }
+
+  .opacity-0-start {
+    opacity: 0;
   }
 
-  .delay-400 {
-    animation-delay: 400ms;
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 
-  .delay-700 {
-    animation-delay: 700ms;
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
   }
 
-  /* Smooth scroll */
-  html {
-    scroll-behavior: smooth;
+  @keyframes shimmer {
+    0% { background-position: -600px 0; }
+    100% { background-position: 600px 0; }
   }
 
-  /* Custom scrollbar (desktop only) */
+  .shimmer {
+    background: linear-gradient(
+      90deg,
+      #cbe3f5 0%,
+      #f8fbfd 40%,
+      #cbe3f5 80%,
+      #cbe3f5 100%
+    );
+    background-size: 600px 100%;
+    animation: shimmer 2s infinite linear;
+  }
+
+  /* Scrollbar */
   @media (min-width: 768px) {
-    ::-webkit-scrollbar {
-      width: 10px;
-      height: 10px;
-    }
-
-    ::-webkit-scrollbar-track {
-      @apply bg-warm-100;
-    }
-
-    ::-webkit-scrollbar-thumb {
-      @apply bg-warm-400 rounded-full;
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-      @apply bg-primary-500;
-    }
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: #F8F3EC; }
+    ::-webkit-scrollbar-thumb { background: #E2D0B9; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #3A7D68; }
   }
 
-  /* Selection */
-  ::selection {
-    @apply bg-primary-200 text-primary-900;
-  }
+  ::selection { background: #A5D4C3; color: #0E1F1A; }
 
-  /* Mobile-specific improvements */
-  @media (max-width: 767px) {
-    /* Larger tap targets */
-    .touch-target {
-      min-height: 44px;
-      min-width: 44px;
-    }
-
-    /* Better spacing for mobile */
-    .mobile-spacing {
-      padding: 1rem;
-    }
-
-    /* Prevent horizontal scroll */
-    body {
-      overflow-x: hidden;
-    }
-  }
-
-  /* Safe area for notched devices */
+  /* Safe area notched devices */
   @supports (padding: max(0px)) {
     body {
       padding-left: max(0px, env(safe-area-inset-left));

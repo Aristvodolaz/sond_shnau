@@ -1,29 +1,25 @@
-<template>
-  <div class="py-12 md:py-16">
-    <div class="container-custom">
-      <h1 class="text-4xl md:text-5xl font-display font-bold text-warm-900 mb-6">
-        Счастливые истории
-      </h1>
-      <p class="text-xl text-warm-700 mb-10 max-w-3xl">
-        Каждая собака имеет свою историю. Здесь мы делимся самыми трогательными и вдохновляющими 
-        рассказами о спасении, преображении и обретении дома.
-      </p>
+﻿<template>
+  <div class="min-h-screen bg-warm-50">
+    <section class="bg-white border-b border-warm-100 py-8 md:py-10">
+      <div class="container-custom">
+        <h1 class="font-display font-semibold text-2xl md:text-3xl text-warm-900 leading-tight">Счастливые истории</h1>
+        <p class="text-warm-500 mt-2 text-sm">Трогательные рассказы о спасении, преображении и обретении дома</p>
+      </div>
+    </section>
+    <div class="container-custom py-8 md:py-10">
 
       <!-- Filters -->
-      <div class="mb-8 flex flex-wrap gap-4">
-        <!-- Year Filter -->
+      <div class="mb-8 flex flex-wrap gap-3">
         <select
           v-model="filterYear"
-          class="px-4 py-2 bg-white border border-warm-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+          class="min-h-[40px] pl-3 pr-8 py-2 text-sm text-warm-900 bg-white border border-warm-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-400/30 focus:border-primary-400 hover:border-warm-300 appearance-none cursor-pointer"
         >
-          <option :value="null">Все года</option>
+          <option :value="null">Все годы</option>
           <option v-for="year in availableYears" :key="year" :value="year">{{ year }}</option>
         </select>
-
-        <!-- Part Filter -->
         <select
           v-model="filterPart"
-          class="px-4 py-2 bg-white border border-warm-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+          class="min-h-[40px] pl-3 pr-8 py-2 text-sm text-warm-900 bg-white border border-warm-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-400/30 focus:border-primary-400 hover:border-warm-300 appearance-none cursor-pointer"
         >
           <option :value="null">Все части</option>
           <option :value="1">Часть 1</option>
@@ -63,7 +59,7 @@
 
           <div class="p-5 flex-1 flex flex-col">
             <div class="flex items-center justify-between mb-3">
-              <h3 class="font-display font-bold text-xl text-warm-900">{{ story.dogName }}</h3>
+              <h3 class="font-display font-semibold text-xl text-warm-900">{{ story.dogName }}</h3>
               <UiTag variant="info" size="sm">{{ story.year }}</UiTag>
             </div>
             <p class="text-warm-700 mb-4 line-clamp-3 flex-1">{{ story.preview }}</p>

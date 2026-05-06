@@ -1,16 +1,16 @@
-<template>
-  <div class="py-12 md:py-16">
-    <div class="container-custom max-w-4xl">
-      <h1 class="text-4xl md:text-5xl font-display font-bold text-warm-900 mb-6">
-        Юридический отдел
-      </h1>
-      <p class="text-xl text-warm-700 mb-12">
-        Правовая информация для владельцев собак, волонтёров и всех, кто хочет защитить права животных.
-      </p>
+﻿<template>
+  <div class="min-h-screen bg-warm-50">
+    <section class="bg-white border-b border-warm-100 py-8 md:py-10">
+      <div class="container-custom max-w-4xl">
+        <h1 class="font-display font-semibold text-2xl md:text-3xl text-warm-900 leading-tight">Юридический отдел</h1>
+        <p class="text-warm-500 mt-2 text-sm">Правовая информация для владельцев, волонтёров и защитников животных</p>
+      </div>
+    </section>
+    <div class="container-custom max-w-4xl py-8 md:py-10">
 
       <!-- Animal Rights -->
       <UiCard class="mb-8">
-        <h2 class="text-2xl font-display font-bold text-warm-900 mb-4">Права животных в РФ</h2>
+        <h2 class="text-xl font-display font-semibold text-warm-900 mb-4">Права животных в РФ</h2>
         <div class="prose prose-warm max-w-none text-warm-700 space-y-4">
           <p>
             В России действует Федеральный закон «Об ответственном обращении с животными» от 27.12.2018 № 498-ФЗ. 
@@ -31,7 +31,7 @@
 
       <!-- Owner Responsibilities -->
       <UiCard class="mb-8">
-        <h2 class="text-2xl font-display font-bold text-warm-900 mb-4">Обязанности владельца</h2>
+        <h2 class="text-xl font-display font-semibold text-warm-900 mb-4">Обязанности владельца</h2>
         <div class="text-warm-700 space-y-4">
           <p>Владелец собаки обязан:</p>
           <div class="bg-warm-100 rounded-lg p-5 space-y-3">
@@ -65,7 +65,7 @@
 
       <!-- Cruelty -->
       <UiCard class="mb-8">
-        <h2 class="text-2xl font-display font-bold text-warm-900 mb-4">Жестокое обращение и ответственность</h2>
+        <h2 class="text-xl font-display font-semibold text-warm-900 mb-4">Жестокое обращение и ответственность</h2>
         <div class="prose prose-warm max-w-none text-warm-700 space-y-4">
           <p>
             За жестокое обращение с животными предусмотрена уголовная ответственность (ст. 245 УК РФ).
@@ -89,7 +89,7 @@
 
       <!-- Abandonment -->
       <UiCard class="mb-8">
-        <h2 class="text-2xl font-display font-bold text-warm-900 mb-4">Что делать, если не можете содержать собаку</h2>
+        <h2 class="text-xl font-display font-semibold text-warm-900 mb-4">Что делать, если не можете содержать собаку</h2>
         <div class="prose prose-warm max-w-none text-warm-700 space-y-4">
           <p>
             Бросать животное на улице — это жестокое обращение и преступление. Если вы оказались в ситуации, 
@@ -109,7 +109,7 @@
 
       <!-- Adoption Contract -->
       <UiCard class="mb-8">
-        <h2 class="text-2xl font-display font-bold text-warm-900 mb-4">Договор о передаче животного</h2>
+        <h2 class="text-xl font-display font-semibold text-warm-900 mb-4">Договор о передаче животного</h2>
         <div class="prose prose-warm max-w-none text-warm-700 space-y-4">
           <p>
             При пристройстве собаки мы заключаем договор ответственного содержания. 
@@ -131,7 +131,7 @@
 
       <!-- Lost and Found -->
       <UiCard class="mb-8">
-        <h2 class="text-2xl font-display font-bold text-warm-900 mb-4">Нашли собаку: юридические аспекты</h2>
+        <h2 class="text-xl font-display font-semibold text-warm-900 mb-4">Нашли собаку: юридические аспекты</h2>
         <div class="prose prose-warm max-w-none text-warm-700 space-y-4">
           <p>
             Если вы нашли собаку, по закону вы обязаны:
@@ -150,7 +150,7 @@
 
       <!-- Help -->
       <div class="bg-primary-50 border border-primary-200 rounded-xl p-8 text-center">
-        <h2 class="text-2xl font-display font-bold text-primary-900 mb-4">
+        <h2 class="text-xl font-display font-semibold text-primary-900 mb-4">
           Нужна юридическая консультация?
         </h2>
         <p class="text-primary-800 mb-6">

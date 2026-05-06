@@ -1,18 +1,18 @@
-<template>
-  <div class="py-12 md:py-16">
-    <div class="container-custom max-w-4xl">
-      <h1 class="text-4xl md:text-5xl font-display font-bold text-warm-900 mb-6">
-        Часто задаваемые вопросы
-      </h1>
-      <p class="text-xl text-warm-700 mb-12">
-        Собрали ответы на самые популярные вопросы о фонде, пристройстве и уходе за шнауцерами.
-      </p>
+﻿<template>
+  <div class="min-h-screen bg-warm-50">
+    <section class="bg-white border-b border-warm-100 py-8 md:py-10">
+      <div class="container-custom max-w-4xl">
+        <h1 class="font-display font-semibold text-2xl md:text-3xl text-warm-900 leading-tight">Часто задаваемые вопросы</h1>
+        <p class="text-warm-500 mt-2 text-sm">Ответы на популярные вопросы о фонде, пристройстве и уходе</p>
+      </div>
+    </section>
+    <div class="container-custom max-w-4xl py-8 md:py-10">
 
       <!-- FAQ Sections -->
       <div class="space-y-4">
         <!-- General Questions -->
         <div class="mb-8">
-          <h2 class="text-2xl font-display font-bold text-warm-900 mb-4">Общие вопросы</h2>
+          <h2 class="text-xl font-display font-semibold text-warm-900 mb-4">Общие вопросы</h2>
           <div class="space-y-3">
             <UiAccordion title="Кто вы и чем занимаетесь?">
               <p class="text-warm-700">
@@ -50,7 +50,7 @@
 
         <!-- Adoption Questions -->
         <div class="mb-8">
-          <h2 class="text-2xl font-display font-bold text-warm-900 mb-4">Вопросы о пристройстве</h2>
+          <h2 class="text-xl font-display font-semibold text-warm-900 mb-4">Вопросы о пристройстве</h2>
           <div class="space-y-3">
             <UiAccordion title="Как взять собаку из фонда?">
               <div class="text-warm-700 space-y-3">
@@ -96,7 +96,7 @@
 
         <!-- Care Questions -->
         <div class="mb-8">
-          <h2 class="text-2xl font-display font-bold text-warm-900 mb-4">Вопросы об уходе</h2>
+          <h2 class="text-xl font-display font-semibold text-warm-900 mb-4">Вопросы об уходе</h2>
           <div class="space-y-3">
             <UiAccordion title="Сложно ли ухаживать за шнауцером?">
               <p class="text-warm-700">
@@ -135,7 +135,7 @@
 
         <!-- Other Questions -->
         <div class="mb-8">
-          <h2 class="text-2xl font-display font-bold text-warm-900 mb-4">Другие вопросы</h2>
+          <h2 class="text-xl font-display font-semibold text-warm-900 mb-4">Другие вопросы</h2>
           <div class="space-y-3">
             <UiAccordion title="Что делать, если я нашёл шнауцера на улице?">
               <p class="text-warm-700">

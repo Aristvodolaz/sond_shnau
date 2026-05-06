@@ -27,7 +27,7 @@
           >
             <!-- Header -->
             <div class="flex items-center justify-between px-6 py-4 border-b border-warm-200">
-              <h2 class="text-xl font-display font-bold text-warm-900">
+              <h2 class="text-lg font-display font-semibold text-warm-900">
                 {{ title }}
               </h2>
               <button
