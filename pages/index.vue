@@ -76,19 +76,6 @@
                 <div v-else class="w-full h-full bg-gradient-to-br from-primary-200 to-primary-300" />
               </div>
             </div>
-
-            <!-- Floating stat card -->
-            <div class="absolute -bottom-4 -left-4 bg-white rounded-2xl shadow-xl p-4 flex items-center gap-3">
-              <div class="w-10 h-10 bg-primary-50 rounded-xl flex items-center justify-center">
-                <svg class="w-5 h-5 text-primary-500" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                </svg>
-              </div>
-              <div>
-                <p class="text-xl font-semibold text-warm-900 font-display leading-none">150+</p>
-                <p class="text-xs text-warm-500 mt-0.5">счастливых семей</p>
-              </div>
-            </div>
           </div>
         </div>
 
