@@ -1,10 +1,10 @@
-import type { MenuItem } from '~/types'
+import { config } from '~/utils/config'
 
 /** Видимые в шапке постоянно (не перегружают строку) */
 const menuPrimary: MenuItem[] = [
   { label: 'Главная', to: '/' },
-  { label: 'Животные', to: '/animals' },
-  { label: 'Шнауцеры дома', to: '/results/adopted' },
+  { label: 'Шнауцеры', to: '/animals' },
+  { label: 'Форум', href: config.FORUM_URL },
   { label: 'Помочь фонду', to: '/support' },
   { label: 'Контакты', to: '/contacts' }
 ]

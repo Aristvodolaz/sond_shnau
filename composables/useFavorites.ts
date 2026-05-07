@@ -59,7 +59,19 @@ export function useAnimalLabels() {
     return types[type] || type
   }
 
-  return { statusLabel, statusVariant, breedLabel }
+  const featureLabel = (f: string) => {
+    const features: Record<string, string> = {
+      VACCINATED: 'Привит',
+      TREATEDFORPARASITES: 'От паразитов',
+      STERILIZED: 'Стерилизован',
+      CASTRATED: 'Кастрирован',
+      PASSPORT: 'Есть паспорт',
+      CHIPPED: 'Чипирован'
+    }
+    return features[f.toUpperCase()] || f
+  }
+
+  return { statusLabel, statusVariant, breedLabel, featureLabel }
 }
 
 /** Digits only for wa.me / tel */

@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <div class="min-h-screen bg-warm-50">
     <section class="bg-white border-b border-warm-100 py-8 md:py-10">
       <div class="container-custom max-w-4xl">
@@ -9,144 +9,55 @@
     <div class="container-custom max-w-4xl py-8 md:py-10">
 
       <!-- Why Adopt -->
-      <UiCard class="mb-8">
-        <h2 class="text-xl font-display font-semibold text-warm-900 mb-4">Почему стоит взять собаку из фонда</h2>
-        <div class="space-y-4 text-warm-700">
-          <div class="flex items-start">
-            <svg class="w-6 h-6 text-primary-500 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-            </svg>
-            <div>
-              <h3 class="font-semibold text-warm-900 mb-1">Вы спасаете жизнь</h3>
-              <p>Каждая пристроенная собака — это освободившееся место для новой собаки в беде.</p>
-            </div>
-          </div>
-
-          <div class="flex items-start">
-            <svg class="w-6 h-6 text-primary-500 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            <div>
-              <h3 class="font-semibold text-warm-900 mb-1">Вы знаете характер собаки</h3>
-              <p>Мы честно рассказываем об особенностях каждой собаки, её здоровье и привычках.</p>
-            </div>
-          </div>
-
-          <div class="flex items-start">
-            <svg class="w-6 h-6 text-primary-500 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-            </svg>
-            <div>
-              <h3 class="font-semibold text-warm-900 mb-1">Поддержка после пристройства</h3>
-              <p>Куратор остаётся на связи, помогает советами, поддерживает в период адаптации.</p>
-            </div>
-          </div>
-
-          <div class="flex items-start">
-            <svg class="w-6 h-6 text-primary-500 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
-            </svg>
-            <div>
-              <h3 class="font-semibold text-warm-900 mb-1">Это бесплатно</h3>
-              <p>Мы не продаём собак. Вы можете добровольно помочь с расходами на лечение или транспортировку, но это не обязательно.</p>
+      <section class="mb-16">
+        <h2 class="text-3xl font-display font-extrabold text-warm-900 mb-10 text-center tracking-tight">Почему стоит взять собаку из фонда</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div v-for="benefit in benefits" :key="benefit.title" class="group bg-white p-8 rounded-[2rem] border border-warm-100 shadow-sm hover:shadow-xl hover:shadow-primary-500/5 transition-all duration-500">
+            <div class="flex items-start gap-6">
+              <div class="w-14 h-14 rounded-2xl bg-primary-50 flex items-center justify-center shrink-0 group-hover:bg-primary-500 group-hover:scale-110 transition-all duration-500">
+                <component :is="benefit.icon" class="w-7 h-7 text-primary-600 group-hover:text-white transition-colors" />
+              </div>
+              <div>
+                <h3 class="font-display font-bold text-xl text-warm-900 mb-3 group-hover:text-primary-600 transition-colors">{{ benefit.title }}</h3>
+                <p class="text-warm-500 leading-relaxed text-base">{{ benefit.desc }}</p>
+              </div>
             </div>
           </div>
         </div>
-      </UiCard>
+      </section>
 
       <!-- Process -->
-      <UiCard class="mb-8">
-        <h2 class="text-xl font-display font-semibold text-warm-900 mb-6">Как взять собаку: пошаговая инструкция</h2>
+      <section class="mb-16">
+        <h2 class="text-3xl font-display font-extrabold text-warm-900 mb-10 text-center tracking-tight">Как взять собаку: пошаговая инструкция</h2>
         <div class="space-y-6">
-          <div class="flex items-start">
-            <div class="w-9 h-9 bg-primary-500 text-white rounded-full flex items-center justify-center flex-shrink-0 mr-4 text-sm font-semibold shrink-0">1</div>
-            <div>
-              <h3 class="font-semibold text-warm-900 mb-2">Выберите собаку</h3>
-              <p class="text-warm-700 mb-2">
-                Посмотрите карточки собак на главной странице. Изучите описание, характер, особенности. 
-                Подумайте, подходит ли вам эта собака.
-              </p>
-              <UiButton to="/" variant="outline" size="sm">Посмотреть собак</UiButton>
+          <div
+            v-for="(step, i) in detailedSteps"
+            :key="i"
+            class="group bg-white rounded-[2rem] border border-warm-100 p-8 hover:border-primary-200 hover:shadow-xl hover:shadow-primary-500/5 transition-all duration-500 flex flex-col md:flex-row gap-8 items-start md:items-center"
+          >
+            <div class="relative shrink-0">
+              <div class="w-20 h-20 rounded-3xl bg-warm-50 group-hover:bg-primary-50 flex items-center justify-center transition-all duration-500 group-hover:scale-105">
+                <component :is="step.icon" class="w-10 h-10 text-warm-400 group-hover:text-primary-500 transition-colors" />
+              </div>
+              <div class="absolute -top-3 -right-3 w-9 h-9 rounded-full bg-white border-2 border-warm-100 text-warm-500 group-hover:border-primary-500 group-hover:text-primary-500 flex items-center justify-center text-sm font-extrabold shadow-sm transition-all duration-500">
+                {{ i + 1 }}
+              </div>
             </div>
-          </div>
-
-          <div class="flex items-start">
-            <div class="w-9 h-9 bg-primary-500 text-white rounded-full flex items-center justify-center flex-shrink-0 mr-4 text-sm font-semibold shrink-0">2</div>
-            <div>
-              <h3 class="font-semibold text-warm-900 mb-2">Свяжитесь с куратором</h3>
-              <p class="text-warm-700">
-                Позвоните или напишите куратору собаки (контакты указаны в карточке). 
-                Задайте все интересующие вопросы, расскажите о себе и условиях содержания.
-              </p>
-            </div>
-          </div>
-
-          <div class="flex items-start">
-            <div class="w-9 h-9 bg-primary-500 text-white rounded-full flex items-center justify-center flex-shrink-0 mr-4 text-sm font-semibold shrink-0">3</div>
-            <div>
-              <h3 class="font-semibold text-warm-900 mb-2">Познакомьтесь с собакой</h3>
-              <p class="text-warm-700">
-                Встретьтесь с собакой лично. Погуляйте, пообщайтесь, понаблюдайте за её поведением. 
-                Это важно — вы должны понравиться друг другу.
-              </p>
-            </div>
-          </div>
-
-          <div class="flex items-start">
-            <div class="w-9 h-9 bg-primary-500 text-white rounded-full flex items-center justify-center flex-shrink-0 mr-4 text-sm font-semibold shrink-0">4</div>
-            <div>
-              <h3 class="font-semibold text-warm-900 mb-2">Заполните анкету</h3>
-              <p class="text-warm-700">
-                Мы попросим вас ответить на вопросы о ваших условиях, опыте, мотивации. 
-                Это не экзамен — просто способ убедиться, что собаке будет хорошо.
-              </p>
-            </div>
-          </div>
-
-          <div class="flex items-start">
-            <div class="w-9 h-9 bg-primary-500 text-white rounded-full flex items-center justify-center flex-shrink-0 mr-4 text-sm font-semibold shrink-0">5</div>
-            <div>
-              <h3 class="font-semibold text-warm-900 mb-2">Подготовьте дом</h3>
-              <p class="text-warm-700">
-                Купите миски, лежанку, игрушки, корм. Уберите опасные предметы. 
-                Подготовьте место для собаки.
-              </p>
-            </div>
-          </div>
-
-          <div class="flex items-start">
-            <div class="w-9 h-9 bg-primary-500 text-white rounded-full flex items-center justify-center flex-shrink-0 mr-4 text-sm font-semibold shrink-0">6</div>
-            <div>
-              <h3 class="font-semibold text-warm-900 mb-2">Подпишите договор</h3>
-              <p class="text-warm-700">
-                Договор ответственного содержания — юридический документ, защищающий интересы собаки. 
-                В нём прописаны ваши обязанности и условия возврата, если что-то пойдёт не так.
-              </p>
-            </div>
-          </div>
-
-          <div class="flex items-start">
-            <div class="w-9 h-9 bg-primary-500 text-white rounded-full flex items-center justify-center flex-shrink-0 mr-4 text-sm font-semibold shrink-0">7</div>
-            <div>
-              <h3 class="font-semibold text-warm-900 mb-2">Заберите собаку домой</h3>
-              <p class="text-warm-700">
-                Поздравляем! У вас новый член семьи. Первые дни дайте собаке освоиться, будьте терпеливы.
-              </p>
-            </div>
-          </div>
-
-          <div class="flex items-start">
-            <div class="w-9 h-9 bg-primary-500 text-white rounded-full flex items-center justify-center flex-shrink-0 mr-4 text-sm font-semibold shrink-0">8</div>
-            <div>
-              <h3 class="font-semibold text-warm-900 mb-2">Адаптация и поддержка</h3>
-              <p class="text-warm-700">
-                Куратор будет на связи первые недели (иногда месяцы). Не стесняйтесь задавать вопросы, 
-                делиться успехами и трудностями.
-              </p>
+            <div class="flex-1">
+              <h3 class="font-display font-bold text-xl text-warm-900 mb-3 group-hover:text-primary-600 transition-colors">{{ step.title }}</h3>
+              <p class="text-warm-500 leading-relaxed text-base">{{ step.desc }}</p>
+              <div v-if="i === 0" class="mt-5">
+                <NuxtLink to="/animals" class="inline-flex items-center gap-2 text-primary-600 font-bold hover:gap-3 transition-all">
+                  Посмотреть всех шнауцеров
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </NuxtLink>
+              </div>
             </div>
           </div>
         </div>
-      </UiCard>
+      </section>
 
       <!-- Questionnaire -->
       <UiCard class="mb-8">
@@ -192,47 +103,19 @@
       </UiCard>
 
       <!-- Requirements -->
-      <UiCard class="mb-8">
-        <h2 class="text-xl font-display font-semibold text-warm-900 mb-4">Что мы ожидаем от вас</h2>
-        <ul class="space-y-3 text-warm-700">
-          <li class="flex items-start">
-            <svg class="w-5 h-5 text-primary-500 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-            </svg>
-            <span>Любовь, забота и терпение</span>
-          </li>
-          <li class="flex items-start">
-            <svg class="w-5 h-5 text-primary-500 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-            </svg>
-            <span>Финансовую стабильность для обеспечения нужд собаки</span>
-          </li>
-          <li class="flex items-start">
-            <svg class="w-5 h-5 text-primary-500 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-            </svg>
-            <span>Подходящие условия содержания</span>
-          </li>
-          <li class="flex items-start">
-            <svg class="w-5 h-5 text-primary-500 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-            </svg>
-            <span>Время для прогулок, воспитания, игр</span>
-          </li>
-          <li class="flex items-start">
-            <svg class="w-5 h-5 text-primary-500 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-            </svg>
-            <span>Готовность обращаться к ветеринару при необходимости</span>
-          </li>
-          <li class="flex items-start">
-            <svg class="w-5 h-5 text-primary-500 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-            </svg>
-            <span>Честность и открытость в общении с куратором</span>
-          </li>
-        </ul>
-      </UiCard>
+      <section class="mb-12">
+        <h2 class="text-2xl font-display font-bold text-warm-900 mb-6 text-center">Что мы ожидаем от вас</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div v-for="req in requirements" :key="req" class="flex items-center gap-3 bg-white p-4 rounded-xl border border-warm-100 group hover:border-primary-200 transition-colors">
+            <div class="w-8 h-8 rounded-lg bg-primary-50 flex items-center justify-center shrink-0 group-hover:bg-primary-500 transition-colors">
+              <svg class="w-5 h-5 text-primary-600 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+            <span class="text-warm-700 text-sm font-medium">{{ req }}</span>
+          </div>
+        </div>
+      </section>
 
       <!-- CTA -->
       <div class="bg-primary-50 border border-primary-200 rounded-xl p-8 text-center">
@@ -282,4 +165,127 @@ const copyQuestionnaire = async () => {
     console.error('Failed to copy:', err)
   }
 }
+
+const benefits = [
+  {
+    title: 'Вы спасаете жизнь',
+    desc: 'Каждая пристроенная собака — это освободившееся место для новой собаки в беде.',
+    icon: defineComponent({
+      render: () => h('svg', { class: 'w-full h-full', fill: 'none', stroke: 'currentColor', viewBox: '0 0 24 24' }, [
+        h('path', { 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'stroke-width': '2', d: 'M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z' })
+      ])
+    })
+  },
+  {
+    title: 'Вы знаете характер собаки',
+    desc: 'Мы честно рассказываем об особенностях каждой собаки, её здоровье и привычках.',
+    icon: defineComponent({
+      render: () => h('svg', { class: 'w-full h-full', fill: 'none', stroke: 'currentColor', viewBox: '0 0 24 24' }, [
+        h('path', { 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'stroke-width': '2', d: 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z' })
+      ])
+    })
+  },
+  {
+    title: 'Поддержка после пристройства',
+    desc: 'Куратор остаётся на связи, помогает советами, поддерживает в период адаптации.',
+    icon: defineComponent({
+      render: () => h('svg', { class: 'w-full h-full', fill: 'none', stroke: 'currentColor', viewBox: '0 0 24 24' }, [
+        h('path', { 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'stroke-width': '2', d: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z' })
+      ])
+    })
+  },
+  {
+    title: 'Это бесплатно',
+    desc: 'Мы не продаём собак. Вы можете добровольно помочь с расходами на лечение, но это не обязательно.',
+    icon: defineComponent({
+      render: () => h('svg', { class: 'w-full h-full', fill: 'none', stroke: 'currentColor', viewBox: '0 0 24 24' }, [
+        h('path', { 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'stroke-width': '2', d: 'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1' })
+      ])
+    })
+  }
+]
+
+const detailedSteps = [
+  {
+    title: 'Выберите собаку',
+    desc: 'Посмотрите карточки собак на главной странице. Изучите описание, характер, особенности.',
+    icon: defineComponent({
+      render: () => h('svg', { class: 'w-full h-full', fill: 'none', stroke: 'currentColor', viewBox: '0 0 24 24' }, [
+        h('path', { 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'stroke-width': '2', d: 'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z' })
+      ])
+    })
+  },
+  {
+    title: 'Свяжитесь с куратором',
+    desc: 'Позвоните или напишите куратору собаки (контакты указаны в карточке).',
+    icon: defineComponent({
+      render: () => h('svg', { class: 'w-full h-full', fill: 'none', stroke: 'currentColor', viewBox: '0 0 24 24' }, [
+        h('path', { 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'stroke-width': '2', d: 'M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z' })
+      ])
+    })
+  },
+  {
+    title: 'Познакомьтесь с собакой',
+    desc: 'Встретьтесь с собакой лично. Погуляйте, пообщайтесь, понаблюдайте за её поведением.',
+    icon: defineComponent({
+      render: () => h('svg', { class: 'w-full h-full', fill: 'none', stroke: 'currentColor', viewBox: '0 0 24 24' }, [
+        h('path', { 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'stroke-width': '2', d: 'M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z' })
+      ])
+    })
+  },
+  {
+    title: 'Заполните анкету',
+    desc: 'Мы попросим вас ответить на вопросы о ваших условиях, опыте, мотивации.',
+    icon: defineComponent({
+      render: () => h('svg', { class: 'w-full h-full', fill: 'none', stroke: 'currentColor', viewBox: '0 0 24 24' }, [
+        h('path', { 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'stroke-width': '2', d: 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01' })
+      ])
+    })
+  },
+  {
+    title: 'Подготовьте дом',
+    desc: 'Купите миски, лежанку, игрушки, корм. Уберите опасные предметы.',
+    icon: defineComponent({
+      render: () => h('svg', { class: 'w-full h-full', fill: 'none', stroke: 'currentColor', viewBox: '0 0 24 24' }, [
+        h('path', { 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'stroke-width': '2', d: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6' })
+      ])
+    })
+  },
+  {
+    title: 'Подпишите договор',
+    desc: 'Договор ответственного содержания — юридический документ, защищающий интересы собаки.',
+    icon: defineComponent({
+      render: () => h('svg', { class: 'w-full h-full', fill: 'none', stroke: 'currentColor', viewBox: '0 0 24 24' }, [
+        h('path', { 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'stroke-width': '2', d: 'M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z' })
+      ])
+    })
+  },
+  {
+    title: 'Заберите собаку домой',
+    desc: 'Поздравляем! У вас новый член семьи. Первые дни дайте собаке освоиться.',
+    icon: defineComponent({
+      render: () => h('svg', { class: 'w-full h-full', fill: 'none', stroke: 'currentColor', viewBox: '0 0 24 24' }, [
+        h('path', { 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'stroke-width': '2', d: 'M14 5l7 7m0 0l-7 7m7-7H3' })
+      ])
+    })
+  },
+  {
+    title: 'Адаптация и поддержка',
+    desc: 'Куратор будет на связи первые недели (иногда месяцы).',
+    icon: defineComponent({
+      render: () => h('svg', { class: 'w-full h-full', fill: 'none', stroke: 'currentColor', viewBox: '0 0 24 24' }, [
+        h('path', { 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'stroke-width': '2', d: 'M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z' })
+      ])
+    })
+  }
+]
+
+const requirements = [
+  'Любовь, забота и терпение',
+  'Финансовая стабильность',
+  'Подходящие условия',
+  'Время для прогулок',
+  'Готовность к ветеринару',
+  'Честность с куратором'
+]
 </script>

@@ -74,7 +74,7 @@ const helpOptions = [
     title: 'Взять питомца',
     desc: 'Просматривайте анкеты, фильтруйте по городу и породе, связывайтесь напрямую с куратором.',
     to: '/animals',
-    btnLabel: 'Смотреть животных',
+    btnLabel: 'Смотреть шнауцеров',
     btnClass: 'btn-primary',
     iconBg: 'bg-primary-50',
     iconColor: 'text-primary-500',

@@ -12,6 +12,8 @@ export interface AnimalsQuery {
   page: number
   pageSize: number
   sort: 'date_desc' | 'date_asc'
+  /** List of IDs to filter by */
+  ids?: string[]
   /** When true, ignore pagination and return full list (legacy /api/dogs) */
   legacyAll?: boolean
 }
@@ -51,6 +53,7 @@ export function parseAnimalsQuery(event: H3Event): AnimalsQuery {
     page: parsePositiveInt(first(q.page) as string | undefined, 1),
     pageSize: parsePositiveInt(first(q.pageSize) as string | undefined, 12, 48),
     sort: first(q.sort) === 'date_asc' ? 'date_asc' : 'date_desc',
+    ids: Array.isArray(q.ids) ? q.ids : (typeof q.ids === 'string' ? q.ids.split(',') : undefined),
     legacyAll: first(q.legacyAll) === '1' || first(q.all) === '1'
   }
 }
@@ -93,6 +96,15 @@ export async function fetchAnimalsList(opts: AnimalsQuery): Promise<AnimalListRe
     )
     params.push(term, term, term, term, term)
     i += 5
+  }
+  
+  if (opts.ids && opts.ids.length > 0) {
+    const validIds = opts.ids.filter(id => id.length > 0)
+    if (validIds.length > 0) {
+      conditions.push(`id = ANY($${i})`)
+      params.push(validIds)
+      i++
+    }
   }
 
   const whereSql = conditions.length ? `WHERE ${conditions.join(' AND ')}` : ''

@@ -11,30 +11,29 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
           <!-- Text block -->
-          <div>
-            <div class="inline-flex items-center gap-2 bg-primary-50 border border-primary-200 px-4 py-2 rounded-full mb-6 opacity-0-start animate-fade-up">
-              <span class="w-2 h-2 bg-primary-500 rounded-full animate-pulse" />
-              <span class="text-sm font-semibold text-primary-700">{{ animalsCountText }}</span>
+          <div class="max-w-xl">
+            <div class="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm border border-primary-100 px-3 py-1.5 rounded-full mb-6 opacity-0-start animate-fade-up shadow-sm">
+              <span class="flex h-2 w-2 relative">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2 w-2 bg-primary-500"></span>
+              </span>
+              <span class="text-xs font-bold text-primary-700 uppercase tracking-wider">{{ animalsCountText }}</span>
             </div>
 
-            <h1 class="font-display font-semibold text-warm-900 text-3xl sm:text-4xl lg:text-5xl leading-tight mb-5 opacity-0-start animate-fade-up delay-100">
-              Каждая собака<br />
-              <span class="text-primary-500">заслуживает дома</span>
+            <h1 class="font-display font-extrabold text-warm-900 text-4xl sm:text-5xl lg:text-6xl leading-[1.1] mb-6 opacity-0-start animate-fade-up delay-100">
+              Каждый шнауцер <span class="text-primary-500 relative">заслуживает дом<span class="absolute -bottom-2 left-0 w-full h-1.5 bg-primary-100 -z-10 rounded-full"></span></span>
             </h1>
 
-            <p class="text-warm-600 text-base md:text-lg leading-relaxed mb-8 max-w-md opacity-0-start animate-fade-up delay-200">
-              Мы спасаем и пристраиваем шнауцеров в любящие семьи уже более 10 лет. Найдите своего питомца сегодня.
+            <p class="text-warm-600 text-lg md:text-xl leading-relaxed mb-10 opacity-0-start animate-fade-up delay-200">
+              Мы спасаем, лечим и пристраиваем шнауцеров в любящие семьи уже более 20 лет. Найдите своего питомца сегодня.
             </p>
 
-            <div class="flex flex-col sm:flex-row gap-3 opacity-0-start animate-fade-up delay-300">
-              <NuxtLink to="/animals" class="btn-primary px-8 py-4 text-base shadow-md hover:shadow-lg">
+            <div class="flex flex-col sm:flex-row gap-4 opacity-0-start animate-fade-up delay-300">
+              <NuxtLink to="/animals" class="btn-primary px-10 py-5 text-lg shadow-xl shadow-primary-500/20 hover:shadow-primary-500/30 hover:-translate-y-0.5 transition-all">
                 Найти питомца
-                <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
               </NuxtLink>
-              <NuxtLink to="/support" class="btn-outline px-8 py-4 text-base">
-                Помочь фонду
+              <NuxtLink to="/support" class="btn-outline px-10 py-5 text-lg border-2 hover:bg-warm-100/50 transition-all">
+                Помочь проекту
               </NuxtLink>
             </div>
           </div>
@@ -96,50 +95,21 @@
       </div>
     </section>
 
-    <!-- ─── QUICK FILTERS ─────────────────────────────────────── -->
-    <section class="bg-warm-50/80 border-b border-warm-200/60">
+
+
+    <!-- ─── FEATURED ANIMALS ──────────────────────────────────── -->
+    <section class="py-20 bg-warm-50/50">
       <div class="container-custom">
-        <div class="flex items-center gap-2 py-3 overflow-x-auto scrollbar-none -mx-1 px-1">
-          <span class="text-xs font-semibold text-warm-400 uppercase tracking-wider shrink-0">Статус:</span>
-          <button
-            v-for="opt in statusOptions"
-            :key="opt.value"
-            type="button"
-            :class="['pill-filter shrink-0', filterStatus === opt.value ? 'pill-filter-active' : 'pill-filter-inactive']"
-            @click="setFilter(opt.value)"
-          >
-            {{ opt.label }}
-          </button>
-          <div class="ml-auto shrink-0">
-            <NuxtLink to="/animals" class="text-sm font-semibold text-primary-600 hover:text-primary-700 whitespace-nowrap flex items-center gap-1">
-              Все фильтры
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
-              </svg>
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+          <div>
+            <h2 class="font-display font-bold text-3xl md:text-4xl text-warm-900 mb-2">Наши подопечные</h2>
+            <p class="text-warm-500 text-lg">Те, кто ищет дом и любящую семью прямо сейчас</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <NuxtLink to="/animals" class="btn-outline px-6 py-2.5 text-sm font-bold border-warm-200">
+              Смотреть всех
             </NuxtLink>
           </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ─── ANIMALS GRID ───────────────────────────────────────── -->
-    <section class="py-8 md:py-10">
-      <div class="container-custom">
-        <div class="flex items-end justify-between mb-6">
-          <div>
-            <h2 class="font-display font-semibold text-2xl md:text-3xl text-warm-900 leading-tight">
-              {{ currentStatusLabel }}
-            </h2>
-            <p v-if="!dogsPending && animalsBlock" class="text-warm-500 mt-1 text-sm">
-              {{ animalsBlock.total }} {{ pluralAnimals(animalsBlock.total) }}
-            </p>
-          </div>
-          <NuxtLink to="/animals" class="hidden sm:inline-flex items-center gap-2 text-primary-600 hover:text-primary-700 font-semibold text-sm transition-colors">
-            Смотреть всех
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </NuxtLink>
         </div>
 
         <!-- Grid -->
@@ -154,7 +124,7 @@
             <svg class="w-12 h-12 mx-auto mb-4 opacity-40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
-            <p class="text-lg font-medium">В этой категории пока нет животных</p>
+            <p class="text-lg font-medium">В этой категории пока нет собак</p>
           </div>
         </div>
 
@@ -182,31 +152,60 @@
         </div>
 
         <div class="mt-8 text-center sm:hidden">
-          <NuxtLink to="/animals" class="btn-outline px-8 py-3">Все животные</NuxtLink>
+          <NuxtLink to="/animals" class="btn-outline px-8 py-3">Все шнауцеры</NuxtLink>
         </div>
       </div>
     </section>
 
     <!-- ─── HOW IT WORKS ──────────────────────────────────────── -->
-    <section class="py-12 md:py-16 bg-white border-y border-warm-100">
-      <div class="container-custom">
-        <div class="text-center mb-8">
-          <h2 class="font-display font-semibold text-2xl md:text-3xl text-warm-900 mb-2">Как взять питомца</h2>
-          <p class="text-warm-500 text-sm max-w-md mx-auto">Простой процесс в четыре шага — от знакомства до нового члена семьи</p>
+    <section class="py-24 bg-white relative overflow-hidden">
+      <!-- Decorative background elements -->
+      <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-7xl pointer-events-none opacity-20">
+        <div class="absolute top-20 left-10 w-64 h-64 bg-primary-100 rounded-full blur-3xl" />
+        <div class="absolute bottom-20 right-10 w-96 h-96 bg-warm-100 rounded-full blur-3xl" />
+      </div>
+
+      <div class="container-custom relative z-10">
+        <div class="text-center mb-20">
+          <h2 class="font-display font-extrabold text-3xl md:text-5xl text-warm-900 mb-6 tracking-tight">Как забрать питомца домой</h2>
+          <p class="text-warm-500 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">Мы сделали процесс адопции максимально прозрачным и комфортным для вас и вашего будущего друга</p>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
           <div
-            v-for="(step, i) in steps"
+            v-for="(step, i) in adoptionSteps"
             :key="i"
-            class="bg-warm-50 rounded-2xl p-5 hover:bg-white hover:shadow-md hover:-translate-y-0.5 transition-all duration-250 border border-warm-100"
+            class="relative group"
           >
-            <div class="w-9 h-9 rounded-xl mb-4 flex items-center justify-center text-sm font-semibold font-display bg-primary-500 text-white shadow-sm">
-              {{ i + 1 }}
+            <!-- Step number & Icon -->
+            <div class="mb-8 flex items-center justify-center relative">
+              <!-- Connecting line -->
+              <div v-if="i < 3" class="hidden lg:block absolute top-1/2 left-[calc(50%+40px)] w-[calc(100%-80px)] h-0.5 bg-gradient-to-r from-primary-200 to-transparent z-0" />
+
+              <div class="w-20 h-20 rounded-3xl bg-white shadow-xl shadow-warm-200/50 flex items-center justify-center relative z-10 group-hover:-translate-y-2 transition-all duration-500 border border-warm-100">
+                <div class="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-primary-500 text-white flex items-center justify-center font-display font-bold text-sm shadow-lg shadow-primary-500/30">
+                  {{ i + 1 }}
+                </div>
+                <component :is="step.icon" class="w-10 h-10 text-primary-500 group-hover:scale-110 transition-transform duration-500" />
+              </div>
             </div>
-            <h3 class="font-semibold text-warm-900 text-sm mb-1.5">{{ step.title }}</h3>
-            <p class="text-warm-500 text-xs leading-relaxed">{{ step.desc }}</p>
+
+            <!-- Content -->
+            <div class="text-center">
+              <h3 class="font-display font-bold text-xl text-warm-900 mb-4 group-hover:text-primary-600 transition-colors">{{ step.title }}</h3>
+              <p class="text-warm-500 leading-relaxed text-base">{{ step.desc }}</p>
+            </div>
           </div>
+        </div>
+
+        <!-- CTA in section -->
+        <div class="mt-20 text-center">
+          <NuxtLink to="/animals" class="inline-flex items-center gap-2 text-primary-600 font-bold hover:gap-3 transition-all group">
+            Перейти в каталог шнауцеров
+            <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </NuxtLink>
         </div>
       </div>
     </section>
@@ -294,12 +293,47 @@ const statusOptions = [
   { value: 'pensioner', label: 'Пенсионеры' }
 ]
 
-const steps = [
-  { title: 'Выбираете', desc: 'Изучаете анкеты, фильтруете по городу и породе, добавляете в избранное.' },
-  { title: 'Связываетесь', desc: 'Нажимаете «Позвонить» или «Написать» — без поиска номера в тексте.' },
-  { title: 'Знакомитесь', desc: 'Встречаетесь с куратором и питомцем, задаёте все вопросы.' },
-  { title: 'Забираете', desc: 'Оформляете договор и забираете питомца в любящий дом.' }
+const adoptionSteps = [
+  {
+    title: 'Выбираете',
+    desc: 'Изучаете анкеты, фильтруете по породе и характеру, добавляете в избранное.',
+    icon: defineComponent({
+      render: () => h('svg', { class: 'w-full h-full', fill: 'none', stroke: 'currentColor', viewBox: '0 0 24 24' }, [
+        h('path', { 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'stroke-width': '2', d: 'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z' }),
+        h('path', { 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'stroke-width': '2', d: 'M9 10h.01M15 10h.01M12 12h.01' })
+      ])
+    })
+  },
+  {
+    title: 'Связываетесь',
+    desc: 'Нажимаете «Позвонить» или «Написать» — всё общение в удобном мессенджере.',
+    icon: defineComponent({
+      render: () => h('svg', { class: 'w-full h-full', fill: 'none', stroke: 'currentColor', viewBox: '0 0 24 24' }, [
+        h('path', { 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'stroke-width': '2', d: 'M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z' })
+      ])
+    })
+  },
+  {
+    title: 'Знакомитесь',
+    desc: 'Встречаетесь с куратором и питомцем, задаёте все важные вопросы.',
+    icon: defineComponent({
+      render: () => h('svg', { class: 'w-full h-full', fill: 'none', stroke: 'currentColor', viewBox: '0 0 24 24' }, [
+        h('path', { 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'stroke-width': '2', d: 'M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z' })
+      ])
+    })
+  },
+  {
+    title: 'Забираете',
+    desc: 'Оформляем договор ответственного содержания и вы обретаете друга.',
+    icon: defineComponent({
+      render: () => h('svg', { class: 'w-full h-full', fill: 'none', stroke: 'currentColor', viewBox: '0 0 24 24' }, [
+        h('path', { 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'stroke-width': '2', d: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6' })
+      ])
+    })
+  }
 ]
+
+
 
 const filterStatus = ref<'looking' | 'foster' | 'pensioner'>('looking')
 const homeDogPage = ref(1)
@@ -310,10 +344,19 @@ const currentStatusLabel = computed(() => {
     foster: 'На передержке',
     pensioner: 'Пенсионеры'
   }
-  return map[filterStatus.value] || 'Животные'
+  return map[filterStatus.value] || 'Шнауцеры'
 })
 
 function setFilter(val: string) {
+  const breeds = ['riesenschnauzer', 'mittelschnauzer', 'zwergschnauzer', 'metis']
+  if (breeds.includes(val)) {
+    navigateTo({ path: '/animals', query: { type: val } })
+    return
+  }
+  if (val === 'pensioner') {
+    navigateTo({ path: '/animals', query: { status: 'pensioner' } })
+    return
+  }
   filterStatus.value = val as 'looking' | 'foster' | 'pensioner'
   homeDogPage.value = 1
 }
@@ -338,10 +381,10 @@ const animalsCountText = computed(() => {
 })
 
 function pluralAnimals(n: number) {
-  if (n % 100 >= 11 && n % 100 <= 19) return 'животных'
-  if (n % 10 === 1) return 'животное'
-  if (n % 10 >= 2 && n % 10 <= 4) return 'животных'
-  return 'животных'
+  if (n % 100 >= 11 && n % 100 <= 19) return 'собак'
+  if (n % 10 === 1) return 'собака'
+  if (n % 10 >= 2 && n % 10 <= 4) return 'собаки'
+  return 'собак'
 }
 
 // Hero photos from first loaded dogs

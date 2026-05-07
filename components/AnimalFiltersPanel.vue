@@ -73,15 +73,31 @@
       </div>
     </div>
 
-    <!-- Breed select -->
+    <!-- Species (Category) -->
     <div>
+      <label class="block text-xs font-semibold text-warm-600 uppercase tracking-wide mb-2">Вид питомца</label>
+      <select
+        :value="model.species || 'all'"
+        :class="selectClass"
+        @change="emitPatch({ species: ($event.target as HTMLSelectElement).value })"
+      >
+        <option value="all">Все животные</option>
+        <option value="dog">Собаки</option>
+        <option value="cat">Кошки</option>
+        <option value="bird">Птицы</option>
+        <option value="other">Другие</option>
+      </select>
+    </div>
+
+    <!-- Breed select -->
+    <div v-if="model.species === 'dog' || model.species === 'all'">
       <label class="block text-xs font-semibold text-warm-600 uppercase tracking-wide mb-2">Порода</label>
       <select
         :value="model.type"
         :class="selectClass"
         @change="emitPatch({ type: ($event.target as HTMLSelectElement).value })"
       >
-        <option value="all">Все породы</option>
+        <option value="all">Любая порода</option>
         <option value="riesenschnauzer">Ризеншнауцер</option>
         <option value="mittelschnauzer">Миттельшнауцер</option>
         <option value="zwergschnauzer">Цвергшнауцер</option>
@@ -117,6 +133,7 @@
 export interface AnimalFiltersModel {
   q: string
   city: string
+  species: string
   type: string
   status: string
   age: string

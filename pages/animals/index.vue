@@ -2,12 +2,14 @@
   <div class="min-h-screen bg-warm-50">
 
     <!-- Page header -->
-    <section class="bg-white border-b border-warm-100 pt-8 md:pt-10 pb-5">
+    <section class="bg-white border-b border-warm-100 py-12">
       <div class="container-custom">
-        <h1 class="font-display font-semibold text-2xl md:text-3xl text-warm-900 leading-tight">Все животные</h1>
-        <p class="text-warm-500 mt-1.5 text-sm">
-          <template v-if="!pending">Найдено: <strong class="text-warm-800">{{ data?.total ?? 0 }}</strong> {{ pluralAnimals(data?.total ?? 0) }}</template>
-          <template v-else>Поиск…</template>
+        <h1 class="font-display font-bold text-4xl text-warm-900 leading-tight mb-2">Найти друга</h1>
+        <p class="text-warm-500 text-lg">
+          <template v-if="!pending">
+            Мы нашли <strong class="text-primary-600">{{ data?.total ?? 0 }}</strong> {{ pluralAnimals(data?.total ?? 0) }}, которые ищут новый дом
+          </template>
+          <template v-else>Ищем лучших питомцев для вас…</template>
         </p>
       </div>
     </section>
@@ -206,7 +208,7 @@ import type { AnimalListResponse } from '~/types'
 import type { AnimalFiltersModel } from '~/components/AnimalFiltersPanel.vue'
 
 useHead({
-  title: 'Животные',
+  title: 'Шнауцеры',
   meta: [{ name: 'description', content: 'Поиск анкет шнауцеров: город, статус, порода, возраст. Пагинация.' }]
 })
 
@@ -231,6 +233,7 @@ const ageLabels: Record<string, string> = {
 const filterUi = computed<AnimalFiltersModel>(() => ({
   q: String(route.query.q || ''),
   city: String(route.query.city || ''),
+  species: String(route.query.species || 'all'),
   type: String(route.query.type || 'all'),
   status: String(route.query.status || 'all'),
   age: String(route.query.age || 'all'),
@@ -242,6 +245,7 @@ const activeFilterCount = computed(() => {
   let n = 0
   if (f.q.trim()) n++
   if (f.city.trim()) n++
+  if (f.species !== 'all') n++
   if (f.type !== 'all') n++
   if (f.status !== 'all') n++
   if (f.age !== 'all') n++
@@ -254,6 +258,7 @@ function filtersToQuery(f: AnimalFiltersModel, page: number): Record<string, str
   if (page > 1) q.page = String(page)
   if (f.q.trim()) q.q = f.q.trim()
   if (f.city.trim()) q.city = f.city.trim()
+  if (f.species !== 'all') q.species = f.species
   if (f.type !== 'all') q.type = f.type
   if (f.status !== 'all') q.status = f.status
   if (f.age !== 'all') q.age = f.age
@@ -266,6 +271,7 @@ const apiQuery = computed(() => {
   const out: Record<string, string> = { page: String(Number(q.page) || 1), pageSize: '12' }
   if (q.q) out.q = String(q.q)
   if (q.city) out.city = String(q.city)
+  if (q.species && q.species !== 'all') out.species = String(q.species)
   if (q.type && q.type !== 'all') out.type = String(q.type)
   if (q.status && q.status !== 'all') out.status = String(q.status)
   if (q.age && q.age !== 'all') out.age = String(q.age)
@@ -308,9 +314,9 @@ function goPage(p: number) {
 }
 
 function pluralAnimals(n: number) {
-  if (n % 100 >= 11 && n % 100 <= 19) return 'животных'
-  if (n % 10 === 1) return 'животное'
-  if (n % 10 >= 2 && n % 10 <= 4) return 'животных'
-  return 'животных'
+  if (n % 100 >= 11 && n % 100 <= 19) return 'собак'
+  if (n % 10 === 1) return 'собака'
+  if (n % 10 >= 2 && n % 10 <= 4) return 'собаки'
+  return 'собак'
 }
 </script>

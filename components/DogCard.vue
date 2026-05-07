@@ -35,15 +35,17 @@
       <!-- Favorite -->
       <button
         type="button"
-        class="absolute top-2 right-2 w-8 h-8 bg-white/90 backdrop-blur-sm rounded-xl flex items-center justify-center shadow-sm hover:bg-white transition-all duration-200 hover:scale-110"
+        class="absolute top-2 right-2 w-9 h-9 bg-white/90 backdrop-blur-sm rounded-xl flex items-center justify-center shadow-sm hover:bg-white active:scale-90 transition-all duration-300 z-10 group/fav"
         :aria-pressed="favorited"
         :title="favorited ? 'Убрать из избранного' : 'В избранное'"
         @click.prevent.stop="toggleFavorite"
       >
         <svg
-          class="w-4 h-4 transition-colors duration-200"
-          :class="favorited ? 'text-red-500' : 'text-warm-400'"
-          :fill="favorited ? 'currentColor' : 'none'"
+          class="w-5 h-5 transition-all duration-500 transform"
+          :class="[
+            favorited ? 'text-red-500 scale-110 fill-current animate-heart-pop' : 'text-warm-400 group-hover/fav:text-red-300'
+          ]"
+          fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
         >
@@ -57,8 +59,19 @@
 
       <!-- Name + breed -->
       <div class="min-w-0">
-        <h3 class="font-semibold text-base text-warm-900 truncate leading-snug">{{ dog.name }}</h3>
-        <p class="text-xs text-warm-400 mt-0.5 truncate">{{ breedLabel(dog.type) }}</p>
+        <h3 class="font-bold text-lg text-warm-900 truncate leading-tight group-hover:text-primary-600 transition-colors">{{ dog.name }}</h3>
+        <p class="text-xs font-medium text-warm-400 mt-0.5 truncate uppercase tracking-wider">{{ breedLabel(dog.type) }}</p>
+      </div>
+
+      <!-- Tags (Features) -->
+      <div v-if="dog.features?.length" class="flex flex-wrap gap-1.5">
+        <span
+          v-for="feat in dog.features.slice(0, 2)"
+          :key="feat"
+          class="px-2 py-1 bg-primary-50 text-primary-700 text-[10px] font-bold rounded-md border border-primary-100 uppercase tracking-tighter"
+        >
+          {{ featureLabel(feat) }}
+        </span>
       </div>
 
       <!-- Age + city -->
@@ -96,7 +109,7 @@ import type { Dog } from '~/types'
 
 const props = defineProps<{ dog: Dog }>()
 const { resolveMediaUrl } = useMediaUrl()
-const { statusLabel, breedLabel } = useAnimalLabels()
+const { statusLabel, breedLabel, featureLabel } = useAnimalLabels()
 const { has, toggle } = useFavorites()
 
 const favorited = computed(() => has(props.dog.id))

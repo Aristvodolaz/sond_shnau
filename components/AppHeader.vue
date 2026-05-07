@@ -21,16 +21,26 @@
 
         <!-- Desktop nav -->
         <div class="hidden lg:flex items-center gap-0.5 flex-1 justify-center">
-          <NuxtLink
-            v-for="item in menuPrimary"
-            :key="item.label"
-            :to="item.to!"
-            class="relative px-3.5 py-2 text-sm font-medium text-warm-600 hover:text-warm-900 transition-colors duration-200 rounded-lg hover:bg-warm-100/60 group"
-            active-class="!text-primary-600 !font-semibold"
-          >
-            {{ item.label }}
-            <span class="absolute bottom-1 left-3 right-3 h-0.5 bg-primary-500 rounded-full scale-x-0 group-[.router-link-active]:scale-x-100 transition-transform duration-250" />
-          </NuxtLink>
+          <template v-for="item in menuPrimary" :key="item.label">
+            <NuxtLink
+              v-if="item.to"
+              :to="item.to"
+              class="relative px-3.5 py-2 text-sm font-medium text-warm-600 hover:text-warm-900 transition-colors duration-200 rounded-lg hover:bg-warm-100/60 group"
+              active-class="!text-primary-600 !font-semibold"
+            >
+              {{ item.label }}
+              <span class="absolute bottom-1 left-3 right-3 h-0.5 bg-primary-500 rounded-full scale-x-0 group-[.router-link-active]:scale-x-100 transition-transform duration-250" />
+            </NuxtLink>
+            <a
+              v-else-if="item.href"
+              :href="item.href"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="relative px-3.5 py-2 text-sm font-medium text-warm-600 hover:text-warm-900 transition-colors duration-200 rounded-lg hover:bg-warm-100/60 group"
+            >
+              {{ item.label }}
+            </a>
+          </template>
 
           <div v-if="menuMore.length" class="relative group/more">
             <button
@@ -43,14 +53,24 @@
               </svg>
             </button>
             <div class="absolute left-0 top-full mt-2 w-56 bg-white rounded-2xl shadow-xl border border-warm-100/80 py-2 opacity-0 invisible group-hover/more:opacity-100 group-hover/more:visible transition-all duration-200 z-[60]">
-              <NuxtLink
-                v-for="item in menuMore"
-                :key="item.label"
-                :to="item.to!"
-                class="block px-4 py-2.5 text-sm text-warm-700 hover:bg-warm-50 hover:text-primary-600 transition-colors"
-              >
-                {{ item.label }}
-              </NuxtLink>
+                <template v-for="item in menuMore" :key="item.label">
+                  <NuxtLink
+                    v-if="item.to"
+                    :to="item.to"
+                    class="block px-4 py-2.5 text-sm text-warm-700 hover:bg-warm-50 hover:text-primary-600 transition-colors"
+                  >
+                    {{ item.label }}
+                  </NuxtLink>
+                  <a
+                    v-else-if="item.href"
+                    :href="item.href"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="block px-4 py-2.5 text-sm text-warm-700 hover:bg-warm-50 hover:text-primary-600 transition-colors"
+                  >
+                    {{ item.label }}
+                  </a>
+                </template>
             </div>
           </div>
         </div>
@@ -71,10 +91,16 @@
             >{{ favCount }}</span>
           </NuxtLink>
           <NuxtLink
+            to="/support"
+            class="btn-outline px-5 py-2 text-sm border-primary-200 text-primary-700 hover:bg-primary-50"
+          >
+            Поддержать
+          </NuxtLink>
+          <NuxtLink
             to="/animals"
             class="btn-primary px-5 py-2 text-sm"
           >
-            Найти питомца
+            Найти друга
           </NuxtLink>
         </div>
 
@@ -115,29 +141,56 @@
       >
         <div v-if="mobileMenuOpen" class="lg:hidden border-t border-warm-100 py-3 pb-4">
           <div class="flex flex-col gap-0.5">
-            <NuxtLink
-              v-for="item in menuPrimary"
-              :key="item.label"
-              :to="item.to!"
-              class="px-4 py-2.5 rounded-xl text-warm-800 hover:bg-warm-50 font-medium transition-colors"
-              active-class="bg-primary-50 text-primary-700 font-semibold"
-              @click="mobileMenuOpen = false"
-            >
-              {{ item.label }}
-            </NuxtLink>
+            <template v-for="item in menuPrimary" :key="item.label">
+              <NuxtLink
+                v-if="item.to"
+                :to="item.to"
+                class="px-4 py-2.5 rounded-xl text-warm-800 hover:bg-warm-50 font-medium transition-colors"
+                active-class="bg-primary-50 text-primary-700 font-semibold"
+                @click="mobileMenuOpen = false"
+              >
+                {{ item.label }}
+              </NuxtLink>
+              <a
+                v-else-if="item.href"
+                :href="item.href"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="px-4 py-2.5 rounded-xl text-warm-800 hover:bg-warm-50 font-medium transition-colors"
+                @click="mobileMenuOpen = false"
+              >
+                {{ item.label }}
+              </a>
+            </template>
             <div class="border-t border-warm-100 my-2 mx-1" />
-            <NuxtLink
-              v-for="item in menuMore"
-              :key="'m-' + item.label"
-              :to="item.to!"
-              class="px-4 py-2 rounded-xl text-warm-600 hover:bg-warm-50 text-sm transition-colors"
-              @click="mobileMenuOpen = false"
-            >
-              {{ item.label }}
-            </NuxtLink>
+            <template v-for="item in menuMore" :key="'m-' + item.label">
+              <NuxtLink
+                v-if="item.to"
+                :to="item.to"
+                class="px-4 py-2 rounded-xl text-warm-600 hover:bg-warm-50 text-sm transition-colors"
+                @click="mobileMenuOpen = false"
+              >
+                {{ item.label }}
+              </NuxtLink>
+              <a
+                v-else-if="item.href"
+                :href="item.href"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="px-4 py-2 rounded-xl text-warm-600 hover:bg-warm-50 text-sm transition-colors"
+                @click="mobileMenuOpen = false"
+              >
+                {{ item.label }}
+              </a>
+            </template>
             <div class="pt-3 px-1">
-              <NuxtLink to="/animals" class="btn-primary w-full py-3 text-center text-sm" @click="mobileMenuOpen = false">
-                Найти питомца
+              <NuxtLink to="/animals" class="btn-primary w-full py-3.5 text-center text-sm shadow-md" @click="mobileMenuOpen = false">
+                Найти друга
+              </NuxtLink>
+            </div>
+            <div class="px-1 mt-2">
+              <NuxtLink to="/support" class="btn-outline w-full py-3.5 text-center text-sm border-primary-200 text-primary-700" @click="mobileMenuOpen = false">
+                Помочь фонду
               </NuxtLink>
             </div>
           </div>

@@ -18,7 +18,7 @@
             </div>
           </div>
           <p class="text-warm-400 leading-relaxed text-sm max-w-xs">
-            Спасаем, лечим и пристраиваем шнауцеров в добрые руки. Каждая собака заслуживает любви и безопасного дома.
+            Спасаем, лечим и пристраиваем шнауцеров в добрые руки. Каждый шнауцер заслуживает любви и безопасного дома.
           </p>
           <div class="flex items-center gap-3 mt-6">
             <a
@@ -75,11 +75,11 @@
               {{ config.EMAIL }}
             </a>
           </div>
-          <NuxtLink to="/animals" class="inline-flex items-center gap-2 mt-6 btn-primary px-5 py-2.5 text-sm">
+          <NuxtLink to="/animals" class="inline-flex items-center gap-2 mt-6 btn-primary px-6 py-3 text-sm shadow-lg shadow-primary-900/20">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
-            Взять питомца
+            Найти друга
           </NuxtLink>
         </div>
       </div>
@@ -95,11 +95,11 @@
 import { config } from '~/utils/config'
 
 const quickLinks = [
-  { label: 'Главная', to: '/' },
-  { label: 'Все животные', to: '/animals' },
-  { label: 'Избранное', to: '/favorites' },
-  { label: 'Помочь фонду', to: '/support' },
+  { label: 'Каталог питомцев', to: '/animals' },
+  { label: 'Помочь проекту', to: '/support' },
+  { label: 'Счастливые истории', to: '/stories' },
+  { label: 'Потеряшки', to: '/lost-found' },
   { label: 'О нас', to: '/about' },
-  { label: 'Контакты', to: '/contacts' }
+  { label: 'Форум', to: config.FORUM_URL, external: true }
 ]
 </script>

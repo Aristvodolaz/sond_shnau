@@ -1,10 +1,11 @@
 <template>
   <div class="min-h-screen flex flex-col">
     <AppHeader />
-    <main class="flex-1">
+    <main class="flex-1 pb-16 sm:pb-0">
       <slot />
     </main>
-    <AppFooter />
+    <AppFooter class="hidden sm:block" />
+    <AppBottomNav />
   </div>
 </template>
 

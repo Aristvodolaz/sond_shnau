@@ -103,6 +103,7 @@ export interface RssItem {
 export interface MenuItem {
   label: string
   to?: string
+  href?: string
   external?: boolean
   children?: MenuItem[]
 }
