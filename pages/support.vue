@@ -36,20 +36,7 @@
         </NuxtLink>
       </div>
 
-      <!-- Impact stats -->
-      <div class="relative overflow-hidden bg-primary-500 rounded-3xl p-8 md:p-10 text-white mb-10">
-        <div class="absolute -top-8 -right-8 w-48 h-48 bg-white/10 rounded-full" />
-        <div class="absolute -bottom-6 -left-6 w-32 h-32 bg-white/5 rounded-full" />
-        <div class="relative z-10">
-          <h2 class="font-display font-semibold text-lg md:text-xl mb-6 text-center">За 10 лет работы</h2>
-          <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-            <div v-for="stat in impactStats" :key="stat.label">
-              <p class="font-display font-semibold text-2xl md:text-3xl mb-1 leading-none">{{ stat.value }}</p>
-              <p class="text-primary-200 text-xs mt-1">{{ stat.label }}</p>
-            </div>
-          </div>
-        </div>
-      </div>
+  
 
       <!-- Bottom CTA -->
       <div class="text-center py-6">
