@@ -26,23 +26,7 @@
 
     <div class="container-custom relative z-10 -mt-8">
 
-      <!-- Important -->
-      <div class="glass p-8 md:p-10 rounded-[3rem] border-white/60 shadow-lg relative overflow-hidden mb-16 bg-gradient-to-br from-amber-50 to-white">
-        <div class="absolute right-0 top-0 w-64 h-64 bg-amber-400/20 rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none" />
-        <div class="flex items-start gap-6 relative z-10">
-          <div class="w-16 h-16 rounded-3xl bg-amber-100 flex items-center justify-center shrink-0 text-amber-600 shadow-sm">
-            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-            </svg>
-          </div>
-          <div>
-            <h3 class="font-display font-black text-2xl text-amber-900 mb-3">Важно понимать</h3>
-            <p class="text-amber-800/80 leading-relaxed text-base md:text-lg">
-              Бросать собаку — это жестокое обращение. Собака на улице испытывает сильный стресс, может попасть под машину, заболеть или погибнуть. Обратитесь к нам — мы не осуждаем, мы помогаем.
-            </p>
-          </div>
-        </div>
-      </div>
+
 
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 mb-16">
         
@@ -55,7 +39,8 @@
               <div class="w-14 h-14 rounded-2xl bg-primary-500 text-white flex items-center justify-center shrink-0 font-black text-xl shadow-md group-hover:scale-110 transition-transform">1</div>
               <div>
                 <h3 class="font-display font-bold text-xl text-warm-900 mb-2 group-hover:text-primary-600 transition-colors">Свяжитесь с нами</h3>
-                <p class="text-warm-500 leading-relaxed text-sm md:text-base">Позвоните или напишите. Расскажите о вашей ситуации и собаке. Мы внимательно выслушаем и постараемся помочь.</p>
+                <p class="text-warm-500 leading-relaxed text-sm md:text-base mb-4">Позвоните или напишите. Расскажите о вашей ситуации и собаке. Мы внимательно выслушаем и постараемся помочь.</p>
+                <NuxtLink to="/contacts" class="btn-primary py-2.5 px-6 text-sm rounded-xl">Связаться с фондом</NuxtLink>
               </div>
             </div>
 
@@ -63,7 +48,8 @@
               <div class="w-14 h-14 rounded-2xl bg-primary-500 text-white flex items-center justify-center shrink-0 font-black text-xl shadow-md group-hover:scale-110 transition-transform">2</div>
               <div>
                 <h3 class="font-display font-bold text-xl text-warm-900 mb-2 group-hover:text-primary-600 transition-colors">Заполните анкету</h3>
-                <p class="text-warm-500 leading-relaxed text-sm md:text-base">Ответьте на вопросы о собаке: возраст, характер, здоровье. Это нужно для поиска идеальной семьи.</p>
+                <p class="text-warm-500 leading-relaxed text-sm md:text-base mb-4">Ответьте на вопросы о собаке: возраст, характер, здоровье. Это нужно для поиска идеальной семьи.</p>
+                <button @click="scrollToQuestionnaire" class="btn-primary py-2.5 px-6 text-sm rounded-xl">Анкета</button>
               </div>
             </div>
 
@@ -71,7 +57,7 @@
               <div class="w-14 h-14 rounded-2xl bg-primary-500 text-white flex items-center justify-center shrink-0 font-black text-xl shadow-md group-hover:scale-110 transition-transform">3</div>
               <div>
                 <h3 class="font-display font-bold text-xl text-warm-900 mb-2 group-hover:text-primary-600 transition-colors">Передача и документы</h3>
-                <p class="text-warm-500 leading-relaxed text-sm md:text-base">Мы организуем передачу собаки куратору. Потребуется ветпаспорт и письменный отказ от прав (формальность).</p>
+                <p class="text-warm-500 leading-relaxed text-sm md:text-base">Мы организуем передачу собаки куратору или сразу новым хозяевам, по обстоятельствам. Ветпаспорт не обязателен, только отказ.</p>
               </div>
             </div>
 
@@ -104,7 +90,7 @@
                 <div class="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center shrink-0 mt-1">
                   <svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" /></svg>
                 </div>
-                <span class="text-primary-50 text-sm font-semibold leading-relaxed">Ветпаспорт (или информация о прививках)</span>
+                <span class="text-primary-50 text-sm font-semibold leading-relaxed">Ветпаспорт (если есть)</span>
               </li>
               <li class="flex items-start gap-3">
                 <div class="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center shrink-0 mt-1">
@@ -186,7 +172,7 @@
         <div class="absolute -bottom-24 -left-24 w-64 h-64 bg-primary-400/20 rounded-full blur-3xl pointer-events-none" />
         
         <h2 class="relative z-10 text-3xl md:text-4xl font-display font-black text-warm-900 mb-4 tracking-tight">
-          Готовы передать собаку?
+          Хотите отдать собаку?
         </h2>
         <p class="relative z-10 text-warm-600 text-lg max-w-xl mx-auto mb-8">
           Свяжитесь с нами, и мы поможем найти вашей собаке новый любящий дом.
@@ -228,5 +214,8 @@ const copyQuestionnaire = async () => {
   } catch (err) {
     console.error('Failed to copy:', err)
   }
+}
+const scrollToQuestionnaire = () => {
+  questionnaireRef.value?.scrollIntoView({ behavior: 'smooth' })
 }
 </script>

@@ -28,7 +28,7 @@
             </h1>
 
             <p class="text-warm-600 text-lg md:text-xl leading-relaxed mb-10 max-w-lg animate-fade-up delay-100">
-              Помогаем шнауцерам найти новый дом уже более 20 лет. Профессиональный уход, любовь и забота в каждой истории.
+              Помогаем шнауцерам, попавшим в беду.
             </p>
 
             <div class="flex flex-col sm:flex-row gap-5 animate-fade-up delay-200">

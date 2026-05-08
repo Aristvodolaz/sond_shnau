@@ -213,56 +213,45 @@
               </div>
             </div>
 
-            <!-- Tabs -->
-            <div class="mb-5">
-              <div class="flex gap-1 p-1 bg-warm-100 rounded-2xl mb-5">
-                <button
-                  v-for="tab in tabs"
-                  :key="tab.id"
-                  type="button"
-                  :class="[
-                    'flex-1 py-2 px-3 text-xs font-bold rounded-xl transition-all duration-200 whitespace-nowrap',
-                    activeTab === tab.id
-                      ? 'bg-white text-warm-900 shadow-sm'
-                      : 'text-warm-500 hover:text-warm-800'
-                  ]"
-                  @click="activeTab = tab.id"
-                >
-                  {{ tab.label }}
-                </button>
+            <!-- Description sections -->
+            <div class="space-y-10">
+              <!-- About -->
+              <div>
+                <h3 class="text-xs font-black uppercase tracking-widest text-warm-400 mb-3">О собаке</h3>
+                <p v-if="dog.description?.trim()" class="text-warm-700 leading-relaxed text-[15px] whitespace-pre-line">{{ dog.description }}</p>
+                <p v-else class="text-warm-400 italic text-sm">Описание не добавлено.</p>
               </div>
 
-              <!-- Tab content -->
-              <div class="min-h-[100px]">
-                <div v-if="activeTab === 'about'">
-                  <p v-if="dog.description?.trim()" class="text-warm-700 leading-relaxed text-[15px] whitespace-pre-line">{{ dog.description }}</p>
-                  <p v-else class="text-warm-400 italic text-sm">Описание не добавлено.</p>
-                </div>
-                <div v-else-if="activeTab === 'character'">
-                  <p v-if="dog.character?.trim()" class="text-warm-700 leading-relaxed text-[15px] whitespace-pre-line">{{ dog.character }}</p>
-                  <p v-else class="text-warm-400 italic text-sm">Характер не описан.</p>
-                </div>
-                <div v-else-if="activeTab === 'health'">
-                  <div class="rounded-2xl bg-primary-50 border border-primary-100 p-4">
-                    <div class="flex items-start gap-3">
-                      <div class="w-8 h-8 rounded-xl bg-primary-100 flex items-center justify-center shrink-0 mt-0.5">
-                        <svg class="w-4 h-4 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
-                        </svg>
-                      </div>
-                      <p class="text-primary-900 leading-relaxed text-[15px] whitespace-pre-line">{{ dog.health || 'Данные о здоровье не указаны.' }}</p>
+              <!-- Character -->
+              <div v-if="dog.character?.trim()">
+                <h3 class="text-xs font-black uppercase tracking-widest text-warm-400 mb-3">Характер</h3>
+                <p class="text-warm-700 leading-relaxed text-[15px] whitespace-pre-line">{{ dog.character }}</p>
+              </div>
+
+              <!-- Health -->
+              <div>
+                <h3 class="text-xs font-black uppercase tracking-widest text-warm-400 mb-3">Здоровье</h3>
+                <div class="rounded-2xl bg-primary-50 border border-primary-100 p-4">
+                  <div class="flex items-start gap-3">
+                    <div class="w-8 h-8 rounded-xl bg-primary-100 flex items-center justify-center shrink-0 mt-0.5">
+                      <svg class="w-4 h-4 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                      </svg>
                     </div>
+                    <p class="text-primary-900 leading-relaxed text-[15px] whitespace-pre-line">{{ dog.health || 'Данные о здоровье не указаны.' }}</p>
                   </div>
                 </div>
-                <div v-else-if="activeTab === 'story'">
-                  <p v-if="dog.story?.trim()" class="text-warm-700 leading-relaxed text-[15px] whitespace-pre-line">{{ dog.story }}</p>
-                  <p v-else class="text-warm-400 italic text-sm">История пока не рассказана.</p>
-                </div>
+              </div>
+
+              <!-- Story -->
+              <div v-if="dog.story?.trim()">
+                <h3 class="text-xs font-black uppercase tracking-widest text-warm-400 mb-3">История</h3>
+                <p class="text-warm-700 leading-relaxed text-[15px] whitespace-pre-line">{{ dog.story }}</p>
               </div>
             </div>
 
             <!-- Contact section -->
-            <div class="rounded-2xl border border-warm-100 bg-white overflow-hidden mb-4" style="box-shadow: 0 2px 12px rgba(0,0,0,.05);">
+            <div class="rounded-2xl border border-warm-100 bg-white overflow-hidden mb-4 mt-12" style="box-shadow: 0 2px 12px rgba(0,0,0,.05);">
               <div class="px-5 py-3.5 border-b border-warm-100 flex items-center justify-between">
                 <div>
                   <p class="text-xs font-black uppercase tracking-widest text-warm-400">Куратор</p>
@@ -492,16 +481,8 @@ const { data: dog, pending } = await useFetch<Dog>(`/api/animals/${slug}`)
 const currentPhoto = ref('')
 const currentPhotoIndex = ref(0)
 const requestOpen = ref(false)
-const activeTab = ref('about')
 const lightboxOpen = ref(false)
 const lightboxIndex = ref(0)
-
-const tabs = [
-  { id: 'about',     label: 'О собаке' },
-  { id: 'character', label: 'Характер' },
-  { id: 'health',    label: 'Здоровье' },
-  { id: 'story',     label: 'История' }
-]
 
 watch(dog, (d) => {
   if (d?.photos?.length) {

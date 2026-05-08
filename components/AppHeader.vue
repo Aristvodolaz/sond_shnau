@@ -10,12 +10,12 @@
 
         <!-- Logo -->
         <NuxtLink to="/" class="flex items-center gap-3 group shrink-0" aria-label="Главная">
-          <div class="w-9 h-9 md:w-10 md:h-10 rounded-full overflow-hidden ring-2 ring-primary-100 group-hover:ring-primary-300 transition-all duration-200 shrink-0">
+          <div class="w-11 h-11 md:w-14 md:h-14 rounded-full overflow-hidden ring-2 ring-primary-100 group-hover:ring-primary-300 transition-all duration-200 shrink-0">
             <img src="/images/logo/logo.png" alt="Логотип" class="w-full h-full object-cover" />
           </div>
           <div class="hidden md:block leading-tight">
-            <div class="font-hobo text-sm text-primary-800 leading-none tracking-wide">Фонд помощи</div>
-            <div class="font-hobo text-xs text-primary-400 tracking-wide">шнауцерам</div>
+            <div class="font-hobo text-base md:text-lg text-primary-800 leading-none tracking-wide">Фонд помощи</div>
+            <div class="font-hobo text-sm md:text-base text-primary-400 tracking-wide">шнауцерам</div>
           </div>
         </NuxtLink>
 

@@ -75,7 +75,7 @@ export function useAnimalLabels() {
   const featureLabel = (f: string) => {
     const features: Record<string, string> = {
       VACCINATED: 'Привит',
-      TREATEDFORPARASITES: 'От паразитов',
+      TREATEDFORPARASITES: 'Обработан(а) от паразитов',
       STERILIZED: 'Стерилизован',
       CASTRATED: 'Кастрирован',
       PASSPORT: 'Есть паспорт',
