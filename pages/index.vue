@@ -1,196 +1,187 @@
 <template>
   <div>
     <!-- ─── HERO ─────────────────────────────────────────────── -->
-    <section class="relative bg-warm-50 overflow-hidden">
-      <!-- Background texture -->
-      <div class="absolute inset-0 opacity-30"
-        style="background-image: radial-gradient(circle at 20% 50%, #A5D4C3 0%, transparent 50%), radial-gradient(circle at 80% 20%, #EBB89D 0%, transparent 40%);"
-      />
+    <section class="relative min-h-[90vh] flex items-center overflow-hidden bg-warm-50">
+      <!-- Background elements -->
+      <div class="absolute inset-0 z-0">
+        <div class="absolute top-[-10%] left-[-5%] w-[40%] h-[60%] bg-primary-100/40 rounded-full blur-[120px] animate-pulse" />
+        <div class="absolute bottom-[-10%] right-[-5%] w-[50%] h-[70%] bg-terra-100/30 rounded-full blur-[140px]" />
+        <div class="absolute top-[20%] right-[10%] w-[30%] h-[40%] bg-primary-50/50 rounded-full blur-[100px]" />
+      </div>
 
-      <div class="container-custom relative z-10 py-16 md:py-20 lg:py-24">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-
-          <!-- Text block -->
-          <div class="max-w-xl">
-            <div class="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm border border-primary-100 px-3 py-1.5 rounded-full mb-6 opacity-0-start animate-fade-up shadow-sm">
-              <span class="flex h-2 w-2 relative">
+      <div class="container-custom relative z-10 py-12 md:py-20">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          <!-- Text Content -->
+          <div class="lg:col-span-7 max-w-2xl">
+            <div class="inline-flex items-center gap-2.5 glass px-4 py-2 rounded-full mb-8 animate-fade-down shadow-sm">
+              <span class="flex h-2.5 w-2.5 relative">
                 <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-400 opacity-75"></span>
-                <span class="relative inline-flex rounded-full h-2 w-2 bg-primary-500"></span>
+                <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-primary-500"></span>
               </span>
-              <span class="text-xs font-bold text-primary-700 uppercase tracking-wider">{{ animalsCountText }}</span>
+              <span class="text-xs font-extrabold text-primary-700 uppercase tracking-[0.15em]">{{ animalsCountText }}</span>
             </div>
 
-            <h1 class="font-display font-extrabold text-warm-900 text-4xl sm:text-5xl lg:text-6xl leading-[1.1] mb-6 opacity-0-start animate-fade-up delay-100">
-              Каждый шнауцер <span class="text-primary-500 relative">заслуживает дом<span class="absolute -bottom-2 left-0 w-full h-1.5 bg-primary-100 -z-10 rounded-full"></span></span>
+            <h1 class="font-display font-extrabold text-warm-900 text-5xl md:text-7xl lg:text-8xl leading-[0.95] mb-8 animate-fade-up tracking-tight">
+              Шнауцеры <br/> 
+              <span class="text-primary-500 italic font-display font-medium">ищут семью</span>
             </h1>
 
-            <p class="text-warm-600 text-lg md:text-xl leading-relaxed mb-10 opacity-0-start animate-fade-up delay-200">
-              Мы спасаем, лечим и пристраиваем шнауцеров в любящие семьи уже более 20 лет. Найдите своего питомца сегодня.
+            <p class="text-warm-600 text-lg md:text-xl leading-relaxed mb-10 max-w-lg animate-fade-up delay-100">
+              Помогаем шнауцерам найти новый дом уже более 20 лет. Профессиональный уход, любовь и забота в каждой истории.
             </p>
 
-            <div class="flex flex-col sm:flex-row gap-4 opacity-0-start animate-fade-up delay-300">
-              <NuxtLink to="/animals" class="btn-primary px-10 py-5 text-lg shadow-xl shadow-primary-500/20 hover:shadow-primary-500/30 hover:-translate-y-0.5 transition-all">
-                Найти питомца
+            <div class="flex flex-col sm:flex-row gap-5 animate-fade-up delay-200">
+              <NuxtLink to="/animals" class="btn-primary px-10 py-5 text-lg rounded-2xl shadow-xl shadow-primary-500/25 hover:scale-105 active:scale-95 transition-all group">
+                Найти друга
+                <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
               </NuxtLink>
-              <NuxtLink to="/support" class="btn-outline px-10 py-5 text-lg border-2 hover:bg-warm-100/50 transition-all">
-                Помочь проекту
+              <NuxtLink to="/support" class="btn border-2 border-warm-200 bg-white/50 backdrop-blur-sm px-10 py-5 text-lg rounded-2xl hover:bg-white hover:border-primary-200 transition-all">
+                Поддержать фонд
               </NuxtLink>
             </div>
           </div>
 
-          <!-- Photo mosaic -->
-          <div class="relative hidden lg:grid grid-cols-2 gap-3 h-[500px] opacity-0-start animate-fade-up delay-200">
-            <div class="space-y-3">
-              <div class="rounded-2xl overflow-hidden h-[200px] bg-warm-100 relative">
-                <template v-if="heroPhotos[0]">
-                  <img :src="resolveMediaUrl(heroPhotos[0])" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover scale-110 blur-2xl opacity-50 saturate-150 pointer-events-none" />
-                  <img :src="resolveMediaUrl(heroPhotos[0])" class="relative w-full h-full object-contain" alt="" />
-                </template>
-                <div v-else class="w-full h-full bg-gradient-to-br from-primary-100 to-primary-200 flex items-center justify-center">
-                  <svg class="w-12 h-12 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                  </svg>
+          <!-- Hero Image/Mosaic -->
+          <div class="lg:col-span-5 relative hidden lg:block">
+            <div class="relative z-10 grid grid-cols-2 gap-4 animate-fade-in delay-200">
+              <div class="space-y-4 pt-12">
+                <div class="aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-2xl rotate-[-2deg] hover:rotate-0 transition-transform duration-500 border-4 border-white">
+                   <img v-if="heroPhotos[0]" :src="resolveMediaUrl(heroPhotos[0])" class="w-full h-full object-cover" />
+                   <div v-else class="w-full h-full bg-primary-100" />
+                </div>
+                <div class="aspect-square rounded-[2rem] overflow-hidden shadow-xl rotate-[4deg] hover:rotate-0 transition-transform duration-500 border-4 border-white">
+                   <img v-if="heroPhotos[1]" :src="resolveMediaUrl(heroPhotos[1])" class="w-full h-full object-cover" />
+                   <div v-else class="w-full h-full bg-warm-200" />
                 </div>
               </div>
-              <div class="rounded-2xl overflow-hidden bg-warm-100 relative flex-1" style="height: calc(300px - 0.75rem)">
-                <template v-if="heroPhotos[1]">
-                  <img :src="resolveMediaUrl(heroPhotos[1])" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover scale-110 blur-2xl opacity-50 saturate-150 pointer-events-none" />
-                  <img :src="resolveMediaUrl(heroPhotos[1])" class="relative w-full h-full object-contain" alt="" />
-                </template>
-                <div v-else class="w-full h-full bg-gradient-to-br from-primary-100 to-primary-200" />
+              <div class="space-y-4">
+                <div class="aspect-square rounded-[2.5rem] overflow-hidden shadow-2xl rotate-[2deg] hover:rotate-0 transition-transform duration-500 border-4 border-white">
+                   <img v-if="heroPhotos[2]" :src="resolveMediaUrl(heroPhotos[2])" class="w-full h-full object-cover" />
+                   <div v-else class="w-full h-full bg-terra-100" />
+                </div>
+                <div class="aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-xl rotate-[-4deg] hover:rotate-0 transition-transform duration-500 border-4 border-white">
+                   <img v-if="heroPhotos[3]" :src="resolveMediaUrl(heroPhotos[3])" class="w-full h-full object-cover" />
+                   <div v-else class="w-full h-full bg-primary-50" />
+                </div>
               </div>
             </div>
-            <div class="space-y-3 pt-8">
-              <div class="rounded-2xl overflow-hidden bg-warm-100 relative flex-1" style="height: calc(280px - 0.75rem)">
-                <template v-if="heroPhotos[2]">
-                  <img :src="resolveMediaUrl(heroPhotos[2])" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover scale-110 blur-2xl opacity-50 saturate-150 pointer-events-none" />
-                  <img :src="resolveMediaUrl(heroPhotos[2])" class="relative w-full h-full object-contain" alt="" />
-                </template>
-                <div v-else class="w-full h-full bg-gradient-to-br from-warm-200 to-warm-300" />
-              </div>
-              <div class="rounded-2xl overflow-hidden h-[200px] bg-warm-100 relative">
-                <template v-if="heroPhotos[3]">
-                  <img :src="resolveMediaUrl(heroPhotos[3])" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover scale-110 blur-2xl opacity-50 saturate-150 pointer-events-none" />
-                  <img :src="resolveMediaUrl(heroPhotos[3])" class="relative w-full h-full object-contain" alt="" />
-                </template>
-                <div v-else class="w-full h-full bg-gradient-to-br from-primary-200 to-primary-300" />
-              </div>
-            </div>
-          </div>
-        </div>
 
+            <!-- Floating Decoration -->
+            <div class="absolute -top-10 -right-10 w-32 h-32 bg-terra-400/10 rounded-full blur-2xl animate-pulse" />
+            <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-primary-400/10 rounded-full blur-2xl animate-pulse delay-700" />
+          </div>
+
+        </div>
       </div>
     </section>
 
 
 
     <!-- ─── FEATURED ANIMALS ──────────────────────────────────── -->
-    <section class="py-20 bg-warm-50/50">
+    <section class="py-24 bg-white relative">
       <div class="container-custom">
-        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
-          <div>
-            <h2 class="font-display font-bold text-3xl md:text-4xl text-warm-900 mb-2">Наши подопечные</h2>
-            <p class="text-warm-500 text-lg">Те, кто ищет дом и любящую семью прямо сейчас</p>
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
+          <div class="max-w-xl">
+            <h2 class="font-display font-extrabold text-4xl md:text-5xl text-warm-900 mb-4 tracking-tight">Подопечные фонда</h2>
+            <p class="text-warm-500 text-lg md:text-xl leading-relaxed">Шнауцеры, которые прямо сейчас ждут свою семью. Каждый со своим характером и историей.</p>
           </div>
-          <div class="flex items-center gap-3">
-            <NuxtLink to="/animals" class="btn-outline px-6 py-2.5 text-sm font-bold border-warm-200">
-              Смотреть всех
+          <div class="flex items-center gap-4">
+            <NuxtLink to="/animals" class="btn border-2 border-warm-100 hover:border-primary-200 hover:bg-primary-50 px-8 py-3.5 font-bold transition-all">
+              Весь каталог
             </NuxtLink>
           </div>
         </div>
 
         <!-- Grid -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           <template v-if="dogsPending">
             <DogCardSkeleton v-for="i in HOME_PAGE_SIZE" :key="i" />
           </template>
           <template v-else-if="pagedDogs.length">
             <DogCard v-for="dog in pagedDogs" :key="dog.id" :dog="dog" />
           </template>
-          <div v-else class="col-span-full text-center py-16 text-warm-500">
-            <svg class="w-12 h-12 mx-auto mb-4 opacity-40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div v-else class="col-span-full text-center py-20 text-warm-400 bg-warm-50 rounded-[3rem] border-2 border-dashed border-warm-200">
+            <svg class="w-16 h-16 mx-auto mb-6 opacity-20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
-            <p class="text-lg font-medium">В этой категории пока нет собак</p>
+            <p class="text-xl font-medium">В этой категории пока пусто</p>
           </div>
         </div>
 
         <!-- Pagination -->
-        <div v-if="!dogsPending && totalDogPages > 1" class="mt-10 flex justify-center items-center gap-2">
+        <div v-if="!dogsPending && totalDogPages > 1" class="mt-16 flex justify-center items-center gap-3">
           <button
-            class="w-10 h-10 rounded-xl border-2 border-warm-200 flex items-center justify-center hover:border-primary-400 disabled:opacity-40 transition-colors"
+            class="w-12 h-12 rounded-2xl border-2 border-warm-100 flex items-center justify-center hover:border-primary-400 hover:text-primary-600 disabled:opacity-30 transition-all active:scale-90"
             :disabled="homeDogPage <= 1"
             @click="homeDogPage = Math.max(1, homeDogPage - 1)"
           >
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7" />
             </svg>
           </button>
-          <span class="px-4 py-2 text-sm font-semibold text-warm-700">{{ homeDogPage }} / {{ totalDogPages }}</span>
+          <div class="glass px-6 py-3 rounded-2xl font-display font-bold text-warm-700 shadow-sm">
+            {{ homeDogPage }} <span class="text-warm-300 mx-1">/</span> {{ totalDogPages }}
+          </div>
           <button
-            class="w-10 h-10 rounded-xl border-2 border-warm-200 flex items-center justify-center hover:border-primary-400 disabled:opacity-40 transition-colors"
+            class="w-12 h-12 rounded-2xl border-2 border-warm-100 flex items-center justify-center hover:border-primary-400 hover:text-primary-600 disabled:opacity-30 transition-all active:scale-90"
             :disabled="homeDogPage >= totalDogPages"
             @click="homeDogPage = Math.min(totalDogPages, homeDogPage + 1)"
           >
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
             </svg>
           </button>
-        </div>
-
-        <div class="mt-8 text-center sm:hidden">
-          <NuxtLink to="/animals" class="btn-outline px-8 py-3">Все шнауцеры</NuxtLink>
         </div>
       </div>
     </section>
 
     <!-- ─── HOW IT WORKS ──────────────────────────────────────── -->
-    <section class="py-24 bg-white relative overflow-hidden">
-      <!-- Decorative background elements -->
-      <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-7xl pointer-events-none opacity-20">
-        <div class="absolute top-20 left-10 w-64 h-64 bg-primary-100 rounded-full blur-3xl" />
-        <div class="absolute bottom-20 right-10 w-96 h-96 bg-warm-100 rounded-full blur-3xl" />
+    <section class="py-32 bg-warm-50 relative overflow-hidden">
+      <!-- Decorative background -->
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full pointer-events-none">
+        <div class="absolute top-[10%] left-[10%] w-[30%] h-[30%] bg-primary-100/30 rounded-full blur-[120px]" />
+        <div class="absolute bottom-[10%] right-[10%] w-[40%] h-[40%] bg-terra-100/20 rounded-full blur-[140px]" />
       </div>
 
       <div class="container-custom relative z-10">
-        <div class="text-center mb-20">
-          <h2 class="font-display font-extrabold text-3xl md:text-5xl text-warm-900 mb-6 tracking-tight">Как забрать питомца домой</h2>
-          <p class="text-warm-500 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">Мы сделали процесс адопции максимально прозрачным и комфортным для вас и вашего будущего друга</p>
+        <div class="text-center mb-24">
+          <h2 class="font-display font-black text-4xl md:text-6xl text-warm-900 mb-6 tracking-tight">Путь к новому другу</h2>
+          <p class="text-warm-500 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">Мы помогаем вам и питомцу найти друг друга и обеспечиваем поддержку на каждом этапе</p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div
             v-for="(step, i) in adoptionSteps"
             :key="i"
-            class="relative group"
+            class="group relative"
           >
-            <!-- Step number & Icon -->
-            <div class="mb-8 flex items-center justify-center relative">
-              <!-- Connecting line -->
-              <div v-if="i < 3" class="hidden lg:block absolute top-1/2 left-[calc(50%+40px)] w-[calc(100%-80px)] h-0.5 bg-gradient-to-r from-primary-200 to-transparent z-0" />
-
-              <div class="w-20 h-20 rounded-3xl bg-white shadow-xl shadow-warm-200/50 flex items-center justify-center relative z-10 group-hover:-translate-y-2 transition-all duration-500 border border-warm-100">
-                <div class="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-primary-500 text-white flex items-center justify-center font-display font-bold text-sm shadow-lg shadow-primary-500/30">
-                  {{ i + 1 }}
+            <div class="glass p-8 rounded-[2.5rem] h-full border-white/40 group-hover:shadow-xl group-hover:-translate-y-2 transition-all duration-500">
+              <!-- Step Number & Icon -->
+              <div class="mb-8 flex items-center justify-between">
+                <div class="w-16 h-16 rounded-2xl bg-primary-500 text-white flex items-center justify-center shadow-lg shadow-primary-500/30 group-hover:scale-110 transition-transform duration-500">
+                  <component :is="step.icon" class="w-8 h-8" />
                 </div>
-                <component :is="step.icon" class="w-10 h-10 text-primary-500 group-hover:scale-110 transition-transform duration-500" />
+                <span class="font-display font-black text-4xl text-warm-200/50 group-hover:text-primary-500/20 transition-colors">0{{ i + 1 }}</span>
               </div>
+
+              <!-- Content -->
+              <h3 class="font-display font-bold text-2xl text-warm-900 mb-4 group-hover:text-primary-600 transition-colors">{{ step.title }}</h3>
+              <p class="text-warm-500 leading-relaxed">{{ step.desc }}</p>
             </div>
 
-            <!-- Content -->
-            <div class="text-center">
-              <h3 class="font-display font-bold text-xl text-warm-900 mb-4 group-hover:text-primary-600 transition-colors">{{ step.title }}</h3>
-              <p class="text-warm-500 leading-relaxed text-base">{{ step.desc }}</p>
-            </div>
+            <!-- Connecting line (desktop) -->
+            <div v-if="i < 3" class="hidden lg:block absolute top-1/2 -right-4 w-8 h-0.5 border-t-2 border-dashed border-warm-200 z-0" />
           </div>
         </div>
 
-        <!-- CTA in section -->
         <div class="mt-20 text-center">
-          <NuxtLink to="/animals" class="inline-flex items-center gap-2 text-primary-600 font-bold hover:gap-3 transition-all group">
-            Перейти в каталог шнауцеров
-            <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          <NuxtLink to="/animals" class="inline-flex items-center gap-3 text-primary-600 font-black text-lg hover:gap-5 transition-all group">
+            Посмотреть всех шнауцеров
+            <svg class="w-6 h-6 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
           </NuxtLink>
         </div>
@@ -198,63 +189,75 @@
     </section>
 
     <!-- ─── NEWS + RSS ───────────────────────────────────────── -->
-    <section class="py-10 md:py-14 bg-warm-50">
+    <section class="py-24 bg-white">
       <div class="container-custom">
-        <div class="flex items-end justify-between mb-8">
-          <h2 class="font-display font-semibold text-2xl md:text-3xl text-warm-900">Новости фонда</h2>
-          <NuxtLink v-if="news.length" to="/news" class="hidden sm:inline-flex items-center gap-1.5 text-primary-600 hover:text-primary-700 font-semibold text-sm transition-colors">
+        <div class="flex items-end justify-between mb-12">
+          <div>
+            <h2 class="font-display font-extrabold text-3xl md:text-5xl text-warm-900 mb-3 tracking-tight">Жизнь фонда</h2>
+            <p class="text-warm-500 text-lg md:text-xl">Счастливые истории, новости и полезные советы</p>
+          </div>
+          <NuxtLink v-if="news.length" to="/news" class="hidden sm:inline-flex items-center gap-2 text-primary-600 font-bold hover:gap-3 transition-all">
             Все новости
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
           </NuxtLink>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <!-- News cards: 1/2 -->
-          <div class="order-2 lg:order-1">
-            <div v-if="news.length" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-4">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+          <!-- News Grid -->
+          <div class="lg:col-span-8">
+            <div v-if="news.length" class="grid grid-cols-1 md:grid-cols-2 gap-6">
               <NewsCard v-for="item in news.slice(0, 2)" :key="item.id" :news="item" />
             </div>
-            <div v-else class="flex items-center justify-center h-48 text-warm-500 text-sm bg-white rounded-2xl border border-warm-100">
-              Новости пока не добавлены
-            </div>
-            <div class="mt-4 sm:hidden">
-              <NuxtLink to="/news" class="text-sm font-semibold text-primary-600 hover:text-primary-700">Все новости →</NuxtLink>
+            <div v-else class="flex items-center justify-center h-64 text-warm-400 bg-warm-50 rounded-[2.5rem] border-2 border-dashed border-warm-200">
+              Пока новостей нет
             </div>
           </div>
 
-          <!-- RSS widget: 1/2 -->
-          <div class="order-1 lg:order-2">
-            <RssWidget />
+          <!-- RSS / Side widget -->
+          <div class="lg:col-span-4">
+            <div class="glass p-8 rounded-[2.5rem] border-primary-50 h-full">
+              <RssWidget />
+            </div>
           </div>
         </div>
       </div>
     </section>
 
     <!-- ─── CTA BANNER ────────────────────────────────────────── -->
-    <section class="py-10 md:py-14">
+    <section class="py-24">
       <div class="container-custom">
-        <div class="relative overflow-hidden bg-primary-500 rounded-3xl p-8 md:p-12 text-white">
-          <!-- Decorative circles -->
-          <div class="absolute -top-16 -right-16 w-64 h-64 bg-white/10 rounded-full" />
-          <div class="absolute -bottom-12 -left-12 w-48 h-48 bg-white/5 rounded-full" />
+        <div class="relative overflow-hidden bg-primary-600 rounded-[3rem] p-12 md:p-20 text-white shadow-2xl">
+          <!-- Decorative Background -->
+          <div class="absolute inset-0">
+             <div class="absolute top-[-20%] left-[-10%] w-[60%] h-[100%] bg-white/10 rounded-full blur-[120px]" />
+             <div class="absolute bottom-[-20%] right-[-10%] w-[50%] h-[100%] bg-terra-400/20 rounded-full blur-[120px]" />
+          </div>
 
-          <div class="relative z-10 max-w-2xl">
-            <h2 class="font-display font-semibold text-2xl md:text-3xl mb-3 leading-snug">
-              Готовы дать новый дом?
+          <div class="relative z-10 max-w-3xl">
+            <h2 class="font-display font-extrabold text-4xl md:text-6xl mb-8 leading-tight tracking-tight">
+              Подарите шнауцеру <br/>
+              <span class="text-primary-100 italic font-display font-medium">счастливое будущее</span>
             </h2>
-            <p class="text-primary-100 text-base mb-7 leading-relaxed">
-              Каждый вклад имеет значение. Возьмите питомца, станьте волонтёром или помогите финансово.
+            <p class="text-primary-50 text-lg md:text-xl mb-12 leading-relaxed max-w-xl">
+              Ваша поддержка помогает нам спасать жизни. Станьте частью нашей команды волонтеров или поддержите фонд финансово.
             </p>
-            <div class="flex flex-wrap gap-4">
-              <NuxtLink to="/animals" class="btn bg-white text-primary-700 hover:bg-primary-50 px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all">
+            <div class="flex flex-wrap gap-6">
+              <NuxtLink to="/animals" class="btn bg-white text-primary-700 hover:bg-primary-50 px-10 py-5 text-lg font-bold rounded-2xl shadow-xl transition-all hover:scale-105">
                 Найти питомца
               </NuxtLink>
-              <NuxtLink to="/support" class="btn border-2 border-white/50 text-white hover:bg-white/10 px-8 py-4 rounded-xl transition-all">
+              <NuxtLink to="/support" class="btn border-2 border-white/30 hover:bg-white/10 px-10 py-5 text-lg font-bold rounded-2xl transition-all">
                 Помочь фонду
               </NuxtLink>
             </div>
+          </div>
+
+          <!-- Abstract Decoration -->
+          <div class="absolute right-[-5%] top-1/2 -translate-y-1/2 hidden lg:block opacity-20 pointer-events-none">
+             <svg class="w-96 h-96 text-white" fill="currentColor" viewBox="0 0 200 200">
+               <path d="M44.7,-76.4C58.3,-69.2,70.1,-58.5,78.2,-45.5C86.3,-32.5,90.8,-17.3,90.4,-2.2C90,12.9,84.7,27.8,76,40.1C67.3,52.4,55.1,62.1,41.4,70.1C27.7,78.1,12.5,84.3,-2.3,88.4C-17.1,92.5,-31.7,94.5,-44.8,89.5C-57.9,84.5,-69.5,72.4,-77.9,58.8C-86.3,45.2,-91.5,30,-92.8,14.6C-94.1,-0.7,-91.5,-16.2,-84.9,-29.8C-78.3,-43.4,-67.7,-55.1,-55.2,-62.7C-42.7,-70.3,-28.4,-73.8,-14.2,-74.3C-0.1,-74.8,14.2,-72.3,44.7,-76.4Z" transform="translate(100 100)" />
+             </svg>
           </div>
         </div>
       </div>

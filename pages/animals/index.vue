@@ -4,10 +4,10 @@
     <!-- Page header -->
     <section class="bg-white border-b border-warm-100 py-12">
       <div class="container-custom">
-        <h1 class="font-display font-bold text-4xl text-warm-900 leading-tight mb-2">Найти друга</h1>
-        <p class="text-warm-500 text-lg">
+        <h1 class="font-display font-extrabold text-4xl md:text-6xl text-warm-900 leading-[1.1] mb-4 tracking-tight">Найти друга</h1>
+        <p class="text-warm-500 text-lg md:text-xl max-w-2xl leading-relaxed">
           <template v-if="!pending">
-            Мы нашли <strong class="text-primary-600">{{ data?.total ?? 0 }}</strong> {{ pluralAnimals(data?.total ?? 0) }}, которые ищут новый дом
+            Мы нашли <strong class="text-primary-600 font-display font-bold">{{ data?.total ?? 0 }}</strong> {{ pluralAnimals(data?.total ?? 0) }}, которые ищут новый дом
           </template>
           <template v-else>Ищем лучших питомцев для вас…</template>
         </p>

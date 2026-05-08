@@ -1,39 +1,36 @@
 <template>
-  <nav class="fixed bottom-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-lg border-t border-warm-100 px-4 pb-safe pt-2 sm:hidden shadow-[0_-4px_20px_rgba(0,0,0,0.05)]">
-    <div class="flex items-center justify-around max-w-lg mx-auto">
+  <div class="fixed bottom-6 left-0 right-0 z-50 px-6 sm:hidden pointer-events-none">
+    <nav class="max-w-md mx-auto glass rounded-[2rem] shadow-2xl border-white/20 p-2 flex items-center justify-around pointer-events-auto">
       <NuxtLink 
         v-for="item in navItems" 
         :key="item.to"
         :to="item.to"
-        class="flex flex-col items-center gap-1 py-1 px-3 min-w-[64px] transition-all duration-300 relative group"
+        class="flex flex-col items-center gap-1 py-2 px-4 transition-all duration-300 relative group"
         active-class="text-primary-600"
       >
-        <div class="relative">
+        <div class="relative transition-transform group-active:scale-90">
           <component 
             :is="item.icon" 
-            class="w-6 h-6 transition-transform group-active:scale-90" 
-            :class="[isRouteActive(item.to) ? 'text-primary-600' : 'text-warm-400']"
+            class="w-6 h-6 transition-all duration-300" 
+            :class="[isRouteActive(item.to) ? 'text-primary-600' : 'text-warm-400 group-hover:text-warm-600']"
           />
           <!-- Badge for Favorites -->
           <span 
             v-if="item.id === 'favorites' && favoriteCount > 0" 
-            class="absolute -top-1.5 -right-1.5 w-4 h-4 bg-red-500 text-white text-[9px] font-bold rounded-full flex items-center justify-center border-2 border-white shadow-sm"
+            class="absolute -top-1.5 -right-1.5 w-4.5 h-4.5 bg-red-500 text-white text-[8px] font-black rounded-full flex items-center justify-center border-2 border-white shadow-md animate-scale-in"
           >
             {{ favoriteCount }}
           </span>
         </div>
-        <span class="text-[10px] font-bold uppercase tracking-wider" :class="[isRouteActive(item.to) ? 'text-primary-600' : 'text-warm-400']">
-          {{ item.label }}
-        </span>
         
-        <!-- Active Indicator -->
+        <!-- Active Dot -->
         <div 
           v-if="isRouteActive(item.to)" 
-          class="absolute -top-2 left-1/2 -translate-x-1/2 w-8 h-1 bg-primary-500 rounded-full"
+          class="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 bg-primary-500 rounded-full animate-scale-in"
         />
       </NuxtLink>
-    </div>
-  </nav>
+    </nav>
+  </div>
 </template>
 
 <script setup lang="ts">

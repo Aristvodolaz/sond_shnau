@@ -119,8 +119,8 @@
               {{ statusLabel(dog.status) }}
             </span>
 
-            <h1 class="font-display font-semibold text-3xl md:text-4xl text-warm-900 mb-1.5 leading-tight">{{ dog.name }}</h1>
-            <p class="text-base text-primary-600 font-semibold mb-5">{{ breedLabel(dog.type) }}</p>
+            <h1 class="font-display font-extrabold text-4xl md:text-5xl text-warm-900 mb-2 leading-tight tracking-tight">{{ dog.name }}</h1>
+            <p class="text-lg text-primary-600 font-bold mb-6 tracking-wide">{{ breedLabel(dog.type) }}</p>
 
             <!-- Key attributes -->
             <div class="grid grid-cols-2 gap-3 mb-7">
@@ -261,8 +261,8 @@
         </div>
 
         <!-- Related animals -->
-        <section v-if="related.length" class="mt-16 pt-10 border-t border-warm-200">
-          <h2 class="font-display font-semibold text-2xl md:text-3xl text-warm-900 mb-8">
+        <section v-if="related.length" class="mt-20 pt-12 border-t border-warm-200">
+          <h2 class="font-display font-extrabold text-3xl text-warm-900 mb-10 tracking-tight">
             Ещё в {{ dog.city }}
           </h2>
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">

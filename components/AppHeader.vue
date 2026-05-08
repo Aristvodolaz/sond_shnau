@@ -1,42 +1,42 @@
 <template>
   <header
-    class="sticky top-0 z-50 transition-all duration-300"
+    class="sticky top-0 z-50 transition-all duration-500"
     :class="scrolled
-      ? 'bg-white/96 backdrop-blur-lg shadow-sm border-b border-warm-100'
-      : 'bg-white border-b border-warm-100'"
+      ? 'glass shadow-lg border-b border-white/20 py-2'
+      : 'bg-white border-b border-warm-100 py-4'"
   >
     <nav class="container-custom">
-      <div class="flex items-center justify-between h-16 gap-4">
+      <div class="flex items-center justify-between gap-4">
 
         <!-- Logo -->
         <NuxtLink to="/" class="flex items-center gap-3 group shrink-0" aria-label="Главная">
           <div class="w-9 h-9 md:w-10 md:h-10 rounded-full overflow-hidden ring-2 ring-primary-100 group-hover:ring-primary-300 transition-all duration-200 shrink-0">
             <img src="/images/logo/logo.png" alt="Логотип" class="w-full h-full object-cover" />
           </div>
-          <div class="hidden sm:block leading-tight">
+          <div class="hidden md:block leading-tight">
             <div class="font-hobo text-sm text-primary-800 leading-none tracking-wide">Фонд помощи</div>
             <div class="font-hobo text-xs text-primary-400 tracking-wide">шнауцерам</div>
           </div>
         </NuxtLink>
 
         <!-- Desktop nav -->
-        <div class="hidden lg:flex items-center gap-0.5 flex-1 justify-center">
+        <div class="hidden lg:flex items-center gap-1 flex-1 justify-center">
           <template v-for="item in menuPrimary" :key="item.label">
             <NuxtLink
               v-if="item.to"
               :to="item.to"
-              class="relative px-3.5 py-2 text-sm font-medium text-warm-600 hover:text-warm-900 transition-colors duration-200 rounded-lg hover:bg-warm-100/60 group"
-              active-class="!text-primary-600 !font-semibold"
+              class="relative px-5 py-2.5 text-sm font-bold text-warm-500 hover:text-warm-900 transition-all duration-300 rounded-2xl hover:bg-warm-50 group overflow-hidden"
+              active-class="!text-primary-600 !bg-primary-50/50"
             >
-              {{ item.label }}
-              <span class="absolute bottom-1 left-3 right-3 h-0.5 bg-primary-500 rounded-full scale-x-0 group-[.router-link-active]:scale-x-100 transition-transform duration-250" />
+              <span class="relative z-10">{{ item.label }}</span>
+              <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 bg-primary-500 rounded-full opacity-0 group-[.router-link-active]:opacity-100 transition-opacity" />
             </NuxtLink>
             <a
               v-else-if="item.href"
               :href="item.href"
               target="_blank"
               rel="noopener noreferrer"
-              class="relative px-3.5 py-2 text-sm font-medium text-warm-600 hover:text-warm-900 transition-colors duration-200 rounded-lg hover:bg-warm-100/60 group"
+              class="px-5 py-2.5 text-sm font-bold text-warm-500 hover:text-warm-900 transition-all duration-300 rounded-2xl hover:bg-warm-50"
             >
               {{ item.label }}
             </a>
@@ -45,19 +45,19 @@
           <div v-if="menuMore.length" class="relative group/more">
             <button
               type="button"
-              class="px-3 py-2 text-sm font-medium text-warm-600 hover:text-warm-900 hover:bg-warm-100/60 transition-colors duration-200 rounded-lg flex items-center gap-1"
+              class="px-5 py-2.5 text-sm font-bold text-warm-500 hover:text-warm-900 hover:bg-warm-50 transition-all duration-300 rounded-2xl flex items-center gap-1.5"
             >
-              Ещё
-              <svg class="w-3.5 h-3.5 opacity-50 group-hover/more:rotate-180 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              <span>Инфо</span>
+              <svg class="w-4 h-4 opacity-40 group-hover/more:rotate-180 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
               </svg>
             </button>
-            <div class="absolute left-0 top-full mt-2 w-56 bg-white rounded-2xl shadow-xl border border-warm-100/80 py-2 opacity-0 invisible group-hover/more:opacity-100 group-hover/more:visible transition-all duration-200 z-[60]">
+            <div class="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-64 glass rounded-3xl shadow-2xl border-white/20 py-3 opacity-0 invisible translate-y-2 group-hover/more:opacity-100 group-hover/more:visible group-hover/more:translate-y-0 transition-all duration-300 z-[60] overflow-hidden">
                 <template v-for="item in menuMore" :key="item.label">
                   <NuxtLink
                     v-if="item.to"
                     :to="item.to"
-                    class="block px-4 py-2.5 text-sm text-warm-700 hover:bg-warm-50 hover:text-primary-600 transition-colors"
+                    class="block px-6 py-3 text-sm font-bold text-warm-600 hover:bg-primary-50 hover:text-primary-600 transition-all"
                   >
                     {{ item.label }}
                   </NuxtLink>
@@ -66,7 +66,7 @@
                     :href="item.href"
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="block px-4 py-2.5 text-sm text-warm-700 hover:bg-warm-50 hover:text-primary-600 transition-colors"
+                    class="block px-6 py-3 text-sm font-bold text-warm-600 hover:bg-primary-50 hover:text-primary-600 transition-all"
                   >
                     {{ item.label }}
                   </a>
@@ -76,56 +76,42 @@
         </div>
 
         <!-- Desktop right actions -->
-        <div class="hidden lg:flex items-center gap-2 shrink-0">
+        <div class="hidden lg:flex items-center gap-3 shrink-0">
           <NuxtLink
             to="/favorites"
-            class="relative p-2 text-warm-500 hover:text-primary-500 hover:bg-primary-50 rounded-lg transition-all duration-200"
+            class="relative w-11 h-11 flex items-center justify-center text-warm-400 hover:text-red-500 hover:bg-red-50 rounded-[1rem] transition-all duration-300"
             aria-label="Избранное"
           >
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
             </svg>
             <span
               v-if="favCount > 0"
-              class="absolute -top-0.5 -right-0.5 w-4 h-4 bg-primary-500 text-white text-[10px] font-semibold rounded-full flex items-center justify-center"
+              class="absolute top-2 right-2 w-4.5 h-4.5 bg-red-500 text-white text-[9px] font-black rounded-full flex items-center justify-center border-2 border-white shadow-md animate-scale-in"
             >{{ favCount }}</span>
           </NuxtLink>
+          
           <NuxtLink
             to="/support"
-            class="btn-outline px-5 py-2 text-sm border-primary-200 text-primary-700 hover:bg-primary-50"
+            class="btn-primary px-7 py-3 rounded-[1.25rem] text-sm shadow-lg shadow-primary-500/20"
           >
-            Поддержать
-          </NuxtLink>
-          <NuxtLink
-            to="/animals"
-            class="btn-primary px-5 py-2 text-sm"
-          >
-            Найти друга
+            Помочь фодну
           </NuxtLink>
         </div>
 
-        <!-- Mobile: favorites + burger -->
-        <div class="lg:hidden flex items-center gap-0.5">
-          <NuxtLink to="/favorites"
-            class="relative w-10 h-10 flex items-center justify-center text-warm-500 hover:text-primary-500 hover:bg-primary-50 rounded-xl transition-colors"
-            aria-label="Избранное">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-            </svg>
-            <span v-if="favCount > 0" class="absolute top-1 right-1 w-4 h-4 bg-primary-500 text-white text-[10px] font-semibold rounded-full flex items-center justify-center">{{ favCount }}</span>
-          </NuxtLink>
+        <!-- Mobile: burger -->
+        <div class="lg:hidden flex items-center gap-2">
           <button
             type="button"
             @click="mobileMenuOpen = !mobileMenuOpen"
-            class="w-10 h-10 flex items-center justify-center rounded-xl hover:bg-warm-100 transition-colors"
+            class="w-12 h-12 flex items-center justify-center rounded-2xl bg-warm-50 hover:bg-warm-100 transition-all active:scale-90"
             :aria-label="mobileMenuOpen ? 'Закрыть меню' : 'Открыть меню'"
           >
-            <svg v-if="!mobileMenuOpen" class="w-5 h-5 text-warm-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-            <svg v-else class="w-5 h-5 text-warm-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-            </svg>
+            <div class="w-5 h-4 relative flex flex-col justify-between overflow-hidden">
+               <span class="w-full h-0.5 bg-warm-900 rounded-full transition-all duration-300" :class="mobileMenuOpen ? 'rotate-45 translate-y-[7px]' : ''"></span>
+               <span class="w-full h-0.5 bg-warm-900 rounded-full transition-all duration-300" :class="mobileMenuOpen ? 'translate-x-full opacity-0' : ''"></span>
+               <span class="w-full h-0.5 bg-warm-900 rounded-full transition-all duration-300" :class="mobileMenuOpen ? '-rotate-45 -translate-y-[7px]' : ''"></span>
+            </div>
           </button>
         </div>
       </div>

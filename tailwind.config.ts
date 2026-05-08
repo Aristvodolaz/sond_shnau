@@ -58,7 +58,7 @@ export default {
       },
       fontFamily: {
         sans:    ['Manrope', 'system-ui', 'sans-serif'],
-        display: ['Manrope', 'system-ui', 'sans-serif'],
+        display: ['Outfit', 'Manrope', 'system-ui', 'sans-serif'],
         hobo:    ['HoboBT', 'Manrope', 'system-ui', 'sans-serif'],
         mono:    ['JetBrains Mono', 'Fira Code', 'monospace']
       },
@@ -99,8 +99,9 @@ export default {
         'lg':    '0 8px 24px rgba(0,0,0,.1),  0 2px 6px rgba(0,0,0,.06)',
         'xl':    '0 16px 40px rgba(0,0,0,.12), 0 4px 12px rgba(0,0,0,.06)',
         '2xl':   '0 24px 60px rgba(0,0,0,.15), 0 8px 16px rgba(0,0,0,.08)',
-        'card':  '0 1px 3px rgba(0,0,0,.07), 0 4px 16px rgba(0,0,0,.05)',
-        'card-hover': '0 4px 16px rgba(0,0,0,.1), 0 12px 32px rgba(0,0,0,.07)',
+        'card':  '0 2px 8px rgba(0,0,0,.04), 0 10px 32px rgba(0,0,0,.03)',
+        'card-hover': '0 10px 25px rgba(0,0,0,.08), 0 20px 48px rgba(0,0,0,.06)',
+        'glass': '0 8px 32px 0 rgba(31, 38, 135, 0.07)',
         'inner': 'inset 0 2px 4px rgba(0,0,0,.06)',
         'none':  'none'
       },
@@ -133,7 +134,8 @@ export default {
         'fade-down': 'fadeDown 0.3s ease-out forwards',
         'scale-in':  'scaleIn 0.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards',
         'shimmer':   'shimmer 1.8s infinite linear',
-        'pulse-dot': 'pulseDot 2s ease-in-out infinite'
+        'pulse-dot': 'pulseDot 2s ease-in-out infinite',
+        'spin-slow': 'spin 12s linear infinite'
       },
       keyframes: {
         fadeUp: {
