@@ -2,7 +2,7 @@
   <div class="min-h-screen bg-warm-50">
     <section class="bg-white border-b border-warm-100 py-8 md:py-10">
       <div class="container-custom">
-        <h1 class="font-display font-semibold text-2xl md:text-3xl text-warm-900 leading-tight">Новости фонда</h1>
+        <h1 class="font-display font-bold text-2xl md:text-4xl text-warm-900 leading-tight tracking-tight">Новости фонда</h1>
         <p class="text-warm-500 mt-2 text-sm">Актуальные новости и истории о работе фонда</p>
       </div>
     </section>

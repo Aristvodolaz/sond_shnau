@@ -2,7 +2,7 @@
   <div class="min-h-screen bg-warm-50">
     <section class="bg-white border-b border-warm-100 py-8 md:py-10">
       <div class="container-custom max-w-4xl">
-        <h1 class="font-display font-semibold text-2xl md:text-3xl text-warm-900 leading-tight">Кто мы</h1>
+        <h1 class="font-display font-bold text-2xl md:text-4xl text-warm-900 leading-tight tracking-tight">Кто мы</h1>
         <p class="text-warm-500 mt-2 text-sm">Команда волонтёров, объединённых любовью к шнауцерам</p>
       </div>
     </section>

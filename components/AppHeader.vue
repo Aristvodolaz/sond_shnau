@@ -95,7 +95,7 @@
             to="/support"
             class="btn-primary px-7 py-3 rounded-[1.25rem] text-sm shadow-lg shadow-primary-500/20"
           >
-            Помочь фодну
+            Помочь фонду
           </NuxtLink>
         </div>
 

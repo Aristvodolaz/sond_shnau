@@ -49,15 +49,24 @@
 
             <!-- Main photo -->
             <div
-              class="relative rounded-3xl overflow-hidden bg-warm-200 shadow-xl cursor-zoom-in select-none"
+              class="relative rounded-3xl overflow-hidden bg-warm-900/10 shadow-xl cursor-zoom-in select-none"
               style="aspect-ratio: 4/3;"
               @click="openLightbox(currentPhotoIndex)"
             >
+              <!-- Blurred backdrop so no harsh letterbox edges -->
+              <img
+                v-if="currentPhoto"
+                :src="resolveMediaUrl(currentPhoto)"
+                aria-hidden="true"
+                class="absolute inset-0 w-full h-full object-cover scale-110 blur-xl opacity-40 saturate-150 pointer-events-none"
+                draggable="false"
+              />
+              <!-- Main image — contain so dog is never cropped -->
               <img
                 v-if="currentPhoto"
                 :src="resolveMediaUrl(currentPhoto)"
                 :alt="dog.name"
-                class="w-full h-full object-cover transition-all duration-500"
+                class="relative w-full h-full object-contain transition-all duration-500"
                 draggable="false"
               />
               <div v-else class="w-full h-full flex flex-col items-center justify-center text-warm-400 gap-3">

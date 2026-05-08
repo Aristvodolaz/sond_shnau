@@ -4,7 +4,7 @@
     <!-- Page header -->
     <section class="bg-white border-b border-warm-100 py-6 md:py-10">
       <div class="container-custom max-w-4xl">
-        <h1 class="font-display font-semibold text-2xl md:text-3xl text-warm-900 leading-tight">Контакты</h1>
+        <h1 class="font-display font-bold text-2xl md:text-4xl text-warm-900 leading-tight tracking-tight">Контакты</h1>
         <p class="text-warm-500 mt-1.5 text-sm">Свяжитесь с нами любым удобным способом</p>
       </div>
     </section>
