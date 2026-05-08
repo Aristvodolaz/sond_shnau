@@ -1,13 +1,28 @@
 <template>
   <div class="min-h-screen bg-warm-50 py-10">
     <div class="container-custom">
-      <!-- Header -->
-      <div class="mb-10 text-center">
-        <h1 class="font-display font-extrabold text-4xl text-warm-900 mb-3 tracking-tight">Ваши любимцы</h1>
-        <p class="text-warm-500 text-lg max-w-lg mx-auto">
-          Список собак, которых вы сохранили. Собаки из этого списка всегда будут под рукой.
-        </p>
+    <!-- Hero Header -->
+    <section class="relative py-16 md:py-20 overflow-hidden mb-8">
+      <div class="absolute inset-0 z-0">
+        <div class="absolute inset-0 bg-gradient-to-br from-primary-600/10 via-warm-50 to-terra-500/5" />
+        <div class="absolute top-[-20%] right-[-10%] w-[60%] h-[120%] bg-white/40 rounded-full blur-[100px]" />
       </div>
+
+      <div class="container-custom relative z-10 text-center">
+        <div class="max-w-3xl mx-auto">
+          <div class="inline-flex items-center gap-2 px-3 py-1 bg-red-100/50 backdrop-blur-md rounded-full border border-red-200/50 mb-6">
+            <svg class="w-3.5 h-3.5 text-red-500 fill-current" viewBox="0 0 24 24"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
+            <span class="text-[10px] font-black uppercase tracking-[0.2em] text-red-700">Сохранённые</span>
+          </div>
+          <h1 class="font-display font-black text-4xl md:text-6xl text-warm-900 leading-[1.1] tracking-tight mb-6">
+            Ваши <span class="text-primary-600 italic font-display font-medium">любимцы</span>
+          </h1>
+          <p class="text-warm-500 text-lg md:text-xl max-w-xl mx-auto leading-relaxed">
+            Список собак, которых вы сохранили. Собаки из этого списка всегда будут под рукой.
+          </p>
+        </div>
+      </div>
+    </section>
 
       <!-- Empty state -->
       <div v-if="!favorites.length" class="bg-white rounded-[2.5rem] p-16 text-center shadow-sm border border-warm-100 max-w-2xl mx-auto">

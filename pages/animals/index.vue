@@ -1,51 +1,32 @@
 <template>
   <div class="min-h-screen bg-warm-50">
 
-    <!-- Page header -->
-    <section class="bg-white border-b border-warm-100 py-12">
-      <div class="container-custom">
-        <h1 class="font-display font-extrabold text-4xl md:text-6xl text-warm-900 leading-[1.1] mb-4 tracking-tight">Найти друга</h1>
-        <p class="text-warm-500 text-lg md:text-xl max-w-2xl leading-relaxed">
-          <template v-if="!pending">
-            Мы нашли <strong class="text-primary-600 font-display font-bold">{{ data?.total ?? 0 }}</strong> {{ pluralAnimals(data?.total ?? 0) }}, которые ищут новый дом
-          </template>
-          <template v-else>Ищем лучших питомцев для вас…</template>
-        </p>
+    <!-- Hero Header -->
+    <section class="relative py-16 md:py-20 overflow-hidden">
+      <div class="absolute inset-0 z-0">
+        <div class="absolute inset-0 bg-gradient-to-br from-primary-600/10 via-warm-50 to-terra-500/5" />
+        <div class="absolute top-[-20%] right-[-10%] w-[60%] h-[120%] bg-white/40 rounded-full blur-[100px]" />
+      </div>
+
+      <div class="container-custom relative z-10">
+        <div class="max-w-3xl">
+          <div class="inline-flex items-center gap-2 px-3 py-1 bg-primary-100/50 backdrop-blur-md rounded-full border border-primary-200/50 mb-6">
+            <span class="w-1.5 h-1.5 bg-primary-500 rounded-full animate-pulse" />
+            <span class="text-[10px] font-black uppercase tracking-[0.2em] text-primary-700">Каталог</span>
+          </div>
+          <h1 class="font-display font-black text-4xl md:text-6xl text-warm-900 leading-[1.1] tracking-tight mb-6">
+            Найти <span class="text-primary-600 italic font-display font-medium">друга</span>
+          </h1>
+          <p class="text-warm-500 text-lg md:text-xl max-w-xl leading-relaxed">
+            <template v-if="!pending">
+              Мы нашли <strong class="text-primary-600 font-display font-bold">{{ data?.total ?? 0 }}</strong> {{ pluralAnimals(data?.total ?? 0) }}, которые ищут новый дом.
+            </template>
+            <template v-else>Ищем лучших питомцев для вас…</template>
+          </p>
+        </div>
       </div>
     </section>
 
-    <!-- Sticky filter bar -->
-    <div class="sticky top-16 z-30 bg-white/95 backdrop-blur-md border-b border-warm-100">
-      <div class="container-custom">
-        <div class="flex items-center gap-3 py-2.5">
-          <!-- Mobile filter button -->
-          <button
-            type="button"
-            class="lg:hidden flex items-center gap-2 px-4 py-2 rounded-xl border-2 border-warm-200 text-warm-700 font-semibold text-sm hover:border-primary-300 hover:text-primary-600 transition-colors"
-            @click="mobileFiltersOpen = true"
-          >
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
-            </svg>
-            Фильтры
-            <span
-              v-if="activeFilterCount > 0"
-              class="w-5 h-5 bg-primary-500 text-white text-[10px] font-semibold rounded-full flex items-center justify-center"
-            >{{ activeFilterCount }}</span>
-          </button>
-          <!-- Desktop: active filter hint -->
-          <span v-if="activeFilterCount > 0" class="hidden lg:flex items-center gap-1.5 text-xs font-semibold text-primary-600 bg-primary-50 border border-primary-100 px-2.5 py-1 rounded-full">
-            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
-            </svg>
-            {{ activeFilterCount }} {{ activeFilterCount === 1 ? 'фильтр' : 'фильтра' }}
-          </span>
-          <span v-if="!pending && data" class="ml-auto text-xs text-warm-400 font-medium">
-            {{ data.total }} {{ pluralAnimals(data.total) }}
-          </span>
-        </div>
-      </div>
-    </div>
 
     <div class="container-custom py-8 md:py-10">
       <div class="lg:grid lg:grid-cols-[280px_1fr] xl:grid-cols-[300px_1fr] lg:gap-8 xl:gap-10">

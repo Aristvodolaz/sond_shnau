@@ -1,85 +1,92 @@
 <template>
-  <div class="bg-white rounded-2xl border border-warm-100 flex flex-col h-full lg:sticky lg:top-24" style="box-shadow: var(--shadow-card);">
+  <div class="bg-white rounded-[2.5rem] border border-warm-100 flex flex-col h-full lg:sticky lg:top-24 hover:shadow-2xl transition-shadow duration-500 overflow-hidden" style="box-shadow: 0 10px 40px rgba(0,0,0,0.04);">
 
     <!-- Header -->
-    <div class="flex items-center justify-between px-6 pt-6 pb-4 border-b border-warm-100">
-      <div class="flex items-center gap-2.5">
-        <div class="w-8 h-8 bg-primary-50 rounded-xl flex items-center justify-center">
-          <svg class="w-4 h-4 text-primary-500" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M5 3a1 1 0 000 2c5.523 0 10 4.477 10 10a1 1 0 102 0C17 8.373 11.627 3 5 3z" />
-            <path d="M4 9a1 1 0 011-1 7 7 0 017 7 1 1 0 11-2 0 5 5 0 00-5-5 1 1 0 01-1-1zM3 15a2 2 0 114 0 2 2 0 01-4 0z" />
-          </svg>
+    <div class="px-6 pt-7 pb-5">
+      <div class="flex items-center justify-between mb-2">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 bg-primary-500 text-white rounded-2xl flex items-center justify-center shadow-lg shadow-primary-500/20">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M6.503 20.752c0 1.794-1.456 3.248-3.251 3.248-1.796 0-3.252-1.454-3.252-3.248 0-1.794 1.456-3.248 3.252-3.248 1.795.001 3.251 1.454 3.251 3.248zm-6.503-12.572v4.811c6.05.062 10.96 4.966 11.022 11.009h4.817c-.062-8.71-7.118-15.758-15.839-15.82zm0-8.18v4.831c10.555.064 19.111 8.615 19.173 19.169h4.827c-.063-13.219-10.781-23.93-24-24z"/>
+            </svg>
+          </div>
+          <h3 class="font-display font-extrabold text-lg text-warm-900 tracking-tight">Форум</h3>
         </div>
-        <div>
-          <h3 class="text-sm font-semibold text-warm-900 leading-none">Форум</h3>
-          <p class="text-xs text-warm-400 mt-0.5">Последние обновления</p>
+        <div class="flex items-center gap-1.5 px-2.5 py-1 bg-green-50 text-green-600 rounded-full border border-green-100">
+          <span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
+          <span class="text-[10px] font-black uppercase tracking-widest">LIVE</span>
         </div>
       </div>
-      <span class="inline-flex items-center gap-1.5 text-[11px] font-semibold text-primary-600 bg-primary-50 border border-primary-100 px-2.5 py-1 rounded-full">
-        <span class="w-1.5 h-1.5 bg-primary-500 rounded-full animate-pulse inline-block" />
-        Онлайн
-      </span>
+      <p class="text-xs font-semibold text-warm-400 uppercase tracking-widest">Последние обновления</p>
     </div>
 
     <!-- Loading -->
-    <div v-if="pending" class="flex-1 px-6 py-4 space-y-4">
-      <div v-for="i in 7" :key="i" class="animate-pulse flex gap-3 py-2">
-        <div class="w-0.5 bg-warm-100 rounded-full shrink-0 self-stretch" />
-        <div class="flex-1 space-y-2">
-          <div class="h-3 bg-warm-100 rounded w-full" />
-          <div class="h-3 bg-warm-100 rounded w-4/5" />
-          <div class="h-2.5 bg-warm-50 rounded w-16 mt-1" />
+    <div v-if="pending" class="flex-1 px-6 py-4 space-y-6">
+      <div v-for="i in 5" :key="i" class="animate-pulse flex gap-4">
+        <div class="w-1.5 h-1.5 rounded-full bg-warm-100 mt-2 shrink-0" />
+        <div class="flex-1 space-y-3">
+          <div class="h-3 bg-warm-100 rounded-full w-full" />
+          <div class="h-3 bg-warm-100 rounded-full w-2/3" />
         </div>
       </div>
     </div>
 
     <!-- Error -->
-    <div v-else-if="error" class="flex-1 flex items-center justify-center px-6 py-8 text-center">
-      <div>
-        <p class="text-xs text-warm-400 mb-3">Не удалось загрузить</p>
-        <button class="text-xs font-semibold text-primary-600 hover:text-primary-700" @click="refresh?.()">
-          Повторить
-        </button>
+    <div v-else-if="error" class="flex-1 flex items-center justify-center px-8 py-12 text-center">
+      <div class="space-y-4">
+        <div class="w-12 h-12 bg-red-50 text-red-400 rounded-full flex items-center justify-center mx-auto">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
+        <p class="text-sm font-medium text-warm-500">Не удалось загрузить данные</p>
+        <button class="btn-ghost text-xs px-4 py-2" @click="refresh?.()">Повторить</button>
       </div>
     </div>
 
     <!-- Items -->
-    <div v-else-if="items?.length" class="flex-1 overflow-y-auto px-6 py-4 space-y-1 scrollbar-none">
+    <div v-else-if="items?.length" class="flex-1 overflow-y-auto px-4 py-2 space-y-1 scrollbar-none">
       <a
-        v-for="item in items.slice(0, 8)"
+        v-for="(item, i) in items.slice(0, 8)"
         :key="item.link"
         :href="item.link"
         target="_blank"
         rel="noopener noreferrer"
-        class="group flex gap-3 px-3 py-3 -mx-3 rounded-xl hover:bg-warm-50 transition-colors duration-200"
+        class="group relative flex gap-4 p-4 rounded-2xl hover:bg-primary-50/50 transition-all duration-300 border border-transparent hover:border-primary-100"
       >
-        <div class="w-0.5 bg-warm-200 group-hover:bg-primary-400 rounded-full shrink-0 transition-colors duration-200 self-stretch" />
+        <div class="mt-2 w-1.5 h-1.5 rounded-full bg-warm-200 group-hover:bg-primary-500 transition-all shrink-0 shadow-sm" />
         <div class="min-w-0 flex-1">
-          <p class="text-sm font-medium text-warm-800 group-hover:text-primary-700 transition-colors line-clamp-2 leading-snug">
+          <h4 class="text-[14px] font-bold text-warm-800 group-hover:text-primary-800 transition-colors line-clamp-2 leading-[1.4] mb-2">
             {{ cleanTitle(item.title) }}
-          </p>
-          <p class="text-xs text-warm-400 mt-1.5">{{ formatDate(item.pubDate) }}</p>
+          </h4>
+          <div class="flex items-center gap-2">
+            <span class="text-[10px] font-black uppercase tracking-widest text-warm-400 group-hover:text-primary-500 transition-colors">
+              {{ formatDate(item.pubDate) }}
+            </span>
+          </div>
         </div>
-        <svg class="w-3.5 h-3.5 text-warm-300 group-hover:text-primary-400 shrink-0 mt-0.5 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-        </svg>
+        <div class="self-center opacity-0 group-hover:opacity-100 transition-all translate-x-2 group-hover:translate-x-0">
+          <svg class="w-4 h-4 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
+          </svg>
+        </div>
       </a>
     </div>
 
     <!-- Empty -->
-    <div v-else class="flex-1 flex items-center justify-center py-8">
-      <p class="text-sm text-warm-400">Новостей пока нет</p>
+    <div v-else class="flex-1 flex items-center justify-center py-16">
+      <p class="text-sm font-medium text-warm-400">Обновлений пока нет</p>
     </div>
 
     <!-- Footer -->
-    <div v-if="items?.length" class="px-6 py-4 border-t border-warm-100">
+    <div v-if="items?.length" class="p-4 pt-2">
       <NuxtLink
         to="/forum-news"
-        class="flex items-center justify-between text-sm font-semibold text-primary-600 hover:text-primary-700 transition-colors group"
+        class="w-full flex items-center justify-center gap-2 py-3 px-4 bg-warm-50 hover:bg-primary-50 text-xs font-black uppercase tracking-widest text-warm-600 hover:text-primary-600 rounded-xl transition-all duration-300"
       >
         Все новости форума
-        <svg class="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3" />
         </svg>
       </NuxtLink>
     </div>

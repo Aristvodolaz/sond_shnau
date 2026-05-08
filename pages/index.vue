@@ -206,7 +206,7 @@
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
           <!-- News Grid -->
-          <div class="lg:col-span-8">
+          <div class="lg:col-span-7">
             <div v-if="news.length" class="grid grid-cols-1 md:grid-cols-2 gap-6">
               <NewsCard v-for="item in news.slice(0, 2)" :key="item.id" :news="item" />
             </div>
@@ -216,10 +216,8 @@
           </div>
 
           <!-- RSS / Side widget -->
-          <div class="lg:col-span-4">
-            <div class="glass p-8 rounded-[2.5rem] border-primary-50 h-full">
-              <RssWidget />
-            </div>
+          <div class="lg:col-span-5">
+            <RssWidget />
           </div>
         </div>
       </div>
@@ -228,35 +226,41 @@
     <!-- ─── CTA BANNER ────────────────────────────────────────── -->
     <section class="py-24">
       <div class="container-custom">
-        <div class="relative overflow-hidden bg-primary-600 rounded-[3rem] p-12 md:p-20 text-white shadow-2xl">
-          <!-- Decorative Background -->
-          <div class="absolute inset-0">
-             <div class="absolute top-[-20%] left-[-10%] w-[60%] h-[100%] bg-white/10 rounded-full blur-[120px]" />
-             <div class="absolute bottom-[-20%] right-[-10%] w-[50%] h-[100%] bg-terra-400/20 rounded-full blur-[120px]" />
+        <div class="relative overflow-hidden rounded-[3.5rem] p-12 md:p-20 text-white shadow-[0_32px_80px_rgba(0,0,0,0.15)] group">
+          <!-- Advanced Mesh Gradient Background -->
+          <div class="absolute inset-0 z-0 transition-transform duration-1000 group-hover:scale-105" 
+               style="background: linear-gradient(135deg, #1e4b7a 0%, #2b7fb8 40%, #c85e30 100%);">
+             <div class="absolute top-0 right-0 w-full h-full bg-[radial-gradient(circle_at_80%_20%,rgba(255,255,255,0.15)_0%,transparent_50%)]" />
+             <div class="absolute bottom-0 left-0 w-full h-full bg-[radial-gradient(circle_at_20%_80%,rgba(58,156,220,0.3)_0%,transparent_50%)]" />
           </div>
 
           <div class="relative z-10 max-w-3xl">
-            <h2 class="font-display font-extrabold text-4xl md:text-6xl mb-8 leading-tight tracking-tight">
+            <div class="inline-flex items-center gap-2 px-3 py-1 bg-white/10 backdrop-blur-md rounded-full border border-white/10 mb-8">
+              <span class="w-1.5 h-1.5 bg-primary-300 rounded-full animate-pulse" />
+              <span class="text-[10px] font-black uppercase tracking-[0.2em] text-primary-50">Присоединяйтесь к нам</span>
+            </div>
+
+            <h2 class="font-display font-black text-5xl md:text-7xl mb-8 leading-[0.9] tracking-tight">
               Подарите шнауцеру <br/>
-              <span class="text-primary-100 italic font-display font-medium">счастливое будущее</span>
+              <span class="text-white/80 italic font-display font-medium">счастливое будущее</span>
             </h2>
-            <p class="text-primary-50 text-lg md:text-xl mb-12 leading-relaxed max-w-xl">
+            <p class="text-white/80 text-lg md:text-xl mb-12 leading-relaxed max-w-xl font-medium">
               Ваша поддержка помогает нам спасать жизни. Станьте частью нашей команды волонтеров или поддержите фонд финансово.
             </p>
-            <div class="flex flex-wrap gap-6">
-              <NuxtLink to="/animals" class="btn bg-white text-primary-700 hover:bg-primary-50 px-10 py-5 text-lg font-bold rounded-2xl shadow-xl transition-all hover:scale-105">
+            <div class="flex flex-wrap gap-5">
+              <NuxtLink to="/animals" class="btn bg-white text-primary-700 hover:bg-primary-50 px-10 py-5 text-lg font-bold rounded-2xl shadow-xl transition-all hover:scale-105 active:scale-95">
                 Найти питомца
               </NuxtLink>
-              <NuxtLink to="/support" class="btn border-2 border-white/30 hover:bg-white/10 px-10 py-5 text-lg font-bold rounded-2xl transition-all">
+              <NuxtLink to="/support" class="btn bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 px-10 py-5 text-lg font-bold rounded-2xl transition-all hover:scale-105 active:scale-95">
                 Помочь фонду
               </NuxtLink>
             </div>
           </div>
 
           <!-- Abstract Decoration -->
-          <div class="absolute right-[-5%] top-1/2 -translate-y-1/2 hidden lg:block opacity-20 pointer-events-none">
-             <svg class="w-96 h-96 text-white" fill="currentColor" viewBox="0 0 200 200">
-               <path d="M44.7,-76.4C58.3,-69.2,70.1,-58.5,78.2,-45.5C86.3,-32.5,90.8,-17.3,90.4,-2.2C90,12.9,84.7,27.8,76,40.1C67.3,52.4,55.1,62.1,41.4,70.1C27.7,78.1,12.5,84.3,-2.3,88.4C-17.1,92.5,-31.7,94.5,-44.8,89.5C-57.9,84.5,-69.5,72.4,-77.9,58.8C-86.3,45.2,-91.5,30,-92.8,14.6C-94.1,-0.7,-91.5,-16.2,-84.9,-29.8C-78.3,-43.4,-67.7,-55.1,-55.2,-62.7C-42.7,-70.3,-28.4,-73.8,-14.2,-74.3C-0.1,-74.8,14.2,-72.3,44.7,-76.4Z" transform="translate(100 100)" />
+          <div class="absolute right-[-10%] bottom-[-10%] w-[500px] h-[500px] pointer-events-none opacity-20">
+             <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="w-full h-full text-white fill-current animate-spin-slow">
+                <path d="M44.7,-76.4C58.3,-69.2,70.1,-58.5,78.2,-45.5C86.3,-32.5,90.8,-17.3,90.4,-2.2C90,12.9,84.7,27.8,76,40.1C67.3,52.4,55.1,62.1,41.4,70.1C27.7,78.1,12.5,84.3,-2.3,88.4C-17.1,92.5,-31.7,94.5,-44.8,89.5C-57.9,84.5,-69.5,72.4,-77.9,58.8C-86.3,45.2,-91.5,30,-92.8,14.6C-94.1,-0.7,-91.5,-16.2,-84.9,-29.8C-78.3,-43.4,-67.7,-55.1,-55.2,-62.7C-42.7,-70.3,-28.4,-73.8,-14.2,-74.3C-0.1,-74.8,14.2,-72.3,44.7,-76.4Z" transform="translate(100 100)" />
              </svg>
           </div>
         </div>

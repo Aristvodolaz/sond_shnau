@@ -380,34 +380,41 @@
             <div class="absolute inset-0 bg-black/92 backdrop-blur-sm" @click="closeLightbox" />
 
             <!-- Controls bar (top) -->
-            <div class="absolute top-0 left-0 right-0 z-10 flex items-center justify-between px-5 py-4">
-              <span class="text-white/60 text-sm font-medium tabular-nums">
-                {{ lightboxIndex + 1 }} / {{ dog.photos.length }}
-              </span>
-              <div class="flex items-center gap-2">
-                <span class="text-white/60 text-sm hidden sm:block">{{ dog.name }}</span>
-                <button
-                  type="button"
-                  class="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-all text-white/80 hover:text-white ml-4"
-                  @click="closeLightbox"
-                  aria-label="Закрыть"
-                >
-                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                  </svg>
-                </button>
+            <div class="absolute top-0 left-0 right-0 z-30 flex items-center justify-between px-5 py-6">
+              <div class="bg-black/40 backdrop-blur-md px-4 py-2 rounded-2xl border border-white/10 shadow-2xl">
+                <span class="text-white text-xs font-black tabular-nums tracking-[0.2em]">
+                  {{ lightboxIndex + 1 }} / {{ dog.photos.length }}
+                </span>
               </div>
+              
+              <button
+                type="button"
+                class="w-12 h-12 rounded-full bg-black/60 hover:bg-black/80 transition-all text-white flex items-center justify-center border border-white/20 group active:scale-90 shadow-2xl"
+                @click="closeLightbox"
+                aria-label="Закрыть"
+              >
+                <svg class="w-6 h-6 group-hover:rotate-90 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+              </button>
             </div>
 
             <!-- Main lightbox image -->
-            <div class="relative z-10 w-full h-full flex items-center justify-center px-16 py-20">
-              <img
-                :src="resolveMediaUrl(dog.photos[lightboxIndex])"
-                :alt="`${dog.name} — фото ${lightboxIndex + 1}`"
-                class="max-w-full max-h-full object-contain rounded-xl select-none"
-                style="box-shadow: 0 25px 80px rgba(0,0,0,.6);"
-                draggable="false"
-              />
+            <div class="relative z-10 w-full h-full flex items-center justify-center p-4 sm:p-10 md:p-20">
+              <div class="relative w-full max-w-4xl aspect-[4/5] sm:aspect-square md:aspect-[3/2] overflow-hidden rounded-3xl shadow-[0_32px_120px_rgba(0,0,0,0.8)] border border-white/10">
+                <!-- Blurred backdrop for the specific frame -->
+                <img
+                  :src="resolveMediaUrl(dog.photos[lightboxIndex])"
+                  aria-hidden="true"
+                  class="absolute inset-0 w-full h-full object-cover scale-110 blur-3xl opacity-50 saturate-200"
+                />
+                <img
+                  :src="resolveMediaUrl(dog.photos[lightboxIndex])"
+                  :alt="`${dog.name} — фото ${lightboxIndex + 1}`"
+                  class="relative w-full h-full object-contain select-none"
+                  draggable="false"
+                />
+              </div>
             </div>
 
             <!-- Arrow prev -->

@@ -1,48 +1,70 @@
 <template>
-  <div class="min-h-screen bg-warm-50">
+  <div class="min-h-screen bg-warm-50 pb-24">
 
-    <!-- Page header -->
-    <section class="bg-white border-b border-warm-100 py-8 md:py-10">
-      <div class="container-custom max-w-4xl">
-        <h1 class="font-display font-bold text-2xl md:text-4xl text-warm-900 leading-tight tracking-tight">Помочь фонду</h1>
-        <p class="text-warm-500 mt-2 text-sm">Выберите удобный способ участия — каждый вклад важен</p>
+    <!-- Hero Header -->
+    <section class="relative py-20 overflow-hidden">
+      <div class="absolute inset-0 z-0">
+        <div class="absolute inset-0 bg-gradient-to-br from-primary-600/10 via-warm-50 to-terra-500/5" />
+        <div class="absolute top-[-20%] right-[-10%] w-[60%] h-[120%] bg-white/40 rounded-full blur-[100px]" />
+      </div>
+
+      <div class="container-custom relative z-10">
+        <div class="max-w-3xl">
+          <div class="inline-flex items-center gap-2 px-3 py-1 bg-primary-100/50 backdrop-blur-md rounded-full border border-primary-200/50 mb-6">
+            <span class="w-1.5 h-1.5 bg-primary-500 rounded-full animate-pulse" />
+            <span class="text-[10px] font-black uppercase tracking-[0.2em] text-primary-700">Поддержка</span>
+          </div>
+          <h1 class="font-display font-black text-4xl md:text-6xl text-warm-900 leading-[1.1] tracking-tight mb-6">
+            Помочь фонду <br/>
+            <span class="text-primary-600 italic font-display font-medium">спасать жизни</span>
+          </h1>
+          <p class="text-warm-500 text-lg md:text-xl max-w-xl leading-relaxed">
+            Выберите удобный способ участия — каждый вклад важен. Мы благодарны любой помощи, от репоста до финансовой поддержки.
+          </p>
+        </div>
       </div>
     </section>
 
-    <div class="container-custom max-w-4xl py-8 md:py-10">
-
+    <div class="container-custom relative z-10 -mt-8">
+      
       <!-- Ways to help -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 mb-8 md:mb-10">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 mb-12">
         <NuxtLink
           v-for="option in helpOptions"
           :key="option.title"
           :to="option.to"
-          class="bg-white rounded-2xl p-5 md:p-6 border border-warm-100 flex flex-col transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md hover:border-warm-200 group active:scale-[0.99]"
+          class="glass p-8 md:p-10 rounded-[3rem] border-white/60 flex flex-col transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_32px_80px_rgba(0,0,0,0.06)] group"
         >
-          <div class="flex items-start gap-4 mb-3 md:block">
-            <div :class="['w-11 h-11 rounded-xl flex items-center justify-center shrink-0 md:mb-4', option.iconBg]">
-              <svg :class="['w-5 h-5', option.iconColor]" fill="none" stroke="currentColor" viewBox="0 0 24 24" v-html="option.svg" />
-            </div>
-            <h2 class="font-display font-semibold text-base text-warm-900 leading-snug md:hidden pt-1.5">{{ option.title }}</h2>
+          <div :class="['w-16 h-16 rounded-3xl flex items-center justify-center shrink-0 mb-8 transition-transform duration-500 group-hover:scale-110 shadow-lg', option.iconBg, option.shadowColor]">
+            <svg :class="['w-8 h-8', option.iconColor]" fill="none" stroke="currentColor" viewBox="0 0 24 24" v-html="option.svg" />
           </div>
-          <h2 class="hidden md:block font-display font-semibold text-base text-warm-900 mb-2 leading-snug">{{ option.title }}</h2>
-          <p class="text-warm-500 text-sm leading-relaxed flex-1">{{ option.desc }}</p>
-          <div class="mt-4 flex items-center gap-1.5 text-sm font-semibold" :class="option.linkColor">
+          
+          <h2 class="font-display font-black text-2xl text-warm-900 mb-4 group-hover:text-primary-600 transition-colors">{{ option.title }}</h2>
+          <p class="text-warm-500 text-base leading-relaxed flex-1 mb-8">{{ option.desc }}</p>
+          
+          <div class="flex items-center gap-2 font-bold text-sm tracking-wide uppercase" :class="option.linkColor">
             {{ option.btnLabel }}
-            <svg class="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            <svg class="w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
           </div>
         </NuxtLink>
       </div>
 
-  
-
       <!-- Bottom CTA -->
-      <div class="text-center py-6">
-        <p class="text-warm-600 mb-5 text-sm">Самая большая помощь — взять питомца домой</p>
-        <NuxtLink to="/animals" class="btn-primary px-8 py-3 text-sm">
+      <div class="bg-primary-600 rounded-[3.5rem] p-12 text-center text-white relative overflow-hidden shadow-2xl">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(255,255,255,0.1)_0%,transparent_70%)] pointer-events-none" />
+        
+        <h2 class="font-display font-black text-3xl md:text-5xl mb-6 relative z-10">Самая большая помощь</h2>
+        <p class="text-primary-100 text-lg md:text-xl max-w-2xl mx-auto mb-10 relative z-10">
+          ... это взять питомца домой. Подарите счастливую жизнь тому, кто в ней очень нуждается.
+        </p>
+        
+        <NuxtLink to="/animals" class="relative z-10 inline-flex items-center gap-3 bg-white text-primary-700 hover:bg-primary-50 px-10 py-5 text-lg font-bold rounded-2xl shadow-xl transition-all hover:scale-105 active:scale-95 group">
           Найти питомца
+          <svg class="w-6 h-6 group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
         </NuxtLink>
       </div>
 
@@ -62,47 +84,44 @@ const helpOptions = [
     desc: 'Просматривайте анкеты, фильтруйте по городу и породе, связывайтесь напрямую с куратором.',
     to: '/animals',
     btnLabel: 'Смотреть шнауцеров',
-    btnClass: 'btn-primary',
     iconBg: 'bg-primary-50',
     iconColor: 'text-primary-500',
-    svg: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>`
+    linkColor: 'text-primary-600',
+    shadowColor: 'shadow-primary-500/20',
+    svg: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>`
   },
   {
     title: 'Взять на передержку',
-    desc: 'Временно приютить животное, пока ждёт постоянного хозяина. Всё необходимое предоставляется.',
+    desc: 'Временно приютить животное, пока ждёт постоянного хозяина. Всё необходимое мы предоставляем.',
     to: '/useful/adopt',
-    btnLabel: 'Подробнее',
-    btnClass: 'btn-outline',
+    btnLabel: 'Узнать больше',
     iconBg: 'bg-emerald-50',
-    iconColor: 'text-emerald-600',
-    svg: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>`
+    iconColor: 'text-emerald-500',
+    linkColor: 'text-emerald-600',
+    shadowColor: 'shadow-emerald-500/20',
+    svg: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>`
   },
   {
-    title: 'Юридическая помощь',
-    desc: 'FAQ по содержанию животных, правам и документам. Ответы от юридического отдела фонда.',
-    to: '/useful/legal',
-    btnLabel: 'Открыть раздел',
-    btnClass: 'btn-outline',
-    iconBg: 'bg-amber-50',
-    iconColor: 'text-amber-600',
-    svg: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"/>`
-  },
-  {
-    title: 'Связаться с нами',
-    desc: 'Телефоны, мессенджеры и email кураторов — всё в одном месте, без поиска в тексте.',
+    title: 'Финансовая помощь',
+    desc: 'Все средства идут на лечение, питание и содержание собак — мы регулярно публикуем отчёты.',
     to: '/contacts',
-    btnLabel: 'Контакты',
-    btnClass: 'btn-outline',
+    btnLabel: 'Как помочь',
+    iconBg: 'bg-amber-50',
+    iconColor: 'text-amber-500',
+    linkColor: 'text-amber-600',
+    shadowColor: 'shadow-amber-500/20',
+    svg: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>`
+  },
+  {
+    title: 'Волонтёрство',
+    desc: 'Помогайте руками на передержках, машиной для перевозки собак или просто распространяйте информацию.',
+    to: '/contacts',
+    btnLabel: 'Связаться',
     iconBg: 'bg-sky-50',
     iconColor: 'text-sky-500',
-    svg: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>`
+    linkColor: 'text-sky-600',
+    shadowColor: 'shadow-sky-500/20',
+    svg: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>`
   }
-]
-
-const impactStats = [
-  { value: '150+', label: 'пристроено' },
-  { value: '300+', label: 'спасено' },
-  { value: '20+',  label: 'кураторов' },
-  { value: '10',   label: 'лет работы' }
 ]
 </script>

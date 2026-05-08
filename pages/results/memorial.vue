@@ -1,9 +1,25 @@
-﻿<template>
+<template>
   <div class="min-h-screen bg-warm-50">
-    <section class="bg-white border-b border-warm-100 py-8 md:py-10">
-      <div class="container-custom max-w-5xl">
-        <h1 class="font-display font-semibold text-2xl md:text-3xl text-warm-900 leading-tight">В памяти</h1>
-        <p class="text-warm-500 mt-2 text-sm">Те, кто ушёл, но навсегда останется в наших сердцах</p>
+    <!-- Hero Header -->
+    <section class="relative py-20 overflow-hidden">
+      <div class="absolute inset-0 z-0">
+        <div class="absolute inset-0 bg-gradient-to-br from-primary-600/10 via-warm-50 to-terra-500/5" />
+        <div class="absolute top-[-20%] right-[-10%] w-[60%] h-[120%] bg-white/40 rounded-full blur-[100px]" />
+      </div>
+
+      <div class="container-custom relative z-10 text-center">
+        <div class="max-w-3xl mx-auto">
+          <div class="inline-flex items-center gap-2 px-3 py-1 bg-warm-200/50 backdrop-blur-md rounded-full border border-warm-300/50 mb-6">
+            <svg class="w-3.5 h-3.5 text-warm-600 fill-current" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" /></svg>
+            <span class="text-[10px] font-black uppercase tracking-[0.2em] text-warm-800">Светлая память</span>
+          </div>
+          <h1 class="font-display font-black text-4xl md:text-6xl text-warm-900 leading-[1.1] tracking-tight mb-6">
+            В <span class="text-primary-600 italic font-display font-medium">памяти</span>
+          </h1>
+          <p class="text-warm-500 text-lg md:text-xl max-w-xl mx-auto leading-relaxed">
+            Те, кто ушёл, но навсегда останется в наших сердцах
+          </p>
+        </div>
       </div>
     </section>
     <div class="container-custom max-w-5xl py-8 md:py-10">

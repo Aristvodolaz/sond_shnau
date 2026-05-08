@@ -1,139 +1,174 @@
 <template>
-  <div class="min-h-screen bg-warm-50">
-    <section class="bg-white border-b border-warm-100 py-8 md:py-10">
-      <div class="container-custom max-w-4xl">
-        <h1 class="font-display font-semibold text-2xl md:text-3xl text-warm-900 leading-tight">Взять шнауцера</h1>
-        <p class="text-warm-500 mt-2 text-sm">Как взять собаку из фонда — пошагово, с поддержкой куратора</p>
+  <div class="min-h-screen bg-warm-50 pb-24">
+    <!-- Hero Header -->
+    <section class="relative py-20 overflow-hidden">
+      <div class="absolute inset-0 z-0">
+        <div class="absolute inset-0 bg-gradient-to-br from-primary-600/10 via-warm-50 to-terra-500/5" />
+        <div class="absolute top-[-20%] right-[-10%] w-[60%] h-[120%] bg-white/40 rounded-full blur-[100px]" />
+      </div>
+
+      <div class="container-custom relative z-10">
+        <div class="max-w-3xl">
+          <div class="inline-flex items-center gap-2 px-3 py-1 bg-primary-100/50 backdrop-blur-md rounded-full border border-primary-200/50 mb-6">
+            <span class="w-1.5 h-1.5 bg-primary-500 rounded-full animate-pulse" />
+            <span class="text-[10px] font-black uppercase tracking-[0.2em] text-primary-700">Пристройство</span>
+          </div>
+          <h1 class="font-display font-black text-4xl md:text-6xl text-warm-900 leading-[1.1] tracking-tight mb-6">
+            Взять шнауцера <br/>
+            <span class="text-primary-600 italic font-display font-medium">в добрые руки</span>
+          </h1>
+          <p class="text-warm-500 text-lg md:text-xl max-w-xl leading-relaxed">
+            Как взять собаку из фонда — пошагово, прозрачно и с поддержкой куратора на всех этапах.
+          </p>
+        </div>
       </div>
     </section>
-    <div class="container-custom max-w-4xl py-8 md:py-10">
+
+    <div class="container-custom relative z-10 -mt-8">
 
       <!-- Why Adopt -->
       <section class="mb-16">
-        <h2 class="text-3xl font-display font-extrabold text-warm-900 mb-10 text-center tracking-tight">Почему стоит взять собаку из фонда</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div v-for="benefit in benefits" :key="benefit.title" class="group bg-white p-8 rounded-[2rem] border border-warm-100 shadow-sm hover:shadow-xl hover:shadow-primary-500/5 transition-all duration-500">
+        <h2 class="text-3xl md:text-4xl font-display font-black text-warm-900 mb-10 tracking-tight px-4">Почему фонд?</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+          <div v-for="benefit in benefits" :key="benefit.title" class="glass p-8 rounded-[2.5rem] border-white/60 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
             <div class="flex items-start gap-6">
-              <div class="w-14 h-14 rounded-2xl bg-primary-50 flex items-center justify-center shrink-0 group-hover:bg-primary-500 group-hover:scale-110 transition-all duration-500">
-                <component :is="benefit.icon" class="w-7 h-7 text-primary-600 group-hover:text-white transition-colors" />
+              <div class="w-16 h-16 rounded-3xl bg-primary-50 flex items-center justify-center shrink-0 group-hover:bg-primary-500 transition-all duration-500 shadow-md">
+                <component :is="benefit.icon" class="w-8 h-8 text-primary-600 group-hover:text-white transition-colors" />
               </div>
               <div>
                 <h3 class="font-display font-bold text-xl text-warm-900 mb-3 group-hover:text-primary-600 transition-colors">{{ benefit.title }}</h3>
-                <p class="text-warm-500 leading-relaxed text-base">{{ benefit.desc }}</p>
+                <p class="text-warm-500 leading-relaxed text-sm md:text-base">{{ benefit.desc }}</p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- Process -->
-      <section class="mb-16">
-        <h2 class="text-3xl font-display font-extrabold text-warm-900 mb-10 text-center tracking-tight">Как взять собаку: пошаговая инструкция</h2>
-        <div class="space-y-6">
-          <div
-            v-for="(step, i) in detailedSteps"
-            :key="i"
-            class="group bg-white rounded-[2rem] border border-warm-100 p-8 hover:border-primary-200 hover:shadow-xl hover:shadow-primary-500/5 transition-all duration-500 flex flex-col md:flex-row gap-8 items-start md:items-center"
-          >
-            <div class="relative shrink-0">
-              <div class="w-20 h-20 rounded-3xl bg-warm-50 group-hover:bg-primary-50 flex items-center justify-center transition-all duration-500 group-hover:scale-105">
-                <component :is="step.icon" class="w-10 h-10 text-warm-400 group-hover:text-primary-500 transition-colors" />
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 mb-16">
+        
+        <!-- Process -->
+        <div class="lg:col-span-8">
+          <h2 class="text-3xl md:text-4xl font-display font-black text-warm-900 mb-10 tracking-tight px-4">Как взять собаку: шаги</h2>
+          <div class="space-y-6">
+            <div
+              v-for="(step, i) in detailedSteps"
+              :key="i"
+              class="glass rounded-[2.5rem] border-white/60 p-6 md:p-8 hover:shadow-lg transition-all duration-300 flex flex-col sm:flex-row gap-6 md:gap-8 items-start group"
+            >
+              <div class="relative shrink-0">
+                <div class="w-20 h-20 rounded-3xl bg-white shadow-sm flex items-center justify-center transition-all duration-500 group-hover:scale-105 group-hover:bg-primary-50">
+                  <component :is="step.icon" class="w-10 h-10 text-warm-400 group-hover:text-primary-500 transition-colors" />
+                </div>
+                <div class="absolute -top-3 -right-3 w-9 h-9 rounded-full bg-primary-500 text-white flex items-center justify-center text-sm font-black shadow-md border-4 border-warm-50">
+                  {{ i + 1 }}
+                </div>
               </div>
-              <div class="absolute -top-3 -right-3 w-9 h-9 rounded-full bg-white border-2 border-warm-100 text-warm-500 group-hover:border-primary-500 group-hover:text-primary-500 flex items-center justify-center text-sm font-extrabold shadow-sm transition-all duration-500">
-                {{ i + 1 }}
+              <div class="flex-1 pt-2">
+                <h3 class="font-display font-bold text-xl text-warm-900 mb-2 group-hover:text-primary-600 transition-colors">{{ step.title }}</h3>
+                <p class="text-warm-500 leading-relaxed text-sm md:text-base">{{ step.desc }}</p>
+                <div v-if="i === 0" class="mt-4">
+                  <NuxtLink to="/animals" class="inline-flex items-center gap-2 text-primary-600 font-bold hover:gap-3 transition-all text-sm">
+                    Посмотреть шнауцеров
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </NuxtLink>
+                </div>
               </div>
             </div>
-            <div class="flex-1">
-              <h3 class="font-display font-bold text-xl text-warm-900 mb-3 group-hover:text-primary-600 transition-colors">{{ step.title }}</h3>
-              <p class="text-warm-500 leading-relaxed text-base">{{ step.desc }}</p>
-              <div v-if="i === 0" class="mt-5">
-                <NuxtLink to="/animals" class="inline-flex items-center gap-2 text-primary-600 font-bold hover:gap-3 transition-all">
-                  Посмотреть всех шнауцеров
-                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </div>
+        </div>
+
+        <!-- Sidebar Requirements & Questionnaire -->
+        <div class="lg:col-span-4 space-y-8">
+          
+          <!-- Requirements -->
+          <div class="bg-primary-600 rounded-[3rem] p-8 md:p-10 text-white shadow-2xl relative overflow-hidden">
+            <div class="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(255,255,255,0.1)_0%,transparent_50%)] pointer-events-none" />
+            <h2 class="font-display font-black text-2xl mb-6 relative z-10">Мы ожидаем от вас</h2>
+            <ul class="space-y-4 relative z-10">
+              <li v-for="req in requirements" :key="req" class="flex items-center gap-3">
+                <div class="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center shrink-0">
+                  <svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
                   </svg>
-                </NuxtLink>
-              </div>
-            </div>
+                </div>
+                <span class="text-primary-50 text-sm font-semibold">{{ req }}</span>
+              </li>
+            </ul>
           </div>
-        </div>
-      </section>
 
-      <!-- Questionnaire -->
-      <UiCard class="mb-8">
-        <div class="flex items-center justify-between mb-4">
-          <h2 class="text-xl font-display font-semibold text-warm-900">Анкета потенциального владельца</h2>
-          <button
-            @click="copyQuestionnaire"
-            class="text-primary-500 hover:text-primary-600 transition-colors text-sm font-medium flex items-center"
-          >
-            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
-            </svg>
-            {{ copied ? 'Скопировано!' : 'Копировать' }}
-          </button>
-        </div>
-        <div ref="questionnaireRef" class="bg-warm-100 rounded-lg p-6 text-sm font-mono text-warm-800 space-y-2 max-h-96 overflow-y-auto">
-          <p><strong>АНКЕТА ПОТЕНЦИАЛЬНОГО ВЛАДЕЛЬЦА</strong></p>
-          <p>1. Ваши контактные данные (ФИО, телефон, email, город):</p>
-          <p>2. Возраст:</p>
-          <p>3. Состав семьи (кто проживает вместе с вами):</p>
-          <p>4. Есть ли дети (возраст):</p>
-          <p>5. Тип жилья (квартира / дом, площадь, этаж):</p>
-          <p>6. Все ли члены семьи согласны на появление собаки:</p>
-          <p>7. Есть ли у кого-то аллергия на животных:</p>
-          <p>8. Есть ли у вас другие животные (какие, сколько, возраст):</p>
-          <p>9. Был ли у вас опыт содержания собак:</p>
-          <p>10. Почему хотите взять именно эту собаку:</p>
-          <p>11. Кто будет основным «хозяином» собаки (гулять, кормить, воспитывать):</p>
-          <p>12. Сколько времени в день вы сможете уделять собаке:</p>
-          <p>13. Работаете ли вы / учитесь (график, сколько часов собака будет одна):</p>
-          <p>14. Где собака будет находиться в ваше отсутствие:</p>
-          <p>15. Готовы ли вы к длительным прогулкам (утром и вечером минимум по часу):</p>
-          <p>16. Готовы ли вы к дрессировке / работе с кинологом при необходимости:</p>
-          <p>17. Готовы ли вы к регулярным ветеринарным осмотрам и лечению:</p>
-          <p>18. Какой бюджет вы готовы выделять на собаку ежемесячно (корм, ветеринария, груминг):</p>
-          <p>19. Что будете делать с собакой во время отпуска / командировок:</p>
-          <p>20. Готовы ли вы вернуть собаку в фонд, если не сможете больше содержать (вместо того, чтобы бросить или отдать кому попало):</p>
-          <p>21. Дополнительная информация / комментарии:</p>
-        </div>
-        <p class="text-sm text-warm-600 mt-3">
-          Скопируйте вопросы и пришлите заполненную анкету куратору или на почту фонда.
-        </p>
-      </UiCard>
-
-      <!-- Requirements -->
-      <section class="mb-12">
-        <h2 class="text-2xl font-display font-bold text-warm-900 mb-6 text-center">Что мы ожидаем от вас</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          <div v-for="req in requirements" :key="req" class="flex items-center gap-3 bg-white p-4 rounded-xl border border-warm-100 group hover:border-primary-200 transition-colors">
-            <div class="w-8 h-8 rounded-lg bg-primary-50 flex items-center justify-center shrink-0 group-hover:bg-primary-500 transition-colors">
-              <svg class="w-5 h-5 text-primary-600 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-              </svg>
+          <!-- Questionnaire -->
+          <div class="glass p-8 rounded-[2.5rem] border-white/60">
+            <div class="flex items-center justify-between mb-6">
+              <h2 class="text-xl font-display font-black text-warm-900">Анкета владельца</h2>
+              <button
+                @click="copyQuestionnaire"
+                class="w-10 h-10 rounded-2xl bg-warm-100 hover:bg-primary-100 text-warm-600 hover:text-primary-600 transition-colors flex items-center justify-center"
+                title="Копировать анкету"
+              >
+                <svg v-if="!copied" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+                </svg>
+                <svg v-else class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+                </svg>
+              </button>
             </div>
-            <span class="text-warm-700 text-sm font-medium">{{ req }}</span>
+            
+            <div ref="questionnaireRef" class="bg-white rounded-2xl p-5 text-xs font-mono text-warm-700 space-y-2 h-64 overflow-y-auto border border-warm-100 shadow-inner custom-scrollbar">
+              <p><strong>АНКЕТА ПОТЕНЦИАЛЬНОГО ВЛАДЕЛЬЦА</strong></p>
+              <p>1. Ваши контактные данные (ФИО, телефон, email, город):</p>
+              <p>2. Возраст:</p>
+              <p>3. Состав семьи (кто проживает вместе с вами):</p>
+              <p>4. Есть ли дети (возраст):</p>
+              <p>5. Тип жилья (квартира / дом, площадь, этаж):</p>
+              <p>6. Все ли члены семьи согласны на появление собаки:</p>
+              <p>7. Есть ли у кого-то аллергия на животных:</p>
+              <p>8. Есть ли у вас другие животные (какие, сколько, возраст):</p>
+              <p>9. Был ли у вас опыт содержания собак:</p>
+              <p>10. Почему хотите взять именно эту собаку:</p>
+              <p>11. Кто будет основным «хозяином» собаки:</p>
+              <p>12. Сколько времени в день вы сможете уделять собаке:</p>
+              <p>13. Работаете ли вы / учитесь (график, сколько часов собака одна):</p>
+              <p>14. Где собака будет находиться в ваше отсутствие:</p>
+              <p>15. Готовы ли вы к длительным прогулкам (минимум по часу):</p>
+              <p>16. Готовы ли вы к дрессировке / работе с кинологом:</p>
+              <p>17. Готовы ли вы к регулярным ветеринарным осмотрам:</p>
+              <p>18. Какой бюджет вы готовы выделять ежемесячно:</p>
+              <p>19. Что будете делать с собакой во время отпуска / командировок:</p>
+              <p>20. Готовы ли вы вернуть собаку в фонд, если не сможете содержать:</p>
+              <p>21. Дополнительная информация / комментарии:</p>
+            </div>
+            <p class="text-xs text-warm-500 mt-4 leading-relaxed">
+              Скопируйте вопросы, заполните и пришлите куратору или на почту фонда.
+            </p>
           </div>
-        </div>
-      </section>
 
-      <!-- CTA -->
-      <div class="bg-primary-50 border border-primary-200 rounded-xl p-8 text-center">
-        <h2 class="text-xl font-display font-semibold text-primary-900 mb-4">
-          Готовы подарить собаке дом?
-        </h2>
-        <p class="text-primary-800 mb-6">
-          Выберите собаку и свяжитесь с куратором. Мы поможем на каждом этапе!
-        </p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <UiButton to="/" variant="primary" size="lg">
-            Посмотреть собак
-          </UiButton>
-          <UiButton to="/contacts" variant="outline" size="lg">
-            Связаться с фондом
-          </UiButton>
         </div>
       </div>
+
+      <!-- CTA -->
+      <div class="glass p-10 md:p-14 rounded-[3.5rem] border-white/60 text-center shadow-lg relative overflow-hidden">
+        <div class="absolute -top-24 -right-24 w-64 h-64 bg-terra-400/20 rounded-full blur-3xl pointer-events-none" />
+        <div class="absolute -bottom-24 -left-24 w-64 h-64 bg-primary-400/20 rounded-full blur-3xl pointer-events-none" />
+        
+        <h2 class="relative z-10 text-3xl md:text-4xl font-display font-black text-warm-900 mb-4 tracking-tight">
+          Готовы подарить дом?
+        </h2>
+        <p class="relative z-10 text-warm-600 text-lg max-w-xl mx-auto mb-8">
+          Выберите собаку и свяжитесь с куратором. Мы поможем вам на каждом этапе!
+        </p>
+        <div class="relative z-10 flex flex-col sm:flex-row gap-4 justify-center">
+          <NuxtLink to="/animals" class="btn bg-primary-600 text-white hover:bg-primary-700 px-8 py-4 text-base font-bold rounded-2xl shadow-lg transition-all hover:scale-105 active:scale-95">
+            Посмотреть собак
+          </NuxtLink>
+          <NuxtLink to="/contacts" class="btn bg-white text-warm-900 hover:bg-warm-50 px-8 py-4 text-base font-bold rounded-2xl shadow-sm border border-warm-200 transition-all hover:scale-105 active:scale-95">
+            Связаться с нами
+          </NuxtLink>
+        </div>
+      </div>
+
     </div>
   </div>
 </template>

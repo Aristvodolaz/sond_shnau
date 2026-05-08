@@ -1,12 +1,28 @@
-﻿<template>
+<template>
   <div class="min-h-screen bg-warm-50">
-    <section class="bg-white border-b border-warm-100 py-8 md:py-10">
-      <div class="container-custom">
-        <h1 class="font-display font-semibold text-2xl md:text-3xl text-warm-900 leading-tight">Счастливые истории</h1>
-        <p class="text-warm-500 mt-2 text-sm">Трогательные рассказы о спасении, преображении и обретении дома</p>
+    <!-- Hero Header -->
+    <section class="relative py-20 overflow-hidden">
+      <div class="absolute inset-0 z-0">
+        <div class="absolute inset-0 bg-gradient-to-br from-primary-600/10 via-warm-50 to-terra-500/5" />
+        <div class="absolute top-[-20%] right-[-10%] w-[60%] h-[120%] bg-white/40 rounded-full blur-[100px]" />
+      </div>
+
+      <div class="container-custom relative z-10">
+        <div class="max-w-3xl">
+          <div class="inline-flex items-center gap-2 px-3 py-1 bg-primary-100/50 backdrop-blur-md rounded-full border border-primary-200/50 mb-6">
+            <span class="w-1.5 h-1.5 bg-primary-500 rounded-full animate-pulse" />
+            <span class="text-[10px] font-black uppercase tracking-[0.2em] text-primary-700">До / После</span>
+          </div>
+          <h1 class="font-display font-black text-4xl md:text-6xl text-warm-900 leading-[1.1] tracking-tight mb-6">
+            Счастливые <span class="text-primary-600 italic font-display font-medium">истории</span>
+          </h1>
+          <p class="text-warm-500 text-lg md:text-xl max-w-xl leading-relaxed">
+            Трогательные рассказы о спасении, преображении и обретении дома
+          </p>
+        </div>
       </div>
     </section>
-    <div class="container-custom py-8 md:py-10">
+    <div class="container-custom relative z-10 -mt-8 pb-16">
 
       <!-- Filters -->
       <div class="mb-8 flex flex-wrap gap-3">

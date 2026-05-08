@@ -13,7 +13,17 @@ function readFavorites(): string[] {
 }
 
 export function useFavorites() {
-  const ids = useState<string[]>(FAVORITES_KEY, () => readFavorites())
+  const ids = useState<string[]>(FAVORITES_KEY, () => [])
+
+  // Sync with localStorage on client only
+  if (import.meta.client) {
+    onMounted(() => {
+      const stored = readFavorites()
+      if (stored.length > 0) {
+        ids.value = stored
+      }
+    })
+  }
 
   const persist = () => {
     if (!import.meta.client) return
@@ -23,8 +33,11 @@ export function useFavorites() {
   const has = (id: string) => ids.value.includes(id)
 
   const toggle = (id: string) => {
-    if (has(id)) ids.value = ids.value.filter(x => x !== id)
-    else ids.value = [...ids.value, id]
+    if (has(id)) {
+      ids.value = ids.value.filter(x => x !== id)
+    } else {
+      ids.value = [...ids.value, id]
+    }
     persist()
   }
 

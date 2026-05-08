@@ -1,54 +1,13 @@
 <template>
   <footer class="relative bg-warm-900 text-warm-200 overflow-hidden">
 
-    <!-- Subtle repeating paw bg -->
-    <div class="footer-paw-bg absolute inset-0 pointer-events-none select-none" aria-hidden="true" />
-
     <!-- Top gradient accent -->
     <div class="h-[3px] bg-gradient-to-r from-primary-700 via-terra-500 to-primary-400" />
 
     <!-- Main footer content -->
     <div class="container-custom pt-14 pb-10 relative">
 
-      <!-- Decorative large paw — absolute right -->
-      <div class="absolute right-0 top-0 bottom-0 flex items-center pointer-events-none select-none" aria-hidden="true">
-        <svg
-          class="w-[320px] h-[320px] lg:w-[400px] lg:h-[400px] opacity-[0.045]"
-          viewBox="0 0 200 220"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <defs>
-            <linearGradient id="pawGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#52a8db"/>
-              <stop offset="100%" stop-color="#e07548"/>
-            </linearGradient>
-          </defs>
-          <!-- Toe 1 (far left) -->
-          <ellipse cx="38" cy="52" rx="18" ry="24"
-            transform="rotate(-22 38 52)" fill="url(#pawGrad)"/>
-          <!-- Toe 2 -->
-          <ellipse cx="76" cy="34" rx="18" ry="24"
-            transform="rotate(-8 76 34)" fill="url(#pawGrad)"/>
-          <!-- Toe 3 -->
-          <ellipse cx="116" cy="34" rx="18" ry="24"
-            transform="rotate(8 116 34)" fill="url(#pawGrad)"/>
-          <!-- Toe 4 (far right) -->
-          <ellipse cx="154" cy="52" rx="18" ry="24"
-            transform="rotate(22 154 52)" fill="url(#pawGrad)"/>
-          <!-- Main pad — smooth heart-like shape -->
-          <path
-            d="M96 94
-               C96 94 44 82 30 106
-               C18 126 34 148 58 162
-               C74 172 96 186 96 186
-               C96 186 118 172 134 162
-               C158 148 174 126 162 106
-               C148 82 96 94 96 94 Z"
-            fill="url(#pawGrad)"
-          />
-        </svg>
-      </div>
+
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 relative z-10">
 
@@ -230,8 +189,5 @@ const resourceLinks = [
   opacity: 1;
 }
 
-.footer-paw-bg {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cg fill='white' opacity='0.025'%3E%3Cpath d='M26 8a5 5 0 100 10A5 5 0 0026 8zm18-2a4 4 0 100 8 4 4 0 000-8zm18 2a5 5 0 100 10A5 5 0 0062 8zm-9 10c-7 0-12 5-12 11 0 3 4 5 12 5s12-2 12-5c0-6-5-11-12-11z'/%3E%3Cpath transform='translate(90 75) rotate(30)' d='M16 2a4 4 0 100 8 4 4 0 000-8zm12-1a3 3 0 100 6 3 3 0 000-6zm12 1a4 4 0 100 8 4 4 0 000-8zm-6 8c-5.5 0-10 4-10 9 0 2.5 3 4 10 4s10-1.5 10-4c0-5-4.5-9-10-9z'/%3E%3Cpath transform='translate(10 100) rotate(-15) scale(0.75)' d='M16 2a4 4 0 100 8 4 4 0 000-8zm12-1a3 3 0 100 6 3 3 0 000-6zm12 1a4 4 0 100 8 4 4 0 000-8zm-6 8c-5.5 0-10 4-10 9 0 2.5 3 4 10 4s10-1.5 10-4c0-5-4.5-9-10-9z'/%3E%3C/g%3E%3C/svg%3E");
-  background-size: 160px 160px;
-}
+
 </style>

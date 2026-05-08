@@ -12,7 +12,7 @@
         <img
           :src="resolveMediaUrl(dog.photos[0])"
           :alt="dog.name"
-          class="relative w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          class="relative w-full h-full object-contain transition-transform duration-700 group-hover:scale-105"
           loading="lazy"
         />
       </template>
@@ -74,27 +74,27 @@
       </div>
 
       <!-- Info Row -->
-      <div class="pt-4 mt-auto border-t border-warm-50 flex items-center justify-between text-xs font-medium text-warm-500">
-        <div class="flex items-center gap-3">
-           <span class="flex items-center gap-1.5">
-            <svg class="w-3.5 h-3.5 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <div class="pt-4 mt-auto border-t border-warm-50 flex items-center justify-between">
+        <div class="flex flex-col gap-1.5 min-w-0">
+          <div class="flex items-center gap-2 text-[11px] font-bold text-warm-400 uppercase tracking-tight whitespace-nowrap">
+            <svg class="w-3.5 h-3.5 text-primary-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
             {{ dog.age }}
-          </span>
-          <span class="flex items-center gap-1.5 truncate max-w-[100px]">
-            <svg class="w-3.5 h-3.5 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          </div>
+          <div class="flex items-center gap-2 text-[11px] font-bold text-warm-700 uppercase tracking-tight min-w-0">
+            <svg class="w-3.5 h-3.5 text-primary-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
             </svg>
-            {{ dog.city }}
-          </span>
+            <span class="truncate">{{ dog.city }}</span>
+          </div>
         </div>
         
         <NuxtLink
           :to="`/animals/${dog.slug}`"
-          class="w-9 h-9 flex items-center justify-center bg-primary-50 text-primary-600 rounded-full hover:bg-primary-500 hover:text-white transition-all duration-300 group-hover:shadow-md group-hover:shadow-primary-500/20"
+          class="w-10 h-10 flex items-center justify-center bg-primary-50 text-primary-600 rounded-2xl hover:bg-primary-500 hover:text-white transition-all duration-300 group-hover:shadow-lg group-hover:shadow-primary-500/25 shrink-0"
         >
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
           </svg>
         </NuxtLink>

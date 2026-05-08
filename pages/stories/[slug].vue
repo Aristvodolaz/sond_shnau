@@ -2,22 +2,29 @@
   <div v-if="story" class="py-12 md:py-16">
     <article class="container-custom max-w-4xl">
       <!-- Back Button -->
-      <UiButton to="/results/stories" variant="outline" size="sm" class="mb-8">
-        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-        </svg>
+      <NuxtLink to="/results/stories" class="inline-flex items-center gap-2 text-sm font-semibold text-warm-500 hover:text-primary-600 transition-colors mb-8 group">
+        <div class="w-8 h-8 rounded-full bg-white border border-warm-200 flex items-center justify-center group-hover:border-primary-300 group-hover:bg-primary-50 transition-all shadow-sm">
+          <svg class="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+        </div>
         К списку историй
-      </UiButton>
+      </NuxtLink>
 
       <!-- Header -->
-      <header class="mb-10">
-        <div class="flex items-center gap-3 mb-4">
-          <UiTag variant="info">{{ story.year }}</UiTag>
-          <UiTag v-if="story.part" variant="default">Часть {{ story.part }}</UiTag>
+      <header class="relative mb-12 p-8 md:p-12 glass rounded-[3rem] border-white/60 shadow-lg overflow-hidden">
+        <div class="absolute -top-24 -right-24 w-64 h-64 bg-primary-400/20 rounded-full blur-3xl pointer-events-none" />
+        <div class="absolute -bottom-24 -left-24 w-64 h-64 bg-terra-400/20 rounded-full blur-3xl pointer-events-none" />
+        
+        <div class="relative z-10">
+          <div class="flex flex-wrap items-center gap-3 mb-6">
+            <span class="inline-flex items-center px-3 py-1 bg-warm-100 text-warm-700 rounded-full text-xs font-bold uppercase tracking-wider">{{ story.year }}</span>
+            <span v-if="story.part" class="inline-flex items-center px-3 py-1 bg-white/60 text-warm-600 border border-warm-200/50 rounded-full text-xs font-bold uppercase tracking-wider">Часть {{ story.part }}</span>
+          </div>
+          <h1 class="text-4xl md:text-5xl font-display font-black text-warm-900 leading-[1.1] tracking-tight">
+            История <span class="text-primary-600 italic font-medium">{{ story.dogName }}</span>
+          </h1>
         </div>
-        <h1 class="text-2xl md:text-3xl font-display font-semibold text-warm-900 mb-4">
-          История {{ story.dogName }}
-        </h1>
       </header>
 
       <!-- Before/After -->
