@@ -32,48 +32,33 @@
               <NuxtLink to="/animals" class="btn-primary px-10 py-5 text-lg shadow-xl shadow-primary-500/20 hover:shadow-primary-500/30 hover:-translate-y-0.5 transition-all">
                 Найти питомца
               </NuxtLink>
-              <NuxtLink to="/support" class="btn-outline px-10 py-5 text-lg border-2 hover:bg-warm-100/50 transition-all">
-                Помочь проекту
-              </NuxtLink>
             </div>
           </div>
 
           <!-- Photo mosaic -->
-          <div class="relative hidden lg:grid grid-cols-2 gap-3 h-[500px] opacity-0-start animate-fade-up delay-200">
-            <div class="space-y-3">
-              <div class="rounded-2xl overflow-hidden h-[200px] bg-warm-100 relative">
+          <div class="relative hidden lg:grid grid-cols-2 gap-4 h-[520px] opacity-0-start animate-fade-up delay-200">
+            <div class="space-y-4">
+              <div class="group rounded-2xl overflow-hidden h-[240px] bg-warm-100 shadow-lg hover:-translate-y-1 transition-all duration-500 relative border border-warm-200/50">
                 <template v-if="heroPhotos[0]">
-                  <img :src="resolveMediaUrl(heroPhotos[0])" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover scale-110 blur-2xl opacity-50 saturate-150 pointer-events-none" />
-                  <img :src="resolveMediaUrl(heroPhotos[0])" class="relative w-full h-full object-contain" alt="" />
+                  <img :src="resolveMediaUrl(heroPhotos[0])" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="" />
                 </template>
-                <div v-else class="w-full h-full bg-gradient-to-br from-primary-100 to-primary-200 flex items-center justify-center">
-                  <svg class="w-12 h-12 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                  </svg>
-                </div>
               </div>
-              <div class="rounded-2xl overflow-hidden bg-warm-100 relative flex-1" style="height: calc(300px - 0.75rem)">
+              <div class="group rounded-2xl overflow-hidden bg-warm-100 shadow-lg hover:-translate-y-1 transition-all duration-500 flex-1 relative border border-warm-200/50" style="height: calc(280px - 1rem)">
                 <template v-if="heroPhotos[1]">
-                  <img :src="resolveMediaUrl(heroPhotos[1])" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover scale-110 blur-2xl opacity-50 saturate-150 pointer-events-none" />
-                  <img :src="resolveMediaUrl(heroPhotos[1])" class="relative w-full h-full object-contain" alt="" />
+                  <img :src="resolveMediaUrl(heroPhotos[1])" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="" />
                 </template>
-                <div v-else class="w-full h-full bg-gradient-to-br from-primary-100 to-primary-200" />
               </div>
             </div>
-            <div class="space-y-3 pt-8">
-              <div class="rounded-2xl overflow-hidden bg-warm-100 relative flex-1" style="height: calc(280px - 0.75rem)">
+            <div class="space-y-4 pt-12">
+              <div class="group rounded-2xl overflow-hidden bg-warm-100 shadow-lg hover:-translate-y-1 transition-all duration-500 flex-1 relative border border-warm-200/50" style="height: calc(280px - 1rem)">
                 <template v-if="heroPhotos[2]">
-                  <img :src="resolveMediaUrl(heroPhotos[2])" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover scale-110 blur-2xl opacity-50 saturate-150 pointer-events-none" />
-                  <img :src="resolveMediaUrl(heroPhotos[2])" class="relative w-full h-full object-contain" alt="" />
+                  <img :src="resolveMediaUrl(heroPhotos[2])" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="" />
                 </template>
-                <div v-else class="w-full h-full bg-gradient-to-br from-warm-200 to-warm-300" />
               </div>
-              <div class="rounded-2xl overflow-hidden h-[200px] bg-warm-100 relative">
+              <div class="group rounded-2xl overflow-hidden h-[240px] bg-warm-100 shadow-lg hover:-translate-y-1 transition-all duration-500 relative border border-warm-200/50">
                 <template v-if="heroPhotos[3]">
-                  <img :src="resolveMediaUrl(heroPhotos[3])" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover scale-110 blur-2xl opacity-50 saturate-150 pointer-events-none" />
-                  <img :src="resolveMediaUrl(heroPhotos[3])" class="relative w-full h-full object-contain" alt="" />
+                  <img :src="resolveMediaUrl(heroPhotos[3])" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="" />
                 </template>
-                <div v-else class="w-full h-full bg-gradient-to-br from-primary-200 to-primary-300" />
               </div>
             </div>
           </div>
@@ -145,58 +130,7 @@
       </div>
     </section>
 
-    <!-- ─── HOW IT WORKS ──────────────────────────────────────── -->
-    <section class="py-24 bg-white relative overflow-hidden">
-      <!-- Decorative background elements -->
-      <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-7xl pointer-events-none opacity-20">
-        <div class="absolute top-20 left-10 w-64 h-64 bg-primary-100 rounded-full blur-3xl" />
-        <div class="absolute bottom-20 right-10 w-96 h-96 bg-warm-100 rounded-full blur-3xl" />
-      </div>
 
-      <div class="container-custom relative z-10">
-        <div class="text-center mb-20">
-          <h2 class="font-display font-extrabold text-3xl md:text-5xl text-warm-900 mb-6 tracking-tight">Как забрать питомца домой</h2>
-          <p class="text-warm-500 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">Мы сделали процесс адопции максимально прозрачным и комфортным для вас и вашего будущего друга</p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
-          <div
-            v-for="(step, i) in adoptionSteps"
-            :key="i"
-            class="relative group"
-          >
-            <!-- Step number & Icon -->
-            <div class="mb-8 flex items-center justify-center relative">
-              <!-- Connecting line -->
-              <div v-if="i < 3" class="hidden lg:block absolute top-1/2 left-[calc(50%+40px)] w-[calc(100%-80px)] h-0.5 bg-gradient-to-r from-primary-200 to-transparent z-0" />
-
-              <div class="w-20 h-20 rounded-3xl bg-white shadow-xl shadow-warm-200/50 flex items-center justify-center relative z-10 group-hover:-translate-y-2 transition-all duration-500 border border-warm-100">
-                <div class="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-primary-500 text-white flex items-center justify-center font-display font-bold text-sm shadow-lg shadow-primary-500/30">
-                  {{ i + 1 }}
-                </div>
-                <component :is="step.icon" class="w-10 h-10 text-primary-500 group-hover:scale-110 transition-transform duration-500" />
-              </div>
-            </div>
-
-            <!-- Content -->
-            <div class="text-center">
-              <h3 class="font-display font-bold text-xl text-warm-900 mb-4 group-hover:text-primary-600 transition-colors">{{ step.title }}</h3>
-              <p class="text-warm-500 leading-relaxed text-base">{{ step.desc }}</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- CTA in section -->
-        <div class="mt-20 text-center">
-          <NuxtLink to="/animals" class="inline-flex items-center gap-2 text-primary-600 font-bold hover:gap-3 transition-all group">
-            Перейти в каталог шнауцеров
-            <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </NuxtLink>
-        </div>
-      </div>
-    </section>
 
     <!-- ─── NEWS + RSS ───────────────────────────────────────── -->
     <section class="py-10 md:py-14 bg-warm-50">
@@ -251,9 +185,6 @@
             <div class="flex flex-wrap gap-4">
               <NuxtLink to="/animals" class="btn bg-white text-primary-700 hover:bg-primary-50 px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all">
                 Найти питомца
-              </NuxtLink>
-              <NuxtLink to="/support" class="btn border-2 border-white/50 text-white hover:bg-white/10 px-8 py-4 rounded-xl transition-all">
-                Помочь фонду
               </NuxtLink>
             </div>
           </div>

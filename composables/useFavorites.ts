@@ -13,24 +13,35 @@ function readFavorites(): string[] {
 }
 
 export function useFavorites() {
-  const ids = useState<string[]>(FAVORITES_KEY, () => readFavorites())
+  const ids = useState<string[]>(FAVORITES_KEY, () => [])
 
-  const persist = () => {
-    if (!import.meta.client) return
-    localStorage.setItem(FAVORITES_KEY, JSON.stringify(ids.value))
-  }
+  // Sync with localStorage on mount (client-only)
+  onMounted(() => {
+    const saved = readFavorites()
+    if (saved.length) {
+      ids.value = saved
+    }
+  })
+
+  // Watch for changes and persist
+  watch(ids, (newVal) => {
+    if (import.meta.client) {
+      localStorage.setItem(FAVORITES_KEY, JSON.stringify(newVal))
+    }
+  }, { deep: true })
 
   const has = (id: string) => ids.value.includes(id)
 
   const toggle = (id: string) => {
-    if (has(id)) ids.value = ids.value.filter(x => x !== id)
-    else ids.value = [...ids.value, id]
-    persist()
+    if (has(id)) {
+      ids.value = ids.value.filter(x => x !== id)
+    } else {
+      ids.value = [...ids.value, id]
+    }
   }
 
   const remove = (id: string) => {
     ids.value = ids.value.filter(x => x !== id)
-    persist()
   }
 
   return { ids, has, toggle, remove }
@@ -62,11 +73,12 @@ export function useAnimalLabels() {
   const featureLabel = (f: string) => {
     const features: Record<string, string> = {
       VACCINATED: 'Привит',
-      TREATEDFORPARASITES: 'От паразитов',
+      TREATEDFORPARASITES: 'Обработан(а) от паразитов',
       STERILIZED: 'Стерилизован',
       CASTRATED: 'Кастрирован',
       PASSPORT: 'Есть паспорт',
-      CHIPPED: 'Чипирован'
+      CHIPPED: 'Чипирован',
+      TREATEDFORPARASITE: 'Обработан(а) от паразитов'
     }
     return features[f.toUpperCase()] || f
   }

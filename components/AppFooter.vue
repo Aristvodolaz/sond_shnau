@@ -9,12 +9,12 @@
         <!-- Brand -->
         <div class="lg:col-span-2">
           <div class="flex items-center gap-3 mb-5">
-            <div class="w-12 h-12 rounded-full overflow-hidden ring-2 ring-primary-500/40">
+            <div class="w-14 h-14 rounded-full overflow-hidden ring-2 ring-primary-500/40">
               <img src="/images/logo/logo.png" alt="Логотип" class="w-full h-full object-cover" />
             </div>
             <div>
-              <div class="font-hobo text-base text-white leading-none tracking-wide">Фонд помощи</div>
-              <div class="font-hobo text-sm text-primary-300 tracking-wide">шнауцерам</div>
+              <div class="font-hobo font-bold text-xl md:text-2xl text-white leading-none tracking-tight">Фонд помощи</div>
+              <div class="font-hobo text-base text-primary-300 font-medium tracking-wide">шнауцерам</div>
             </div>
           </div>
           <p class="text-warm-400 leading-relaxed text-sm max-w-xs">

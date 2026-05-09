@@ -6,16 +6,16 @@
       : 'bg-white border-b border-warm-100'"
   >
     <nav class="container-custom">
-      <div class="flex items-center justify-between h-16 gap-4">
+      <div class="flex items-center justify-between h-20 gap-4">
 
         <!-- Logo -->
-        <NuxtLink to="/" class="flex items-center gap-3 group shrink-0" aria-label="Главная">
-          <div class="w-9 h-9 md:w-10 md:h-10 rounded-full overflow-hidden ring-2 ring-primary-100 group-hover:ring-primary-300 transition-all duration-200 shrink-0">
-            <img src="/images/logo/logo.png" alt="Логотип" class="w-full h-full object-cover" />
+        <NuxtLink to="/" class="flex items-center gap-5 md:gap-8 group shrink-0" aria-label="Главная">
+          <div class="w-12 h-12 md:w-16 md:h-16 rounded-full overflow-hidden ring-2 ring-primary-100 group-hover:ring-primary-300 transition-all duration-300 shrink-0">
+            <img src="/images/logo/logo.png" alt="Логотип" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
           </div>
-          <div class="hidden sm:block leading-tight">
-            <div class="font-hobo text-sm text-primary-800 leading-none tracking-wide">Фонд помощи</div>
-            <div class="font-hobo text-xs text-primary-400 tracking-wide">шнауцерам</div>
+          <div class="leading-tight">
+            <div class="font-hobo text-sm md:text-base text-primary-900 leading-none tracking-tight">Фонд помощи</div>
+            <div class="font-hobo text-[10px] md:text-xs text-primary-500 tracking-wide">шнауцерам</div>
           </div>
         </NuxtLink>
 
@@ -76,7 +76,7 @@
         </div>
 
         <!-- Desktop right actions -->
-        <div class="hidden lg:flex items-center gap-2 shrink-0">
+        <div class="hidden lg:flex items-center gap-3 shrink-0">
           <NuxtLink
             to="/favorites"
             class="relative p-2 text-warm-500 hover:text-primary-500 hover:bg-primary-50 rounded-lg transition-all duration-200"
@@ -91,14 +91,8 @@
             >{{ favCount }}</span>
           </NuxtLink>
           <NuxtLink
-            to="/support"
-            class="btn-outline px-5 py-2 text-sm border-primary-200 text-primary-700 hover:bg-primary-50"
-          >
-            Поддержать
-          </NuxtLink>
-          <NuxtLink
             to="/animals"
-            class="btn-primary px-5 py-2 text-sm"
+            class="btn-primary px-6 py-2.5 text-sm shadow-lg shadow-primary-500/20"
           >
             Найти друга
           </NuxtLink>
@@ -139,60 +133,41 @@
         leave-from-class="opacity-100 translate-y-0"
         leave-to-class="opacity-0 -translate-y-1"
       >
-        <div v-if="mobileMenuOpen" class="lg:hidden border-t border-warm-100 py-3 pb-4">
-          <div class="flex flex-col gap-0.5">
+        <div v-if="mobileMenuOpen" class="lg:hidden border-t border-warm-100 py-3 pb-6 px-4">
+          <div class="flex flex-col gap-1">
             <template v-for="item in menuPrimary" :key="item.label">
               <NuxtLink
                 v-if="item.to"
                 :to="item.to"
-                class="px-4 py-2.5 rounded-xl text-warm-800 hover:bg-warm-50 font-medium transition-colors"
-                active-class="bg-primary-50 text-primary-700 font-semibold"
+                class="px-4 py-3 rounded-2xl text-warm-800 hover:bg-warm-50 font-semibold transition-colors flex items-center justify-between group"
+                active-class="bg-primary-50 text-primary-700"
                 @click="mobileMenuOpen = false"
               >
                 {{ item.label }}
+                <svg class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
               </NuxtLink>
-              <a
-                v-else-if="item.href"
-                :href="item.href"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="px-4 py-2.5 rounded-xl text-warm-800 hover:bg-warm-50 font-medium transition-colors"
-                @click="mobileMenuOpen = false"
-              >
-                {{ item.label }}
-              </a>
             </template>
-            <div class="border-t border-warm-100 my-2 mx-1" />
-            <template v-for="item in menuMore" :key="'m-' + item.label">
-              <NuxtLink
-                v-if="item.to"
-                :to="item.to"
-                class="px-4 py-2 rounded-xl text-warm-600 hover:bg-warm-50 text-sm transition-colors"
-                @click="mobileMenuOpen = false"
-              >
-                {{ item.label }}
-              </NuxtLink>
-              <a
-                v-else-if="item.href"
-                :href="item.href"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="px-4 py-2 rounded-xl text-warm-600 hover:bg-warm-50 text-sm transition-colors"
-                @click="mobileMenuOpen = false"
-              >
-                {{ item.label }}
-              </a>
-            </template>
-            <div class="pt-3 px-1">
-              <NuxtLink to="/animals" class="btn-primary w-full py-3.5 text-center text-sm shadow-md" @click="mobileMenuOpen = false">
-                Найти друга
-              </NuxtLink>
+            
+            <div class="border-t border-warm-100 my-4" />
+            
+            <div class="grid grid-cols-2 gap-2 mb-6">
+              <template v-for="item in menuMore" :key="'m-' + item.label">
+                <NuxtLink
+                  v-if="item.to"
+                  :to="item.to"
+                  class="px-4 py-2.5 rounded-xl bg-warm-50 text-warm-600 text-xs font-bold uppercase tracking-wider text-center"
+                  @click="mobileMenuOpen = false"
+                >
+                  {{ item.label }}
+                </NuxtLink>
+              </template>
             </div>
-            <div class="px-1 mt-2">
-              <NuxtLink to="/support" class="btn-outline w-full py-3.5 text-center text-sm border-primary-200 text-primary-700" @click="mobileMenuOpen = false">
-                Помочь фонду
-              </NuxtLink>
-            </div>
+
+            <NuxtLink to="/animals" class="btn-primary w-full py-4 text-center text-base shadow-xl shadow-primary-500/20" @click="mobileMenuOpen = false">
+              Найти друга
+            </NuxtLink>
           </div>
         </div>
       </Transition>

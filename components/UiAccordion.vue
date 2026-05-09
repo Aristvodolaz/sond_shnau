@@ -2,11 +2,15 @@
   <div class="border border-warm-100 rounded-xl overflow-hidden bg-white" style="box-shadow: var(--shadow-card);">
     <button
       type="button"
-      class="w-full px-5 py-4 bg-white hover:bg-warm-50 transition-colors duration-200 flex items-center justify-between text-left gap-4"
+      class="w-full px-5 py-4 bg-white hover:bg-warm-50 transition-colors duration-200 flex items-center text-left gap-4"
       :aria-expanded="isOpen"
       @click="isOpen = !isOpen"
     >
-      <span class="font-semibold text-warm-900 text-sm leading-snug">{{ title }}</span>
+      <div class="flex-1 min-w-0">
+        <slot name="title">
+          <span class="font-semibold text-warm-900 text-sm leading-snug">{{ title }}</span>
+        </slot>
+      </div>
       <svg
         class="w-4 h-4 text-warm-400 transition-transform duration-200 shrink-0"
         :class="{ 'rotate-180': isOpen }"

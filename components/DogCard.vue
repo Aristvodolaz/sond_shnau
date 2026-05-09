@@ -2,26 +2,29 @@
   <article class="group bg-white rounded-2xl overflow-hidden border border-warm-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col">
 
     <!-- Photo -->
-    <NuxtLink :to="`/animals/${dog.slug}`" class="block relative overflow-hidden bg-warm-100 shrink-0" style="aspect-ratio: 4/3;">
-      <template v-if="dog.photos?.length">
-        <!-- Blurred backdrop — fills colour from the photo itself -->
-        <img
-          :src="resolveMediaUrl(dog.photos[0])"
-          aria-hidden="true"
-          class="absolute inset-0 w-full h-full object-cover scale-110 blur-2xl opacity-50 saturate-[1.4] pointer-events-none select-none"
-        />
-        <!-- Actual photo, fully visible -->
-        <img
-          :src="resolveMediaUrl(dog.photos[0])"
-          :alt="dog.name"
-          class="relative w-full h-full object-contain transition-transform duration-500 group-hover:scale-[1.04] drop-shadow-sm"
-          loading="lazy"
-        />
-      </template>
-      <div v-else class="w-full h-full flex flex-col items-center justify-center gap-2 text-warm-300">
-        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-        </svg>
+    <NuxtLink :to="`/animals/${dog.slug}`" class="block relative overflow-hidden bg-white p-1 shrink-0" style="aspect-ratio: 4/3;">
+      <div class="w-full h-full rounded-xl overflow-hidden relative group-hover:shadow-lg transition-all duration-500 border border-warm-200">
+        <template v-if="dog.photos?.length">
+          <img
+            :src="resolveMediaUrl(dog.photos[0])"
+            aria-hidden="true"
+            class="absolute inset-0 w-full h-full object-cover blur-2xl opacity-40 scale-110 pointer-events-none"
+          />
+          <img
+            :src="resolveMediaUrl(dog.photos[0])"
+            :alt="dog.name"
+            class="relative w-full h-full object-contain transition-transform duration-700 group-hover:scale-[1.03]"
+            loading="lazy"
+          />
+        </template>
+        <div v-else class="w-full h-full bg-warm-50 flex flex-col items-center justify-center gap-2 text-warm-300">
+          <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+          </svg>
+        </div>
+        
+        <!-- Subtle inner shadow -->
+        <div class="absolute inset-0 ring-1 ring-inset ring-black/5 rounded-xl pointer-events-none" />
       </div>
 
       <!-- Gradient overlay on hover -->

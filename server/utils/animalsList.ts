@@ -84,7 +84,12 @@ export async function fetchAnimalsList(opts: AnimalsQuery): Promise<AnimalListRe
 
   const range = opts.age && opts.age !== 'all' ? ageBucketRange(opts.age) : null
   if (range) {
-    conditions.push(`(age_months IS NULL OR (age_months >= $${i} AND age_months <= $${i + 1}))`)
+    const ageMonthsExpr = `COALESCE(age_months, CASE 
+      WHEN age ~* 'год|лет' THEN (substring(age FROM '[0-9]+')::integer * 12)
+      WHEN age ~* 'мес' THEN substring(age FROM '[0-9]+')::integer
+      ELSE NULL 
+    END)`
+    conditions.push(`(${ageMonthsExpr} >= $${i} AND ${ageMonthsExpr} <= $${i + 1})`)
     params.push(range.min, range.max)
     i += 2
   }
