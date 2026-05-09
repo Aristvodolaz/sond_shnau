@@ -13,9 +13,9 @@
           <div class="w-12 h-12 md:w-16 md:h-16 rounded-full overflow-hidden ring-2 ring-primary-100 group-hover:ring-primary-300 transition-all duration-300 shrink-0">
             <img src="/images/logo/logo.png" alt="Логотип" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
           </div>
-          <div class="leading-tight">
-            <div class="font-hobo text-sm md:text-base text-primary-900 leading-none tracking-tight">Фонд помощи</div>
-            <div class="font-hobo text-[10px] md:text-xs text-primary-500 tracking-wide">шнауцерам</div>
+          <div class="leading-tight font-hobo">
+            <div class="text-sm md:text-base text-primary-900 leading-none tracking-tight">Фонд помощи</div>
+            <div class="text-[10px] md:text-xs text-primary-500 tracking-wide">шнауцерам</div>
           </div>
         </NuxtLink>
 

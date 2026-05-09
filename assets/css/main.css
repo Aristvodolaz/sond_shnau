@@ -2,7 +2,11 @@
 
 @font-face {
   font-family: 'HoboBT';
-  src: url('/fonts/HoboBT.ttf') format('truetype');
+  src:
+    local('Hobo BT'),
+    local('Hobo Std'),
+    local('HoboBT'),
+    url('/fonts/HoboBT.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
