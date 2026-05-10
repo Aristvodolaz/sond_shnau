@@ -117,8 +117,8 @@
 
           <a :href="config.DZEN_URL" target="_blank" rel="noopener noreferrer"
             class="flex items-center gap-4 px-5 py-4 md:px-6 md:py-4 hover:bg-warm-50 transition-colors group">
-            <div class="w-10 h-10 rounded-xl overflow-hidden shrink-0 bg-black flex items-center justify-center">
-              <img src="/icons/dzen.svg" class="w-8 h-8" alt="Дзен" />
+            <div class="w-10 h-10 rounded-xl overflow-hidden shrink-0 bg-[#000000] flex items-center justify-center">
+              <img src="/icons/dzen.svg" class="w-full h-full object-cover scale-110" alt="Дзен" />
             </div>
             <div class="flex-1 min-w-0">
               <p class="text-sm font-semibold text-warm-900">Яндекс Дзен</p>

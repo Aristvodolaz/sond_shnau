@@ -9,13 +9,16 @@
       <div class="flex items-center justify-between h-20 gap-4">
 
         <!-- Logo -->
-        <NuxtLink to="/" class="flex items-center gap-5 md:gap-8 group shrink-0" aria-label="Главная">
-          <div class="w-12 h-12 md:w-16 md:h-16 rounded-full overflow-hidden ring-2 ring-primary-100 group-hover:ring-primary-300 transition-all duration-300 shrink-0">
-            <img src="/images/logo/logo.png" alt="Логотип" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-          </div>
-          <div class="leading-tight font-hobo">
-            <div class="text-sm md:text-base text-primary-900 leading-none tracking-tight">Фонд помощи</div>
-            <div class="text-[10px] md:text-xs text-primary-500 tracking-wide">шнауцерам</div>
+        <!-- Logo -->
+        <NuxtLink to="/" class="flex items-center gap-2.5 md:gap-3.5 group shrink-0" aria-label="Главная">
+          <img 
+            src="/images/logo/logo.png" 
+            alt="Логотип" 
+            class="w-14 h-14 md:w-16 md:h-16 object-contain group-hover:scale-105 transition-transform duration-500" 
+          />
+          <div class="flex flex-col justify-center -space-y-1 md:-space-y-1.5 mt-0.5">
+            <div class="font-hobo text-lg md:text-xl text-primary-900 leading-none tracking-tight">Фонд помощи</div>
+            <div class="font-hobo text-base md:text-lg text-primary-500 leading-none">шнауцерам</div>
           </div>
         </NuxtLink>
 
@@ -25,18 +28,17 @@
             <NuxtLink
               v-if="item.to"
               :to="item.to"
-              class="relative px-3.5 py-2 text-sm font-medium text-warm-600 hover:text-warm-900 transition-colors duration-200 rounded-lg hover:bg-warm-100/60 group"
-              active-class="!text-primary-600 !font-semibold"
+              class="relative px-4 py-2 text-sm font-medium text-warm-600 hover:text-warm-900 transition-all duration-250 rounded-full hover:bg-warm-100/60 border-2 border-transparent group"
+              active-class="!text-primary-600 !border-primary-400 !bg-primary-50/30"
             >
               {{ item.label }}
-              <span class="absolute bottom-1 left-3 right-3 h-0.5 bg-primary-500 rounded-full scale-x-0 group-[.router-link-active]:scale-x-100 transition-transform duration-250" />
             </NuxtLink>
             <a
               v-else-if="item.href"
               :href="item.href"
               target="_blank"
               rel="noopener noreferrer"
-              class="relative px-3.5 py-2 text-sm font-medium text-warm-600 hover:text-warm-900 transition-colors duration-200 rounded-lg hover:bg-warm-100/60 group"
+              class="relative px-4 py-2 text-sm font-medium text-warm-600 hover:text-warm-900 transition-all duration-250 rounded-full hover:bg-warm-100/60 border-2 border-transparent group"
             >
               {{ item.label }}
             </a>
@@ -47,7 +49,7 @@
               type="button"
               class="px-3 py-2 text-sm font-medium text-warm-600 hover:text-warm-900 hover:bg-warm-100/60 transition-colors duration-200 rounded-lg flex items-center gap-1"
             >
-              Ещё
+              Инфо
               <svg class="w-3.5 h-3.5 opacity-50 group-hover/more:rotate-180 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
               </svg>

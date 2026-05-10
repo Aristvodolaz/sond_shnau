@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <div class="min-h-screen bg-warm-50">
     <section class="bg-white border-b border-warm-100 py-8 md:py-10">
       <div class="container-custom max-w-4xl">
@@ -97,9 +97,15 @@
           </svg>
           Быстрые контакты
         </h3>
-        <div class="space-y-2 text-amber-900">
-          <p><strong>Телефон:</strong> {{ config.PHONE }}</p>
-          <p><strong>Email:</strong> {{ config.EMAIL }}</p>
+        <div class="space-y-4 text-amber-900">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-amber-200/50 pb-2">
+            <span class="font-bold">Ирина (куратор)</span>
+            <a href="tel:+79119412205" class="text-lg font-bold hover:underline">+7 911 941 2205</a>
+          </div>
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <span class="font-bold">Мила (куратор)</span>
+            <a href="tel:+79099623000" class="text-lg font-bold hover:underline">+7 909 962 3000</a>
+          </div>
         </div>
       </div>
 
