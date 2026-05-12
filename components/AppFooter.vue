@@ -1,7 +1,7 @@
 <template>
-  <footer class="bg-warm-800 text-warm-200">
+  <footer class="bg-primary-900 text-primary-50">
     <!-- Top accent line -->
-    <div class="h-1 bg-gradient-to-r from-primary-700 via-primary-500 to-primary-400" />
+    <div class="h-1 bg-gradient-to-r from-primary-600 via-primary-500 to-primary-400" />
 
     <div class="container-custom py-14 md:py-16">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
@@ -17,7 +17,7 @@
               <div class="font-sans font-semibold text-base text-primary-300 tracking-wide">шнауцерам</div>
             </div>
           </div>
-          <p class="text-warm-400 leading-relaxed text-sm max-w-xs">
+          <p class="text-primary-200/80 leading-relaxed text-sm max-w-xs">
             Спасаем, лечим и пристраиваем шнауцеров в добрые руки. Каждый шнауцер заслуживает любви и безопасного дома.
           </p>
           <div class="flex items-center gap-3 mt-6">
@@ -25,7 +25,7 @@
               :href="config.VK_URL"
               target="_blank"
               rel="noopener noreferrer"
-              class="w-10 h-10 bg-warm-700 hover:bg-primary-500 rounded-xl flex items-center justify-center transition-colors duration-200"
+              class="w-10 h-10 bg-primary-800 hover:bg-primary-500 rounded-xl flex items-center justify-center transition-colors duration-200 text-primary-100"
               aria-label="ВКонтакте"
             >
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -36,7 +36,7 @@
               :href="config.TG_URL"
               target="_blank"
               rel="noopener noreferrer"
-              class="w-10 h-10 bg-warm-700 hover:bg-primary-500 rounded-xl flex items-center justify-center transition-colors duration-200"
+              class="w-10 h-10 bg-primary-800 hover:bg-primary-500 rounded-xl flex items-center justify-center transition-colors duration-200 text-primary-100"
               aria-label="Telegram"
             >
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -51,7 +51,7 @@
           <h3 class="font-display font-semibold text-white text-sm mb-4">Разделы</h3>
           <ul class="space-y-3">
             <li v-for="link in quickLinks" :key="link.label">
-              <NuxtLink :to="link.to" class="text-warm-400 hover:text-primary-300 transition-colors text-sm">
+              <NuxtLink :to="link.to" class="text-primary-200/70 hover:text-white transition-colors text-sm">
                 {{ link.label }}
               </NuxtLink>
             </li>
@@ -62,20 +62,20 @@
         <div>
           <h3 class="font-display font-semibold text-white text-sm mb-4">Контакты</h3>
           <div class="space-y-3">
-            <a :href="`tel:${config.PHONES[0].number.replace(/\s/g, '')}`" class="flex items-center gap-2 text-warm-400 hover:text-primary-300 transition-colors text-sm">
+            <a :href="`tel:${config.PHONES[0].number.replace(/\s/g, '')}`" class="flex items-center gap-2 text-primary-200/70 hover:text-white transition-colors text-sm">
               <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
               </svg>
               {{ config.PHONES[0].number }}
             </a>
-            <a :href="`mailto:${config.EMAIL}`" class="flex items-center gap-2 text-warm-400 hover:text-primary-300 transition-colors text-sm">
+            <a :href="`mailto:${config.EMAIL}`" class="flex items-center gap-2 text-primary-200/70 hover:text-white transition-colors text-sm">
               <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
               </svg>
               {{ config.EMAIL }}
             </a>
           </div>
-          <NuxtLink to="/animals" class="inline-flex items-center gap-2 mt-6 btn-primary px-6 py-3 text-sm shadow-lg shadow-primary-900/20">
+          <NuxtLink to="/animals" class="inline-flex items-center gap-2 mt-6 btn-primary px-6 py-3 text-sm shadow-lg shadow-primary-900/40">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
@@ -84,7 +84,7 @@
         </div>
       </div>
 
-      <div class="border-t border-warm-700 mt-12 pt-8 text-center text-warm-500 text-sm">
+      <div class="border-t border-primary-800 mt-12 pt-8 text-center text-primary-300/50 text-sm">
         <p>&copy; {{ new Date().getFullYear() }} Фонд помощи шнауцерам. Все права защищены.</p>
       </div>
     </div>
