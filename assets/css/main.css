@@ -111,6 +111,24 @@
     @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
   }
 
+  /* Homepage — one continuous cool gradient for the whole page */
+  .bg-page-home {
+    background-color: #fafcfe;
+    background-image:
+      radial-gradient(ellipse 110% 60% at 92% 0%, rgba(82, 168, 219, 0.11) 0%, transparent 52%),
+      radial-gradient(ellipse 85% 55% at 0% 28%, rgba(18, 61, 94, 0.035) 0%, transparent 50%),
+      radial-gradient(ellipse 95% 50% at 88% 92%, rgba(167, 211, 238, 0.16) 0%, transparent 48%),
+      linear-gradient(
+        168deg,
+        #eef4fb 0%,
+        #f4f8fc 18%,
+        #f9fbfe 42%,
+        #fcfdff 58%,
+        #f5f8fb 78%,
+        #f0f4f9 100%
+      );
+  }
+
   /* Page header — canonical pattern */
   .page-header {
     @apply bg-white border-b border-warm-100 py-8 md:py-10;

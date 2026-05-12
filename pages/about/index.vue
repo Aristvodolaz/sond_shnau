@@ -1,71 +1,73 @@
 <template>
   <div class="min-h-screen bg-warm-50">
     <!-- Header -->
-    <section class="bg-white border-b border-warm-100 py-8 md:py-12">
+    <section class="bg-white border-b border-warm-100 py-6 md:py-10">
       <div class="container-custom max-w-5xl">
-        <h1 class="font-display font-extrabold text-3xl md:text-5xl text-warm-900 leading-tight tracking-tight mb-4">Информация</h1>
-        <p class="text-warm-500 text-lg max-w-2xl">Всё, что вам нужно знать о работе фонда, правилах пристройства и защите животных</p>
-        
-        <!-- Local Navigation -->
-        <div class="flex flex-wrap gap-2 mt-8">
-          <a href="#about" class="px-5 py-2 bg-warm-100 hover:bg-primary-100 text-warm-700 hover:text-primary-700 rounded-full text-sm font-semibold transition-colors">Кто мы</a>
-          <a href="#rules" class="px-5 py-2 bg-warm-100 hover:bg-primary-100 text-warm-700 hover:text-primary-700 rounded-full text-sm font-semibold transition-colors">Правила фонда</a>
-          <a href="#faq" class="px-5 py-2 bg-warm-100 hover:bg-primary-100 text-warm-700 hover:text-primary-700 rounded-full text-sm font-semibold transition-colors">Часто задаваемые вопросы</a>
-          <a href="#legal" class="px-5 py-2 bg-warm-100 hover:bg-primary-100 text-warm-700 hover:text-primary-700 rounded-full text-sm font-semibold transition-colors">Юридическая информация</a>
-        </div>
+        <h1 class="font-display font-semibold text-2xl md:text-3xl text-warm-900 leading-tight">Информация</h1>
+        <p class="mt-1.5 text-sm text-warm-500">
+          Всё, что вам нужно знать о работе фонда, правилах пристройства и защите животных
+        </p>
+
+        <!-- Local navigation -->
+        <nav class="flex flex-wrap gap-2 mt-6" aria-label="Разделы страницы">
+          <a href="#about" class="rounded-full px-4 py-2 text-sm font-semibold border border-warm-200 bg-white text-warm-700 shadow-sm hover:bg-warm-50 hover:border-warm-300 transition-colors">Кто мы</a>
+          <a href="#rules" class="rounded-full px-4 py-2 text-sm font-semibold border border-warm-200 bg-white text-warm-700 shadow-sm hover:bg-warm-50 hover:border-warm-300 transition-colors">Правила фонда</a>
+          <a href="#faq" class="rounded-full px-4 py-2 text-sm font-semibold border border-warm-200 bg-white text-warm-700 shadow-sm hover:bg-warm-50 hover:border-warm-300 transition-colors">Часто задаваемые вопросы</a>
+          <a href="#legal" class="rounded-full px-4 py-2 text-sm font-semibold border border-warm-200 bg-white text-warm-700 shadow-sm hover:bg-warm-50 hover:border-warm-300 transition-colors">Юридическая информация</a>
+        </nav>
       </div>
     </section>
 
-    <div class="container-custom max-w-5xl py-12">
-      <div class="space-y-24">
+    <div class="container-custom max-w-5xl py-12 md:py-16">
+      <div class="space-y-16 md:space-y-20">
         
         <!-- Section: Кто мы -->
         <section id="about" class="scroll-mt-24">
-          <div class="flex items-center gap-4 mb-8">
-            <div class="w-12 h-12 bg-primary-500 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-primary-500/20">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div class="flex items-center gap-3 md:gap-4 mb-6 md:mb-8">
+            <div class="w-10 h-10 md:w-11 md:h-11 shrink-0 bg-primary-500 rounded-xl flex items-center justify-center text-white shadow-md shadow-primary-500/20">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
               </svg>
             </div>
-            <h2 class="text-3xl font-display font-bold text-warm-900">Кто мы</h2>
+            <h2 class="font-display font-bold text-2xl md:text-3xl text-warm-900 leading-tight">Кто мы</h2>
           </div>
           
           <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
             <UiCard class="md:col-span-2">
-              <h3 class="text-xl font-display font-semibold text-warm-900 mb-4">Наша миссия</h3>
-              <p class="text-warm-700 leading-relaxed mb-4 text-lg">
+              <h3 class="text-lg md:text-xl font-display font-semibold text-warm-900 mb-3 md:mb-4">Наша миссия</h3>
+              <p class="text-warm-700 leading-relaxed mb-4 text-base md:text-lg">
                 Мы — команда волонтёров, объединённых любовью к шнауцерам. Мы работаем для того, чтобы каждый шнауцер, оказавшийся без дома или в опасности, получил второй шанс на счастливую жизнь в любящей семье.
               </p>
-              <p class="text-warm-700 leading-relaxed">
+              <p class="text-warm-700 leading-relaxed text-base">
                 Фонд занимается спасением, лечением, реабилитацией и пристройством шнауцеров всех размеров: ризеншнауцеров, миттельшнауцеров, цвергшнауцеров, а также метисов этих пород.
               </p>
             </UiCard>
             
             <div class="space-y-4">
-              <h3 class="font-display font-bold text-xl text-warm-900">Чем мы занимаемся</h3>
+              <h3 class="font-display font-bold text-lg md:text-xl text-warm-900">Чем мы занимаемся</h3>
               <div class="space-y-3">
-                <div v-for="item in activities" :key="item.title" class="flex items-start gap-4 p-4 bg-white rounded-2xl border border-warm-100">
+                <div v-for="item in activities" :key="item.title" class="flex items-start gap-4 p-4 bg-white rounded-2xl border border-warm-100 shadow-sm">
                   <div class="w-10 h-10 bg-primary-50 rounded-xl flex items-center justify-center shrink-0">
                     <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" :d="item.icon" />
                     </svg>
                   </div>
                   <div>
-                    <h4 class="font-bold text-warm-900 mb-1">{{ item.title }}</h4>
-                    <p class="text-sm text-warm-600">{{ item.desc }}</p>
+                    <h4 class="font-semibold text-warm-900 mb-1">{{ item.title }}</h4>
+                    <p class="text-sm text-warm-600 leading-snug">{{ item.desc }}</p>
                   </div>
                 </div>
               </div>
             </div>
 
             <div class="space-y-4">
-              <h3 class="font-display font-bold text-xl text-warm-900">Наши ценности</h3>
-              <div class="bg-white rounded-2xl border border-warm-100 p-6 space-y-4">
+              <h3 class="font-display font-bold text-lg md:text-xl text-warm-900">Наши ценности</h3>
+              <div class="bg-white rounded-2xl border border-warm-100 p-6 space-y-4 shadow-sm">
                 <div v-for="val in values" :key="val.title" class="flex gap-4">
-                  <span class="text-primary-500 font-bold text-xl leading-none">#</span>
+                  <span class="text-primary-500 font-bold text-lg leading-none shrink-0">#</span>
                   <div>
-                    <h4 class="font-bold text-warm-900 mb-1">{{ val.title }}</h4>
-                    <p class="text-sm text-warm-600">{{ val.desc }}</p>
+                    <h4 class="font-semibold text-warm-900 mb-1">{{ val.title }}</h4>
+                    <p class="text-sm text-warm-600 leading-snug">{{ val.desc }}</p>
                   </div>
                 </div>
               </div>
@@ -74,26 +76,26 @@
         </section>
 
         <!-- Section: Правила Фонда -->
-        <section id="rules" class="scroll-mt-24 pt-10 border-t border-warm-200">
-          <div class="flex items-center gap-4 mb-8">
-            <div class="w-12 h-12 bg-primary-500 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-primary-500/20">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <section id="rules" class="scroll-mt-24 pt-10 border-t border-warm-100">
+          <div class="flex items-center gap-3 md:gap-4 mb-6 md:mb-8">
+            <div class="w-10 h-10 md:w-11 md:h-11 shrink-0 bg-primary-500 rounded-xl flex items-center justify-center text-white shadow-md shadow-primary-500/20">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
             </div>
-            <h2 class="text-3xl font-display font-bold text-warm-900">Правила фонда</h2>
+            <h2 class="font-display font-bold text-2xl md:text-3xl text-warm-900 leading-tight">Правила фонда</h2>
           </div>
 
-          <div class="prose prose-warm max-w-none text-warm-700 mb-10">
-            <p class="text-lg leading-relaxed">
+          <div class="prose prose-warm max-w-none text-warm-700 mb-8 md:mb-10">
+            <p class="text-base md:text-lg leading-relaxed">
               Фонд помощи шнауцерам работает на безвозмездной основе. Мы не занимаемся коммерческим разведением и продажей собак. Все средства направляются исключительно на нужды подопечных.
             </p>
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div v-for="rule in rules" :key="rule.title" class="bg-white p-6 rounded-2xl border border-warm-100 hover:border-primary-200 transition-colors">
-              <h3 class="font-bold text-warm-900 mb-3 flex items-center gap-2">
-                <span class="w-6 h-6 bg-primary-100 text-primary-700 rounded-md flex items-center justify-center text-xs">{{ rule.num }}</span>
+            <div v-for="rule in rules" :key="rule.title" class="bg-white p-6 rounded-2xl border border-warm-100 shadow-sm hover:border-warm-200 transition-colors">
+              <h3 class="font-display font-semibold text-warm-900 mb-3 flex items-center gap-2">
+                <span class="w-6 h-6 bg-warm-100 text-warm-600 rounded-md flex items-center justify-center text-xs font-bold shrink-0">{{ rule.num }}</span>
                 {{ rule.title }}
               </h3>
               <p class="text-sm text-warm-600 leading-relaxed">{{ rule.desc }}</p>
@@ -102,29 +104,29 @@
         </section>
 
         <!-- Section: ЧаВо -->
-        <section id="faq" class="scroll-mt-24 pt-10 border-t border-warm-200">
-          <div class="flex items-center gap-4 mb-8">
-            <div class="w-12 h-12 bg-primary-500 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-primary-500/20">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <section id="faq" class="scroll-mt-24 pt-10 border-t border-warm-100">
+          <div class="flex items-center gap-3 md:gap-4 mb-6 md:mb-8">
+            <div class="w-10 h-10 md:w-11 md:h-11 shrink-0 bg-primary-500 rounded-xl flex items-center justify-center text-white shadow-md shadow-primary-500/20">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
-            <h2 class="text-3xl font-display font-bold text-warm-900">Часто задаваемые вопросы</h2>
+            <h2 class="font-display font-bold text-2xl md:text-3xl text-warm-900 leading-tight">Часто задаваемые вопросы</h2>
           </div>
 
-          <div class="space-y-3 max-w-4xl mx-auto">
+          <div class="space-y-3 max-w-4xl">
             <UiAccordion v-for="q in faqs" :key="q.title" :title="q.title">
               <template #title>
-                <div class="flex items-center gap-4 py-1">
-                  <div class="w-10 h-10 bg-warm-50 rounded-xl flex items-center justify-center shrink-0">
-                    <svg class="w-5 h-5 text-warm-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="flex items-center gap-3 md:gap-4 py-1">
+                  <div class="w-10 h-10 bg-warm-50 rounded-xl flex items-center justify-center shrink-0 border border-warm-100">
+                    <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" :d="faqIcons[q.icon] || faqIcons.Default" />
                     </svg>
                   </div>
-                  <span class="font-bold text-warm-900">{{ q.title }}</span>
+                  <span class="font-semibold text-warm-900 text-left">{{ q.title }}</span>
                 </div>
               </template>
-              <div class="pl-14 pr-6 pb-2 text-warm-700 leading-relaxed">
+              <div class="pl-14 pr-4 md:pr-6 pb-2 text-warm-700 leading-relaxed text-sm md:text-base">
                 {{ q.content }}
               </div>
             </UiAccordion>
@@ -132,36 +134,36 @@
         </section>
 
         <!-- Section: Юридический отдел -->
-        <section id="legal" class="scroll-mt-24 pt-10 border-t border-warm-200">
-          <div class="flex items-center gap-4 mb-8">
-            <div class="w-12 h-12 bg-primary-500 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-primary-500/20">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <section id="legal" class="scroll-mt-24 pt-10 border-t border-warm-100">
+          <div class="flex items-center gap-3 md:gap-4 mb-6 md:mb-8">
+            <div class="w-10 h-10 md:w-11 md:h-11 shrink-0 bg-primary-500 rounded-xl flex items-center justify-center text-white shadow-md shadow-primary-500/20">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" />
               </svg>
             </div>
-            <h2 class="text-3xl font-display font-bold text-warm-900">Юридическая информация</h2>
+            <h2 class="font-display font-bold text-2xl md:text-3xl text-warm-900 leading-tight">Юридическая информация</h2>
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div class="space-y-6">
-              <div class="bg-white p-6 rounded-2xl border border-warm-100">
-                <h3 class="font-bold text-warm-900 mb-4">Ответственное обращение</h3>
-                <p class="text-sm text-warm-600 mb-4">В России действует Федеральный закон «Об ответственном обращении с животными» от 27.12.2018 № 498-ФЗ.</p>
-                <ul class="text-xs text-warm-500 space-y-2">
-                  <li>• Отношение к животным как к существам, способным испытывать боль</li>
-                  <li>• Ответственность человека за судьбу животного</li>
-                  <li>• Запрет на жестокое обращение</li>
+              <div class="bg-white p-6 rounded-2xl border border-warm-100 shadow-sm hover:border-warm-200 transition-colors">
+                <h3 class="font-display font-semibold text-warm-900 mb-3">Ответственное обращение</h3>
+                <p class="text-sm text-warm-700 mb-4">В России действует Федеральный закон «Об ответственном обращении с животными» от 27.12.2018 № 498-ФЗ.</p>
+                <ul class="text-sm text-warm-600 space-y-2">
+                  <li class="flex gap-2"><span class="text-primary-400 font-bold shrink-0">•</span>Отношение к животным как к существам, способным испытывать боль</li>
+                  <li class="flex gap-2"><span class="text-primary-400 font-bold shrink-0">•</span>Ответственность человека за судьбу животного</li>
+                  <li class="flex gap-2"><span class="text-primary-400 font-bold shrink-0">•</span>Запрет на жестокое обращение</li>
                 </ul>
               </div>
-              <div class="bg-red-50 p-6 rounded-2xl border border-red-100">
-                <h3 class="font-bold text-red-900 mb-4">Уголовная ответственность</h3>
-                <p class="text-xs text-red-800 leading-relaxed">За жестокое обращение с животными предусмотрена уголовная ответственность (ст. 245 УК РФ), вплоть до лишения свободы на срок до 5 лет.</p>
+              <div class="bg-red-50 p-6 rounded-2xl border border-red-100 shadow-sm">
+                <h3 class="font-display font-semibold text-red-900 mb-3">Уголовная ответственность</h3>
+                <p class="text-sm text-red-800 leading-relaxed">За жестокое обращение с животными предусмотрена уголовная ответственность (ст. 245 УК РФ), вплоть до лишения свободы на срок до 5 лет.</p>
               </div>
             </div>
             
-            <div class="bg-white p-6 rounded-2xl border border-warm-100">
-              <h3 class="font-bold text-warm-900 mb-4">Договор фонда</h3>
-              <p class="text-sm text-warm-600 mb-4">При пристройстве мы заключаем договор ответственного содержания. Основные пункты:</p>
+            <div class="bg-white p-6 rounded-2xl border border-warm-100 shadow-sm hover:border-warm-200 transition-colors">
+              <h3 class="font-display font-semibold text-warm-900 mb-3">Договор фонда</h3>
+              <p class="text-sm text-warm-700 mb-4">При пристройстве мы заключаем договор ответственного содержания. Основные пункты:</p>
               <div class="space-y-3">
                 <div v-for="point in legalPoints" :key="point" class="flex gap-3 text-sm text-warm-700">
                   <span class="text-primary-500 font-bold shrink-0">✓</span>

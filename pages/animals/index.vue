@@ -4,13 +4,8 @@
     <!-- Page header -->
     <section class="bg-white border-b border-warm-100 py-12">
       <div class="container-custom">
-        <h1 class="font-display font-bold text-4xl text-warm-900 leading-tight mb-2">Найти шнауцера</h1>
-        <p class="text-warm-500 text-lg">
-          <template v-if="!pending">
-            Мы нашли <strong class="text-primary-600">{{ data?.total ?? 0 }}</strong> {{ pluralAnimals(data?.total ?? 0) }}, которые ищут новый дом
-          </template>
-          <template v-else>Ищем лучших питомцев для вас…</template>
-        </p>
+        <h1 class="font-display font-bold text-4xl text-warm-900 leading-tight">Найти шнауцера</h1>
+        <p class="mt-2 text-sm md:text-base font-medium text-warm-500">Подари дом шнауцеру</p>
       </div>
     </section>
 

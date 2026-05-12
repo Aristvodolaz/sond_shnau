@@ -1,12 +1,7 @@
 <template>
-  <div>
+  <div class="bg-warm-50 min-w-0">
     <!-- ─── HERO ─────────────────────────────────────────────── -->
-    <section class="relative bg-warm-50 overflow-hidden">
-      <!-- Background texture -->
-      <div class="absolute inset-0 opacity-30"
-        style="background-image: radial-gradient(circle at 20% 50%, #A5D4C3 0%, transparent 50%), radial-gradient(circle at 80% 20%, #EBB89D 0%, transparent 40%);"
-      />
-
+    <section class="relative overflow-hidden bg-page-home">
       <div class="container-custom relative z-10 py-16 md:py-20 lg:py-24">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
@@ -20,11 +15,11 @@
               <span class="text-xs font-bold text-primary-700 uppercase tracking-wider">{{ animalsCountText }}</span>
             </div>
 
-            <h1 class="font-display font-extrabold text-warm-900 text-4xl sm:text-5xl lg:text-6xl leading-[1.1] mb-6 opacity-0-start animate-fade-up delay-100">
+            <h1 class="font-display font-extrabold text-primary-900 text-4xl sm:text-5xl lg:text-6xl leading-[1.1] mb-6 opacity-0-start animate-fade-up delay-100">
               Каждый шнауцер <span class="text-primary-500 relative">заслуживает дом<span class="absolute -bottom-2 left-0 w-full h-1.5 bg-primary-100 -z-10 rounded-full"></span></span>
             </h1>
 
-            <p class="text-warm-600 text-lg md:text-xl leading-relaxed mb-10 opacity-0-start animate-fade-up delay-200">
+            <p class="text-primary-700 text-lg md:text-xl leading-relaxed mb-10 opacity-0-start animate-fade-up delay-200">
               Мы спасаем, лечим и пристраиваем шнауцеров в любящие семьи уже более 20 лет. Найдите своего питомца сегодня.
             </p>
 
@@ -38,24 +33,24 @@
           <!-- Photo mosaic -->
           <div class="relative hidden lg:grid grid-cols-2 gap-4 h-[520px] opacity-0-start animate-fade-up delay-200">
             <div class="space-y-4">
-              <div class="group rounded-2xl overflow-hidden h-[240px] bg-warm-100 shadow-lg hover:-translate-y-1 transition-all duration-500 relative border border-warm-200/50">
+              <div class="group rounded-2xl overflow-hidden h-[240px] bg-primary-50/90 shadow-lg hover:-translate-y-1 transition-all duration-500 relative border border-primary-100/70">
                 <template v-if="heroPhotos[0]">
                   <img :src="resolveMediaUrl(heroPhotos[0])" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="" />
                 </template>
               </div>
-              <div class="group rounded-2xl overflow-hidden bg-warm-100 shadow-lg hover:-translate-y-1 transition-all duration-500 flex-1 relative border border-warm-200/50" style="height: calc(280px - 1rem)">
+              <div class="group rounded-2xl overflow-hidden bg-primary-50/90 shadow-lg hover:-translate-y-1 transition-all duration-500 flex-1 relative border border-primary-100/70" style="height: calc(280px - 1rem)">
                 <template v-if="heroPhotos[1]">
                   <img :src="resolveMediaUrl(heroPhotos[1])" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="" />
                 </template>
               </div>
             </div>
             <div class="space-y-4 pt-12">
-              <div class="group rounded-2xl overflow-hidden bg-warm-100 shadow-lg hover:-translate-y-1 transition-all duration-500 flex-1 relative border border-warm-200/50" style="height: calc(280px - 1rem)">
+              <div class="group rounded-2xl overflow-hidden bg-primary-50/90 shadow-lg hover:-translate-y-1 transition-all duration-500 flex-1 relative border border-primary-100/70" style="height: calc(280px - 1rem)">
                 <template v-if="heroPhotos[2]">
                   <img :src="resolveMediaUrl(heroPhotos[2])" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="" />
                 </template>
               </div>
-              <div class="group rounded-2xl overflow-hidden h-[240px] bg-warm-100 shadow-lg hover:-translate-y-1 transition-all duration-500 relative border border-warm-200/50">
+              <div class="group rounded-2xl overflow-hidden h-[240px] bg-primary-50/90 shadow-lg hover:-translate-y-1 transition-all duration-500 relative border border-primary-100/70">
                 <template v-if="heroPhotos[3]">
                   <img :src="resolveMediaUrl(heroPhotos[3])" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="" />
                 </template>
@@ -70,7 +65,7 @@
 
 
     <!-- ─── FEATURED ANIMALS ──────────────────────────────────── -->
-    <section class="py-20 bg-warm-50/50">
+    <section class="py-20">
       <div class="container-custom">
         <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <div>
@@ -133,7 +128,7 @@
 
 
     <!-- ─── NEWS + RSS ───────────────────────────────────────── -->
-    <section class="py-10 md:py-14 bg-warm-50">
+    <section class="py-10 md:py-14">
       <div class="container-custom">
         <div class="flex items-end justify-between mb-8">
           <h2 class="font-display font-semibold text-2xl md:text-3xl text-warm-900">Новости фонда</h2>
