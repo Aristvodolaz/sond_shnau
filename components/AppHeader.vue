@@ -16,9 +16,9 @@
             alt="Логотип" 
             class="w-14 h-14 md:w-16 md:h-16 object-contain group-hover:scale-105 transition-transform duration-500" 
           />
-          <div class="flex flex-col justify-center -space-y-1 md:-space-y-1.5 mt-0.5">
-            <div class="font-hobo text-lg md:text-xl text-primary-900 leading-none tracking-tight">Фонд помощи</div>
-            <div class="font-hobo text-base md:text-lg text-primary-500 leading-none">шнауцерам</div>
+          <div class="flex flex-col justify-center -space-y-0.5 md:-space-y-1 mt-0.5">
+            <div class="font-sans font-extrabold text-lg md:text-xl text-primary-900 leading-none tracking-tight">Фонд помощи</div>
+            <div class="font-sans font-semibold text-base md:text-lg text-primary-500 leading-none tracking-wide">шнауцерам</div>
           </div>
         </NuxtLink>
 
@@ -93,10 +93,10 @@
             >{{ favCount }}</span>
           </NuxtLink>
           <NuxtLink
-            to="/animals"
+            to="/support"
             class="btn-primary px-6 py-2.5 text-sm shadow-lg shadow-primary-500/20"
           >
-            Найти друга
+            Помочь фонду
           </NuxtLink>
         </div>
 
@@ -167,8 +167,8 @@
               </template>
             </div>
 
-            <NuxtLink to="/animals" class="btn-primary w-full py-4 text-center text-base shadow-xl shadow-primary-500/20" @click="mobileMenuOpen = false">
-              Найти друга
+            <NuxtLink to="/support" class="btn-primary w-full py-4 text-center text-base shadow-xl shadow-primary-500/20" @click="mobileMenuOpen = false">
+              Помочь фонду
             </NuxtLink>
           </div>
         </div>

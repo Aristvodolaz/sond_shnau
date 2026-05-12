@@ -13,8 +13,8 @@
               <img src="/images/logo/logo.png" alt="Логотип" class="w-full h-full object-cover" />
             </div>
             <div>
-              <div class="font-hobo font-bold text-xl md:text-2xl text-white leading-none tracking-tight">Фонд помощи</div>
-              <div class="font-hobo text-base text-primary-300 font-medium tracking-wide">шнауцерам</div>
+              <div class="font-sans font-extrabold text-xl md:text-2xl text-white leading-none tracking-tight">Фонд помощи</div>
+              <div class="font-sans font-semibold text-base text-primary-300 tracking-wide">шнауцерам</div>
             </div>
           </div>
           <p class="text-warm-400 leading-relaxed text-sm max-w-xs">
@@ -79,7 +79,7 @@
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
-            Найти друга
+            Найти шнауцера
           </NuxtLink>
         </div>
       </div>

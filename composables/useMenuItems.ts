@@ -5,7 +5,6 @@ const menuPrimary: MenuItem[] = [
   { label: 'Главная', to: '/' },
   { label: 'Шнауцеры', to: '/animals' },
   { label: 'Форум', href: config.FORUM_URL },
-  { label: 'Помочь фонду', to: '/support' },
   { label: 'Контакты', to: '/contacts' }
 ]
 

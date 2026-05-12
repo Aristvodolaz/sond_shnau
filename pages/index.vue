@@ -30,7 +30,7 @@
 
             <div class="flex flex-col sm:flex-row gap-4 opacity-0-start animate-fade-up delay-300">
               <NuxtLink to="/animals" class="btn-primary px-10 py-5 text-lg shadow-xl shadow-primary-500/20 hover:shadow-primary-500/30 hover:-translate-y-0.5 transition-all">
-                Найти питомца
+                Найти шнауцера
               </NuxtLink>
             </div>
           </div>
@@ -184,7 +184,7 @@
             </p>
             <div class="flex flex-wrap gap-4">
               <NuxtLink to="/animals" class="btn bg-white text-primary-700 hover:bg-primary-50 px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all">
-                Найти питомца
+                Найти шнауцера
               </NuxtLink>
             </div>
           </div>

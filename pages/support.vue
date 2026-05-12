@@ -42,7 +42,7 @@
       <div class="text-center py-6">
         <p class="text-warm-600 mb-5 text-sm">Самая большая помощь — взять питомца домой</p>
         <NuxtLink to="/animals" class="btn-primary px-8 py-3 text-sm">
-          Найти питомца
+          Найти шнауцера
         </NuxtLink>
       </div>
 
