@@ -191,6 +191,7 @@ useHead({
 
 const { statusLabel, statusVariant } = useAnimalLabels()
 const editingDog = ref<any>(null)
+const showModal = ref(false)
 const saving = ref(false)
 const toast = useToast()
 const { adminFetch } = useAdminAuth()
