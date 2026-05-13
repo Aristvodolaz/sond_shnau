@@ -97,7 +97,6 @@ import { config } from '~/utils/config'
 const quickLinks = [
   { label: 'Каталог питомцев', to: '/animals' },
   { label: 'Помочь проекту', to: '/support' },
-  { label: 'Счастливые истории', to: '/stories' },
   { label: 'Потеряшки', to: '/lost-found' },
   { label: 'О нас', to: '/about' },
   { label: 'Форум', to: config.FORUM_URL, external: true }
