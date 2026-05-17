@@ -69,7 +69,7 @@
       <!-- Tags (Features) -->
       <div v-if="dog.features?.length" class="flex flex-wrap gap-1.5">
         <span
-          v-for="feat in dog.features.slice(0, 2)"
+          v-for="feat in dog.features"
           :key="feat"
           class="px-2 py-1 bg-primary-50 text-primary-700 text-[10px] font-bold rounded-md border border-primary-100 uppercase tracking-tighter"
         >

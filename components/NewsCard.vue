@@ -7,9 +7,9 @@
   >
     <!-- Photo -->
     <NuxtLink :to="`/news/${news.slug}`" class="block relative overflow-hidden bg-warm-100 shrink-0" style="aspect-ratio: 16/9;">
-      <NuxtImg
+      <img
         v-if="news.image"
-        :src="news.image"
+        :src="resolveMediaUrl(news.image)"
         :alt="news.title"
         class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
         loading="lazy"
@@ -59,6 +59,7 @@ import type { NewsItem } from '~/types'
 
 defineProps<{ news: NewsItem }>()
 
+const { resolveMediaUrl } = useMediaUrl()
 const hovered = ref(false)
 
 const formatDate = (dateString: string) => {

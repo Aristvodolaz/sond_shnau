@@ -71,16 +71,17 @@ export function useAnimalLabels() {
   }
 
   const featureLabel = (f: string) => {
+    const key = f.replace(/[^a-zA-Z]/g, '').toLowerCase()
     const features: Record<string, string> = {
-      VACCINATED: 'Привит(а)',
-      TREATEDFORPARASITES: 'Обработан(а) от паразитов',
-      STERILIZED: 'Стерилизован(а)',
-      CASTRATED: 'Кастрирован',
-      PASSPORT: 'Есть паспорт',
-      CHIPPED: 'Чипирован',
-      TREATEDFORPARASITE: 'Обработан(а) от паразитов'
+      sterilized: 'Стерилизован(а)',
+      vaccinated: 'Привит(а)',
+      treatedforparasites: 'Обработан(а) от паразитов',
+      treatedforparasite: 'Обработан(а) от паразитов',
+      castrated: 'Кастрирован',
+      passport: 'Есть паспорт',
+      chipped: 'Чипирован'
     }
-    return features[f.toUpperCase()] || f
+    return features[key] || f
   }
 
   return { statusLabel, statusVariant, breedLabel, featureLabel }

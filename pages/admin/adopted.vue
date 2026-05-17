@@ -184,6 +184,27 @@
       size="lg"
     >
       <form @submit.prevent="handleSubmit" class="space-y-6">
+        <!-- Import from foster listing -->
+        <div class="rounded-lg border border-primary-100 bg-primary-50/50 p-4 space-y-3">
+          <p class="text-sm font-semibold text-warm-900">Из карточки «На пристройство»</p>
+          <select
+            v-model="selectedSourceDogId"
+            class="w-full px-4 py-2 border border-warm-300 rounded-lg bg-white text-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+          >
+            <option value="">Не выбирать — заполнить вручную</option>
+            <option
+              v-for="dog in adminDogsList"
+              :key="dog.id"
+              :value="String(dog.id)"
+            >
+              {{ dog.name }} — {{ sourceDogStatusLabel(dog.status) }}, {{ dog.city }}
+            </option>
+          </select>
+          <p class="text-xs text-warm-500">
+            Подставит имя, породу, город, ссылку на форум и выберет первое фото. Ниже можно сменить фото одним кликом.
+          </p>
+        </div>
+
         <!-- Name -->
         <div>
           <label class="block text-sm font-medium text-warm-700 mb-2">
@@ -254,10 +275,10 @@
           />
         </div>
 
-        <!-- Photo URL -->
+        <!-- Photo -->
         <div>
           <label class="block text-sm font-medium text-warm-700 mb-2">
-            URL фотографии *
+            Фотография *
           </label>
           <UiInput
             v-model="form.photo"
@@ -265,9 +286,49 @@
             placeholder="https://example.com/photo.jpg"
             required
           />
-          <p class="mt-1 text-xs text-warm-500">
-            Введите полный URL изображения (включая https://)
+          <div v-if="selectedSourcePhotos.length" class="mt-3">
+            <p class="text-sm font-medium text-warm-700 mb-2">Фото из карточки на пристройство</p>
+            <div class="flex flex-wrap gap-2">
+              <button
+                v-for="(url, index) in selectedSourcePhotos"
+                :key="index"
+                type="button"
+                class="relative h-20 w-20 rounded-lg overflow-hidden border-2 transition-all focus:outline-none focus:ring-2 focus:ring-primary-400"
+                :class="form.photo === url ? 'border-primary-500 ring-2 ring-primary-200' : 'border-warm-200 hover:border-primary-300'"
+                :title="`Выбрать фото ${index + 1}`"
+                @click="selectSourcePhoto(url)"
+              >
+                <img
+                  :src="resolveMediaUrl(url)"
+                  :alt="`Фото ${index + 1}`"
+                  class="h-full w-full object-cover"
+                />
+              </button>
+            </div>
+          </div>
+          <div class="mt-2 flex items-center gap-3">
+            <input
+              type="file"
+              accept="image/jpeg,image/png,image/webp"
+              class="block w-full text-sm text-warm-700 file:mr-4 file:rounded-md file:border-0 file:bg-primary-50 file:px-3 file:py-2 file:text-sm file:font-medium file:text-primary-700 hover:file:bg-primary-100"
+              @change="onPhotoFileChange"
+            />
+            <span v-if="uploadingPhoto" class="text-sm text-primary-600 whitespace-nowrap">
+              Загрузка...
+            </span>
+          </div>
+          <p v-if="photoUploadError" class="mt-1 text-sm text-red-600">
+            {{ photoUploadError }}
           </p>
+          <p class="mt-1 text-xs text-warm-500">
+            Выберите фото из карточки выше, загрузите новый файл или вставьте URL
+          </p>
+          <img
+            v-if="form.photo"
+            :src="resolveMediaUrl(form.photo)"
+            alt="Предпросмотр"
+            class="mt-3 h-40 w-full max-w-xs rounded-lg border border-warm-200 object-cover bg-warm-50"
+          />
         </div>
 
         <!-- Forum URL -->
@@ -324,9 +385,134 @@ const showModal = ref(false)
 const editingDog = ref<AdoptedDog | null>(null)
 const saving = ref(false)
 const { adminFetch } = useAdminAuth()
+const { resolveMediaUrl } = useMediaUrl()
+
+const UPLOAD_MAX_BYTES = 25 * 1024 * 1024
+const uploadingPhoto = ref(false)
+const photoUploadError = ref('')
+
+const onPhotoFileChange = async (event: Event) => {
+  const target = event.target as HTMLInputElement
+  const file = target.files?.[0]
+
+  photoUploadError.value = ''
+  if (!file) return
+
+  const allowedTypes = ['image/jpeg', 'image/png', 'image/webp']
+  if (!allowedTypes.includes(file.type)) {
+    photoUploadError.value = 'Разрешены только JPG, PNG, WEBP'
+    target.value = ''
+    return
+  }
+
+  if (file.size > UPLOAD_MAX_BYTES) {
+    photoUploadError.value = 'Файл слишком большой (максимум 25MB)'
+    target.value = ''
+    return
+  }
+
+  try {
+    uploadingPhoto.value = true
+    const formData = new FormData()
+    formData.append('file', file)
+
+    const response = await adminFetch<{ url: string }>('/api/admin/upload', {
+      method: 'POST',
+      body: formData
+    })
+
+    form.value.photo = response.url
+  } catch (error: any) {
+    photoUploadError.value = error?.data?.message || 'Ошибка загрузки изображения'
+  } finally {
+    uploadingPhoto.value = false
+    target.value = ''
+  }
+}
 
 // Fetch adopted dogs from API
 const { data: adoptedDogs, refresh } = await useFetch<AdoptedDog[]>('/api/admin/adopted')
+
+const selectedSourceDogId = ref('')
+
+const { data: adminDogsRaw, refresh: refreshAdminDogs } = await useFetch<any[]>('/api/admin/dogs', {
+  lazy: true,
+  server: false,
+  default: () => []
+})
+
+const DOG_TYPE_TO_ADOPTED: Record<string, string> = {
+  riesenschnauzer: 'Ризеншнауцер',
+  mittelschnauzer: 'Миттельшнауцер',
+  zwergschnauzer: 'Цвергшнауцер',
+  metis: 'Метис'
+}
+
+function parsePhotos(raw: unknown): string[] {
+  if (Array.isArray(raw)) return raw.map(String).filter(Boolean)
+  if (typeof raw === 'string') {
+    try {
+      const parsed = JSON.parse(raw) as unknown
+      return Array.isArray(parsed) ? parsed.map(String).filter(Boolean) : []
+    } catch {
+      return []
+    }
+  }
+  return []
+}
+
+const adminDogsList = computed(() => {
+  const list = adminDogsRaw.value ?? []
+  return [...list].sort((a, b) => a.name.localeCompare(b.name, 'ru'))
+})
+
+const selectedSourceDog = computed(() =>
+  adminDogsList.value.find(d => String(d.id) === selectedSourceDogId.value)
+)
+
+const selectedSourcePhotos = computed(() =>
+  selectedSourceDog.value ? parsePhotos(selectedSourceDog.value.photos) : []
+)
+
+function sourceDogStatusLabel(status: string) {
+  const labels: Record<string, string> = {
+    looking: 'Ищет дом',
+    foster: 'На передержке',
+    pensioner: 'Пенсионер'
+  }
+  return labels[status] || status
+}
+
+function applySourceDog() {
+  const dog = selectedSourceDog.value
+  if (!dog) return
+
+  form.value.name = dog.name
+  form.value.city = dog.city
+  form.value.type = DOG_TYPE_TO_ADOPTED[dog.type] || dog.type
+
+  const forum = dog.forum_topic_url || dog.forumTopicUrl
+  if (forum) form.value.forumUrl = forum
+
+  const photos = parsePhotos(dog.photos)
+  if (photos.length) form.value.photo = photos[0]
+}
+
+function selectSourcePhoto(url: string) {
+  form.value.photo = url
+}
+
+watch(selectedSourceDogId, (id) => {
+  if (id) applySourceDog()
+})
+
+watch(showModal, (open) => {
+  if (open) {
+    refreshAdminDogs()
+  } else {
+    selectedSourceDogId.value = ''
+  }
+})
 
 // Search and filter state
 const searchQuery = ref('')
@@ -404,6 +590,7 @@ const form = ref({
 // Open add modal
 const openAddModal = () => {
   editingDog.value = null
+  selectedSourceDogId.value = ''
   form.value = {
     name: '',
     type: '',
@@ -419,6 +606,7 @@ const openAddModal = () => {
 // Edit dog
 const editDog = (dog: AdoptedDog) => {
   editingDog.value = dog
+  selectedSourceDogId.value = ''
   form.value = {
     name: dog.name,
     type: dog.type,
@@ -435,6 +623,7 @@ const editDog = (dog: AdoptedDog) => {
 const closeModal = () => {
   showModal.value = false
   editingDog.value = null
+  selectedSourceDogId.value = ''
 }
 
 // Handle form submit

@@ -15,11 +15,11 @@
         <h1 class="text-2xl md:text-3xl font-display font-semibold text-warm-900 mb-6">
           {{ newsItem.title }}
         </h1>
-        <NuxtImg
+        <img
           v-if="newsItem.image"
-          :src="newsItem.image"
+          :src="resolveMediaUrl(newsItem.image)"
           :alt="newsItem.title"
-          class="w-full rounded-xl"
+          class="w-full rounded-xl object-cover"
           width="1200"
           height="600"
         />
@@ -50,6 +50,7 @@ import type { NewsItem } from '~/types'
 
 const route = useRoute()
 const slug = route.params.slug as string
+const { resolveMediaUrl } = useMediaUrl()
 
 // Fetch news from API
 const { data: newsItem } = await useFetch<NewsItem>(`/api/news/${slug}`)

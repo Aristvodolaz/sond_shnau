@@ -39,12 +39,39 @@
     />
 
     <!-- Image -->
-    <UiInput
-      v-model="form.image"
-      label="Изображение (необязательно)"
-      type="url"
-      placeholder="https://example.com/image.jpg"
-    />
+    <div>
+      <label class="block text-sm font-medium text-warm-700 mb-2">
+        Изображение (необязательно)
+      </label>
+      <UiInput
+        v-model="form.image"
+        type="url"
+        placeholder="https://example.com/image.jpg"
+      />
+      <div class="mt-2 flex items-center gap-3">
+        <input
+          type="file"
+          accept="image/jpeg,image/png,image/webp"
+          class="block w-full text-sm text-warm-700 file:mr-4 file:rounded-md file:border-0 file:bg-primary-50 file:px-3 file:py-2 file:text-sm file:font-medium file:text-primary-700 hover:file:bg-primary-100"
+          @change="onImageFileChange"
+        />
+        <span v-if="uploadingImage" class="text-sm text-primary-600 whitespace-nowrap">
+          Загрузка...
+        </span>
+      </div>
+      <p v-if="imageUploadError" class="mt-1 text-sm text-red-600">
+        {{ imageUploadError }}
+      </p>
+      <p class="mt-1 text-xs text-warm-500">
+        Загрузите файл или вставьте URL изображения
+      </p>
+      <img
+        v-if="form.image"
+        :src="resolveMediaUrl(form.image)"
+        alt="Предпросмотр"
+        class="mt-3 h-40 w-full max-w-xs rounded-lg border border-warm-200 object-cover bg-warm-50"
+      />
+    </div>
 
     <!-- Published -->
     <div class="flex items-center space-x-3">
@@ -91,6 +118,52 @@ const emit = defineEmits<{
   submit: [data: any]
   cancel: []
 }>()
+
+const { adminFetch } = useAdminAuth()
+const { resolveMediaUrl } = useMediaUrl()
+
+const UPLOAD_MAX_BYTES = 25 * 1024 * 1024
+const uploadingImage = ref(false)
+const imageUploadError = ref('')
+
+const onImageFileChange = async (event: Event) => {
+  const target = event.target as HTMLInputElement
+  const file = target.files?.[0]
+
+  imageUploadError.value = ''
+  if (!file) return
+
+  const allowedTypes = ['image/jpeg', 'image/png', 'image/webp']
+  if (!allowedTypes.includes(file.type)) {
+    imageUploadError.value = 'Разрешены только JPG, PNG, WEBP'
+    target.value = ''
+    return
+  }
+
+  if (file.size > UPLOAD_MAX_BYTES) {
+    imageUploadError.value = 'Файл слишком большой (максимум 25MB)'
+    target.value = ''
+    return
+  }
+
+  try {
+    uploadingImage.value = true
+    const formData = new FormData()
+    formData.append('file', file)
+
+    const response = await adminFetch<{ url: string }>('/api/admin/upload', {
+      method: 'POST',
+      body: formData
+    })
+
+    form.image = response.url
+  } catch (error: any) {
+    imageUploadError.value = error?.data?.message || 'Ошибка загрузки изображения'
+  } finally {
+    uploadingImage.value = false
+    target.value = ''
+  }
+}
 
 // Check if we're editing or creating
 const editMode = computed(() => !!props.news)
