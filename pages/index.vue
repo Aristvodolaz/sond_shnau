@@ -291,7 +291,7 @@ const totalDogPages = computed(() => {
 
 const animalsCountText = computed(() => {
   const t = animalsBlock.value?.total ?? 0
-  return t > 0 ? `${t} ${pluralAnimals(t)} ждут хозяев` : 'Ищут любящий дом'
+  return t > 0 ? `${t} ${pluralAnimals(t)} в ожидании хозяев` : 'Ищут любящий дом'
 })
 
 function pluralAnimals(n: number) {
