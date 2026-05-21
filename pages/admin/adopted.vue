@@ -613,7 +613,7 @@ const editDog = (dog: AdoptedDog) => {
     year: dog.year,
     city: dog.city,
     photo: dog.photo,
-    adoptionDate: dog.adoptionDate,
+    adoptionDate: formatDateForInput(dog.adoptionDate),
     forumUrl: dog.forumUrl || ''
   }
   showModal.value = true

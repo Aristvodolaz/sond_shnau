@@ -373,7 +373,7 @@ const initializeForm = (dog: any) => {
     
     form.photos = dog.photos && dog.photos.length > 0 ? [...dog.photos] : ['']
     form.forumTopicUrl = dog.forum_topic_url || dog.forumTopicUrl || ''
-    form.dateAdded = dog.date_added || dog.dateAdded || new Date().toISOString().split('T')[0]
+    form.dateAdded = formatDateForInput(dog.date_added || dog.dateAdded) || new Date().toISOString().split('T')[0]
   }
 }
 

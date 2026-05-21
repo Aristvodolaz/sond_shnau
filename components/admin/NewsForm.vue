@@ -190,7 +190,7 @@ const errors = reactive({
 const initializeForm = (news: any) => {
   if (news) {
     form.title = news.title || ''
-    form.date = news.date || new Date().toISOString().split('T')[0]
+    form.date = formatDateForInput(news.date) || new Date().toISOString().split('T')[0]
     form.preview = news.preview || ''
     form.content = news.content || ''
     form.image = news.image || ''
