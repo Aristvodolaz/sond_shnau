@@ -25,14 +25,20 @@ export default defineEventHandler(async (event) => {
 
   const token = await createSession(result.rows[0].id)
 
-  // Set secure flag only if requested over HTTPS in production
-  // This supports accessing the site over plain HTTP (e.g. by IP address or test domain)
-  const isSecure = process.env.NODE_ENV === 'production' && 
-    (getRequestProtocol(event) === 'https' || event.node.req.headers['x-forwarded-proto'] === 'https')
+  // Diagnostic logs to debug production cookie/proxy issues
+  console.log(`[Login API] Attempting login for user: ${username}`)
+  console.log(`[Login API] Node protocol: ${getRequestProtocol(event)}`)
+  console.log(`[Login API] X-Forwarded-Proto: ${event.node.req.headers['x-forwarded-proto']}`)
+  console.log(`[Login API] NODE_ENV: ${process.env.NODE_ENV}`)
+
+  // Disable secure flag temporarily to ensure compatibility with all proxy setups
+  const isSecure = false
+  console.log(`[Login API] Setting cookie admin_token with secure flag: ${isSecure}`)
 
   setCookie(event, 'admin_token', token, {
     httpOnly: true,
     secure: isSecure,
+    sameSite: 'lax',
     maxAge: 7 * 24 * 60 * 60, // 7 days
     path: '/'
   })
