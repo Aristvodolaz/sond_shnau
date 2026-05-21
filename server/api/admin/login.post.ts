@@ -25,9 +25,14 @@ export default defineEventHandler(async (event) => {
 
   const token = await createSession(result.rows[0].id)
 
+  // Set secure flag only if requested over HTTPS in production
+  // This supports accessing the site over plain HTTP (e.g. by IP address or test domain)
+  const isSecure = process.env.NODE_ENV === 'production' && 
+    (getRequestProtocol(event) === 'https' || event.node.req.headers['x-forwarded-proto'] === 'https')
+
   setCookie(event, 'admin_token', token, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
+    secure: isSecure,
     maxAge: 7 * 24 * 60 * 60, // 7 days
     path: '/'
   })
