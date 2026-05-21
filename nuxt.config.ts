@@ -61,8 +61,7 @@ export default defineNuxtConfig({
       // Статические страницы — можно рендерить на сервере один раз
       '/about': { prerender: true },
       '/contacts': { prerender: true },
-      '/support': { prerender: true },
-      '/useful': { prerender: true }
+      '/support': { prerender: true }
     }
   },
 

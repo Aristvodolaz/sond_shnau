@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "nuxt dev",
-    "build": "nuxt build",
-    "generate": "nuxt generate",
+    "build": "tsx scripts/generate-placeholders.ts && nuxt build",
+    "generate": "tsx scripts/generate-placeholders.ts && nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "cleanup:nuxt": "nuxi cleanup && nuxt prepare",
