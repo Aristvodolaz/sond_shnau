@@ -41,9 +41,28 @@ export default defineNuxtConfig({
   },
 
   nitro: {
+    compressPublicAssets: true,  // gzip/brotli для статических файлов
     prerender: {
       crawlLinks: true,
       routes: ['/rss.xml']
+    },
+    // Server-level route caching (SWR = stale-while-revalidate)
+    routeRules: {
+      // Public API — кешируем на уровне Nitro + браузер
+      '/api/animals': { cache: { swr: true, maxAge: 120, staleMaxAge: 60 } },
+      '/api/animals/**': { cache: { swr: true, maxAge: 300, staleMaxAge: 60 } },
+      '/api/news': { cache: { swr: true, maxAge: 120, staleMaxAge: 60 } },
+      '/api/news/**': { cache: { swr: true, maxAge: 300, staleMaxAge: 60 } },
+      '/api/dogs': { cache: { swr: true, maxAge: 120, staleMaxAge: 60 } },
+      '/api/dogs/**': { cache: { swr: true, maxAge: 300, staleMaxAge: 60 } },
+      '/api/rss': { cache: { swr: true, maxAge: 900, staleMaxAge: 300 } },
+      // Admin API — никогда не кешировать
+      '/api/admin/**': { cache: false, headers: { 'Cache-Control': 'no-store' } },
+      // Статические страницы — можно рендерить на сервере один раз
+      '/about': { prerender: true },
+      '/contacts': { prerender: true },
+      '/support': { prerender: true },
+      '/useful': { prerender: true }
     }
   },
 
@@ -52,3 +71,4 @@ export default defineNuxtConfig({
     typeCheck: false
   }
 })
+

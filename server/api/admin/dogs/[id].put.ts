@@ -1,5 +1,6 @@
 import { query } from '~/server/database/db'
 import { requireAuth } from '~/server/utils/auth'
+import { apiCache } from '~/server/utils/cache'
 
 export default defineEventHandler(async (event) => {
   await requireAuth(event)
@@ -26,6 +27,12 @@ export default defineEventHandler(async (event) => {
     body.status, body.age_months ?? null, body.date_added,
     id
   ])
+
+  // Invalidate caches for this dog and all list views
+  apiCache.invalidate(`dogs:detail:${body.slug}`)
+  apiCache.invalidate(`animals:detail:${body.slug}`)
+  apiCache.invalidate('dogs:list:')
+  apiCache.invalidate('animals:list:')
 
   return { success: true }
 })

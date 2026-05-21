@@ -1,19 +1,22 @@
-import { query, checkConnection } from '~/server/database/db'
+import { query } from '~/server/database/db'
+import { apiCache, CACHE_TTL } from '~/server/utils/cache'
 
 export default defineEventHandler(async (event) => {
+  const cacheKey = 'news:list'
+
+  const cached = apiCache.get<any[]>(cacheKey)
+  if (cached) {
+    setHeader(event, 'X-Cache', 'HIT')
+    setHeader(event, 'Cache-Control', 'public, s-maxage=120, stale-while-revalidate=60')
+    return cached.data
+  }
+
   try {
-    // Check database connection first
-    const isConnected = await checkConnection()
-    if (!isConnected) {
-      throw createError({
-        statusCode: 503,
-        statusMessage: 'Database connection unavailable. Please check DATABASE_SETUP.md for configuration instructions.'
-      })
-    }
+    const result = await query(
+      'SELECT id, slug, title, date, preview, content, image FROM news WHERE published = true ORDER BY date DESC LIMIT 50'
+    )
 
-    const result = await query('SELECT * FROM news WHERE published = true ORDER BY date DESC')
-
-    return result.rows.map((item: any) => ({
+    const items = result.rows.map((item: any) => ({
       id: item.id.toString(),
       slug: item.slug,
       title: item.title,
@@ -22,10 +25,14 @@ export default defineEventHandler(async (event) => {
       content: item.content,
       image: item.image
     }))
+
+    apiCache.set(cacheKey, items, CACHE_TTL.LIST)
+
+    setHeader(event, 'X-Cache', 'MISS')
+    setHeader(event, 'Cache-Control', 'public, s-maxage=120, stale-while-revalidate=60')
+    return items
   } catch (error: any) {
     console.error('Error in /api/news:', error)
-    
-    // Return user-friendly error
     throw createError({
       statusCode: error.statusCode || 500,
       statusMessage: error.statusMessage || 'Failed to fetch news from database'

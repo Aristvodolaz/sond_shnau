@@ -1,5 +1,6 @@
 import { query } from '~/server/database/db'
 import { requireAuth } from '~/server/utils/auth'
+import { apiCache } from '~/server/utils/cache'
 
 export default defineEventHandler(async (event) => {
   await requireAuth(event)
@@ -16,6 +17,10 @@ export default defineEventHandler(async (event) => {
     body.slug, body.title, body.date, body.preview, body.content,
     body.image || null, body.published, id
   ])
+
+  // Invalidate news cache
+  apiCache.invalidate('news:list')
+  apiCache.invalidate(`news:detail:${body.slug}`)
 
   return { success: true }
 })

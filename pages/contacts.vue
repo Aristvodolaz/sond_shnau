@@ -30,8 +30,11 @@
                 <p class="text-xs font-semibold text-warm-400 uppercase tracking-wider mb-2">Телефоны · 10:00–20:00 МСК</p>
                 <div class="space-y-2">
                   <div v-for="phone in config.PHONES" :key="phone.number" class="flex items-center justify-between gap-2 flex-wrap">
-                    <a :href="`tel:${phone.number.replace(/\s/g, '')}`"
-                      class="text-base md:text-lg font-semibold text-warm-900 hover:text-primary-600 transition-colors">
+                    <a
+                      v-if="telUrl(phone.number)"
+                      :href="telUrl(phone.number)!"
+                      class="text-base md:text-lg font-semibold text-warm-900 hover:text-primary-600 transition-colors"
+                    >
                       {{ phone.number }}
                     </a>
                     <span class="text-xs text-warm-400 bg-warm-50 px-2 py-0.5 rounded-full border border-warm-100">{{ phone.name }}</span>
@@ -183,6 +186,8 @@
 
 <script setup lang="ts">
 import { config } from '~/utils/config'
+
+const { telUrl } = useContactLinks()
 
 useHead({
   title: 'Контакты',

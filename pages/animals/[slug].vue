@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-warm-50 pb-24 lg:pb-12">
+  <div class="min-h-screen bg-warm-50 pb-36 lg:pb-12">
 
     <!-- Loading state -->
     <div v-if="pending" class="flex flex-col items-center justify-center py-24 gap-4">
@@ -178,7 +178,11 @@
                 <p class="text-[10px] font-bold text-primary-600 uppercase tracking-wider mb-0.5 opacity-70">Куратор</p>
                 <div class="flex items-center justify-between">
                   <p class="text-base md:text-lg font-display font-bold text-warm-900 leading-tight">{{ dog.curator.name }}</p>
-                  <a :href="`tel:${dog.curator.phone.replace(/\s/g, '')}`" class="text-xs md:text-sm font-semibold text-primary-600 hover:text-primary-700 transition-colors">
+                  <a
+                    v-if="curatorTelHref"
+                    :href="curatorTelHref"
+                    class="text-xs md:text-sm font-semibold text-primary-600 hover:text-primary-700 transition-colors"
+                  >
                     {{ dog.curator.phone }}
                   </a>
                 </div>
@@ -237,7 +241,8 @@
               <p class="text-xs font-semibold text-warm-400 uppercase tracking-wider mb-4">Связаться с куратором</p>
               <div class="grid grid-cols-2 gap-2.5">
                 <a
-                  :href="telHref()"
+                  v-if="curatorTelHref"
+                  :href="curatorTelHref"
                   class="flex items-center justify-center gap-2 py-3 px-4 bg-warm-50 border border-warm-200 rounded-xl text-sm font-semibold text-warm-800 hover:bg-warm-100 hover:border-warm-300 transition-colors"
                 >
                   <svg class="w-4 h-4 text-primary-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -308,12 +313,17 @@
       </div>
 
       <!-- Sticky mobile CTA bar -->
-      <div class="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-warm-200 px-4 py-3 safe-bottom">
+      <div class="lg:hidden fixed left-0 right-0 z-[55] bottom-[calc(4.25rem+env(safe-area-inset-bottom,0px))] bg-white/95 backdrop-blur-md border-t border-warm-200 px-4 py-3 shadow-[0_-4px_20px_rgba(0,0,0,0.06)]">
         <div class="flex gap-2">
           <button class="btn-primary flex-1 py-3 text-sm" @click="requestOpen = true">
             Хочу забрать
           </button>
-          <a :href="telHref()" class="w-12 h-12 flex items-center justify-center rounded-xl bg-warm-50 border border-warm-200 text-warm-700 hover:bg-warm-100 transition-colors shrink-0">
+          <a
+            v-if="curatorTelHref"
+            :href="curatorTelHref"
+            class="w-12 h-12 flex items-center justify-center rounded-xl bg-warm-50 border border-warm-200 text-warm-700 hover:bg-warm-100 transition-colors shrink-0"
+            aria-label="Позвонить куратору"
+          >
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
             </svg>
@@ -407,7 +417,7 @@ const route = useRoute()
 const slug = route.params.slug as string
 const { resolveMediaUrl } = useMediaUrl()
 const { statusLabel, breedLabel } = useAnimalLabels()
-const { tgUrl } = useContactLinks()
+const { telUrl, tgUrl } = useContactLinks()
 const { has, toggle } = useFavorites()
 
 const { data: dog, pending } = await useFetch<Dog>(`/api/animals/${slug}`)
@@ -463,7 +473,9 @@ const displayFeatures = computed(() =>
   (dog.value?.features ?? []).map(f => featureLabels[f.toLowerCase()] || f).filter(Boolean)
 )
 
-const telHref = () => dog.value ? `tel:${dog.value.curator.phone.replace(/\s/g, '')}` : '#'
+const curatorTelHref = computed(() =>
+  dog.value?.curator.phone ? telUrl(dog.value.curator.phone) : null
+)
 
 const tgHref = computed(() => dog.value?.curator.telegram ? tgUrl(dog.value.curator.telegram) : '#')
 

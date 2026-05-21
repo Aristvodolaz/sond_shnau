@@ -70,8 +70,16 @@ export async function query<T = any>(text: string, params?: any[]): Promise<Quer
   try {
     const start = Date.now()
     const res = await pool.query<T>(text, params)
-    const duration = Date.now() - start
-    console.log('Executed query', { text: text.substring(0, 50), duration, rows: res.rowCount })
+    // Only log slow queries or all queries in development
+    if (process.env.NODE_ENV !== 'production') {
+      const duration = Date.now() - start
+      console.log('Executed query', { text: text.substring(0, 50), duration, rows: res.rowCount })
+    } else {
+      const duration = Date.now() - start
+      if (duration > 1000) {
+        console.warn('Slow query detected', { duration, query: text.substring(0, 100) })
+      }
+    }
     return res
   } catch (error: any) {
     console.error('❌ Query execution failed:', {

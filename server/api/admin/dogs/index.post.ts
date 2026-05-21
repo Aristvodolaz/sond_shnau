@@ -1,6 +1,7 @@
 import { query } from '~/server/database/db'
 import { requireAuth } from '~/server/utils/auth'
 import { z } from 'zod'
+import { apiCache } from '~/server/utils/cache'
 
 const dogSchema = z.object({
   slug: z.string().min(1),
@@ -52,6 +53,10 @@ export default defineEventHandler(async (event) => {
     data.health, data.character, data.story ?? '', data.forum_topic_url,
     data.status, data.age_months ?? null, data.date_added
   ])
+
+  // Invalidate public caches so new dog appears immediately
+  apiCache.invalidate('dogs:list:')
+  apiCache.invalidate('animals:list:')
 
   return { id: result.rows[0].id, success: true }
 })

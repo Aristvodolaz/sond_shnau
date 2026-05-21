@@ -324,7 +324,7 @@ const form = reactive({
   },
   photos: [''],
   forumTopicUrl: '',
-  dateAdded: new Date().toISOString().split('T')[0]
+  dateAdded: ''
 })
 
 // Errors state
@@ -342,6 +342,7 @@ const errors = reactive({
 // Function to initialize form with dog data
 const initializeForm = (dog: any) => {
   if (dog) {
+    // Editing mode: fill all fields from existing dog data
     form.name = dog.name || ''
     form.type = dog.type || ''
     form.age = dog.age || ''
@@ -373,7 +374,31 @@ const initializeForm = (dog: any) => {
     
     form.photos = dog.photos && dog.photos.length > 0 ? [...dog.photos] : ['']
     form.forumTopicUrl = dog.forum_topic_url || dog.forumTopicUrl || ''
-    form.dateAdded = dog.date_added || dog.dateAdded || new Date().toISOString().split('T')[0]
+    // Always use stored date; never fall back to today when editing
+    form.dateAdded = dog.date_added
+      ? String(dog.date_added).split('T')[0]
+      : (dog.dateAdded ? String(dog.dateAdded).split('T')[0] : '')
+  } else {
+    // Creating mode: reset form and set today as default date
+    form.name = ''
+    form.type = ''
+    form.age = ''
+    form.city = ''
+    form.status = 'looking'
+    form.ageMonthsStr = ''
+    form.curatorName = ''
+    form.curatorPhone = ''
+    form.curatorEmail = ''
+    form.curatorWhatsapp = ''
+    form.curatorTelegram = ''
+    form.health = ''
+    form.character = ''
+    form.description = ''
+    form.story = ''
+    form.features = { sterilized: false, vaccinated: false, treatedForParasites: false }
+    form.photos = ['']
+    form.forumTopicUrl = ''
+    form.dateAdded = new Date().toISOString().split('T')[0]
   }
 }
 

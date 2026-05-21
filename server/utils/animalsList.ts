@@ -115,11 +115,18 @@ export async function fetchAnimalsList(opts: AnimalsQuery): Promise<AnimalListRe
   const whereSql = conditions.length ? `WHERE ${conditions.join(' AND ')}` : ''
   const orderSql = opts.sort === 'date_asc' ? 'date_added ASC, id ASC' : 'date_added DESC, id DESC'
 
+  // Columns needed for animal cards in list views (excludes heavy text-only fields)
+  const LIST_COLUMNS = `
+    id, slug, name, type, age, city, age_months, status, date_added,
+    curator_name, curator_phone, curator_whatsapp, curator_telegram, curator_email,
+    photos, description, features, forum_topic_url
+  `.trim()
+
   try {
     if (opts.legacyAll) {
       const [countResult, listResult] = await Promise.all([
         query<{ count: string }>(`SELECT COUNT(*)::text AS count FROM dogs ${whereSql}`, params),
-        query(`SELECT * FROM dogs ${whereSql} ORDER BY ${orderSql}`, params)
+        query(`SELECT ${LIST_COLUMNS} FROM dogs ${whereSql} ORDER BY ${orderSql}`, params)
       ])
       const total = Number.parseInt(countResult.rows[0]?.count || '0', 10)
       return {
@@ -134,7 +141,7 @@ export async function fetchAnimalsList(opts: AnimalsQuery): Promise<AnimalListRe
     const [countResult, listResult] = await Promise.all([
       query<{ count: string }>(`SELECT COUNT(*)::text AS count FROM dogs ${whereSql}`, params),
       query(
-        `SELECT * FROM dogs ${whereSql} ORDER BY ${orderSql} LIMIT $${i} OFFSET $${i + 1}`,
+        `SELECT ${LIST_COLUMNS} FROM dogs ${whereSql} ORDER BY ${orderSql} LIMIT $${i} OFFSET $${i + 1}`,
         [...params, opts.pageSize, offset]
       )
     ])

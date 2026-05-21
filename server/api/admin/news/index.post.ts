@@ -1,6 +1,7 @@
 import { query } from '~/server/database/db'
 import { requireAuth } from '~/server/utils/auth'
 import { z } from 'zod'
+import { apiCache } from '~/server/utils/cache'
 
 const newsSchema = z.object({
   slug: z.string().min(1),
@@ -26,6 +27,9 @@ export default defineEventHandler(async (event) => {
     data.slug, data.title, data.date, data.preview, data.content,
     data.image || null, data.published
   ])
+
+  // Invalidate news cache so new item appears immediately
+  apiCache.invalidate('news:list')
 
   return { id: result.rows[0].id, success: true }
 })

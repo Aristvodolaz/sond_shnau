@@ -1,11 +1,13 @@
 // @ts-ignore - rss-parser doesn't have official types
 import Parser from 'rss-parser'
 import type { RssItem } from '~/types'
+import { apiCache, CACHE_TTL } from '~/server/utils/cache'
 
 // RSS feed URL from config
 const RSS_URL = 'https://pet-help.ru/forum/feed.php?mode=topics_active'
+const CACHE_KEY = 'rss:feed'
 
-// Create parser instance
+// Create parser instance (singleton)
 const parser = new Parser({
   timeout: 10000,
   headers: {
@@ -13,25 +15,19 @@ const parser = new Parser({
   }
 }) as any
 
-// In-memory cache
-let cachedData: RssItem[] | null = null
-let cacheTime = 0
-const CACHE_DURATION = 15 * 60 * 1000 // 15 minutes in milliseconds
-
 export default defineEventHandler(async (event) => {
-  try {
-    const now = Date.now()
-    
-    // Return cached data if still valid
-    if (cachedData && (now - cacheTime) < CACHE_DURATION) {
-      return cachedData
-    }
+  // Serve from shared cache if available
+  const cached = apiCache.get<RssItem[]>(CACHE_KEY)
+  if (cached) {
+    setHeader(event, 'X-Cache', 'HIT')
+    setHeader(event, 'Cache-Control', 'public, s-maxage=900, stale-while-revalidate=300')
+    return cached.data
+  }
 
-    // Fetch and parse RSS feed
+  try {
     const feed = await parser.parseURL(RSS_URL)
-    
-    // Transform to our RssItem format
-    const items: RssItem[] = feed.items.map(item => ({
+
+    const items: RssItem[] = feed.items.map((item: any) => ({
       title: item.title || 'Без заголовка',
       link: item.link || '#',
       pubDate: item.pubDate || new Date().toISOString(),
@@ -39,20 +35,18 @@ export default defineEventHandler(async (event) => {
       content: item.content
     }))
 
-    // Update cache
-    cachedData = items
-    cacheTime = now
+    apiCache.set(CACHE_KEY, items, CACHE_TTL.RSS)
 
+    setHeader(event, 'X-Cache', 'MISS')
+    setHeader(event, 'Cache-Control', 'public, s-maxage=900, stale-while-revalidate=300')
     return items
   } catch (error) {
     console.error('Error fetching RSS feed:', error)
-    
-    // Return cached data if available, even if expired
-    if (cachedData) {
-      return cachedData
-    }
-    
-    // Return empty array if no cache and fetch failed
+
+    // Return stale cache if available rather than failing
+    const stale = apiCache.get<RssItem[]>(CACHE_KEY)
+    if (stale) return stale.data
+
     throw createError({
       statusCode: 500,
       statusMessage: 'Failed to fetch RSS feed'
