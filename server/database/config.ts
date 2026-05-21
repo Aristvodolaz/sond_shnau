@@ -7,10 +7,10 @@ export const dbConfig = {
   password: process.env.DB_PASSWORD || 'postgres',
   ssl: process.env.DB_SSL === 'true',
   // Connection timeout settings
-  connectionTimeoutMillis: 5000,  // 5 seconds to establish connection
+  connectionTimeoutMillis: 15000, // 15 seconds to establish connection (was 5)
   idleTimeoutMillis: 30000,       // 30 seconds before idle connection is closed
   max: 20,                        // Maximum pool size (was 10)
   // Prevent runaway queries from blocking the pool
-  statement_timeout: 10000,       // 10 seconds max per query
-  query_timeout: 12000            // 12 seconds including network overhead
+  statement_timeout: 30000,       // 30 seconds max per query (was 10)
+  query_timeout: 32000            // 32 seconds including network overhead (was 12)
 }

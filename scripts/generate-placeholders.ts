@@ -23,10 +23,10 @@ async function generatePlaceholders() {
   const uniqueImages = new Set<string>()
 
   // 1x1 transparent PNG as buffer (works for PNG and WebP)
-  const PNG_1x1 = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=', 'base64')
+  const PNG_1x1 = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAADUlEQVR4nGNgYGBgAAAABQABpfZFQAAAAABJRU5ErkJggg==', 'base64')
 
   // 1x1 black JPEG as buffer (more compatible for JPG files)
-  const JPG_1x1 = Buffer.from('/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAP//////////////////////////////////////////////////////////////////////////////////////wgALCAABAAEBAREA/8QAFBABAAAAAAAAAAAAAAAAAAAAAP/aAAgBAQABPxA=', 'base64')
+  const JPG_1x1 = Buffer.from('/9j/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAj/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/AJUAB//Z', 'base64')
 
   try {
     // 1. Stories
@@ -104,8 +104,12 @@ async function generatePlaceholders() {
       const localFilePath = path.join(process.cwd(), 'public', imgPath)
 
       if (fs.existsSync(localFilePath)) {
-        skippedCount++
-        continue
+        const stats = fs.statSync(localFilePath)
+        // Overwrite if the file is an existing placeholder (<= 300 bytes)
+        if (stats.size > 300) {
+          skippedCount++
+          continue
+        }
       }
 
       // Ensure directory exists
