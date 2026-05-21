@@ -1,5 +1,6 @@
 import { query } from '../../../database/db'
 import { requireAuth } from '~/server/utils/auth'
+import { apiCache } from '~/server/utils/cache'
 
 export default defineEventHandler(async (event) => {
   // Require authentication
@@ -34,6 +35,8 @@ export default defineEventHandler(async (event) => {
       })
     }
 
+    apiCache.invalidate('adopted:')
+
     return result.rows[0]
   } catch (error: any) {
     if (error.statusCode === 404) throw error
@@ -45,3 +48,4 @@ export default defineEventHandler(async (event) => {
     })
   }
 })
+

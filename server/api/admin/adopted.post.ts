@@ -1,5 +1,6 @@
 import { query } from '../../database/db'
 import { requireAuth } from '~/server/utils/auth'
+import { apiCache } from '~/server/utils/cache'
 
 export default defineEventHandler(async (event) => {
   // Require authentication
@@ -25,6 +26,8 @@ export default defineEventHandler(async (event) => {
       [name, type, year, city, photo, adoptionDate || null, forumUrl || null]
     )
 
+    apiCache.invalidate('adopted:')
+
     return result.rows[0]
   } catch (error) {
     console.error('Error creating adopted dog:', error)
@@ -34,3 +37,4 @@ export default defineEventHandler(async (event) => {
     })
   }
 })
+

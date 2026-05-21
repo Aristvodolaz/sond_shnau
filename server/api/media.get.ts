@@ -35,7 +35,21 @@ function extractObjectKeyFromUrl(rawUrl: string): string {
   return path
 }
 
-export default defineEventHandler(async (event) => {
+async function streamToBuffer(stream: any): Promise<Buffer> {
+  if (stream instanceof Buffer) {
+    return stream
+  }
+  if (!stream) {
+    return Buffer.alloc(0)
+  }
+  const chunks: any[] = []
+  for await (const chunk of stream) {
+    chunks.push(typeof chunk === 'string' ? Buffer.from(chunk) : chunk)
+  }
+  return Buffer.concat(chunks)
+}
+
+export default defineCachedEventHandler(async (event) => {
   const query = getQuery(event)
   const rawUrl = String(query.url || '')
 
@@ -51,8 +65,22 @@ export default defineEventHandler(async (event) => {
   const contentType = result.ContentType || 'application/octet-stream'
 
   setHeader(event, 'Content-Type', contentType)
-  setHeader(event, 'Cache-Control', 'public, max-age=86400, s-maxage=86400')
+  // Cache in browser for 1 year (immutable)
+  setHeader(event, 'Cache-Control', 'public, max-age=31536000, immutable')
+  
+  if (result.ETag) {
+    setHeader(event, 'ETag', result.ETag)
+  }
 
-  return result.Body as any
+  const buffer = await streamToBuffer(result.Body)
+  return buffer
+}, {
+  maxAge: 7 * 24 * 60 * 60, // 7 days server cache
+  name: 'media',
+  getKey: (event) => {
+    const query = getQuery(event)
+    return String(query.url || '')
+  }
 })
+
 

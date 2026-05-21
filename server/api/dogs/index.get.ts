@@ -1,4 +1,5 @@
 import { fetchAnimalsList, parseAnimalsQuery } from '~/server/utils/animalsList'
+import { apiCache, CACHE_TTL } from '~/server/utils/cache'
 
 const META_KEYS = new Set(['page', 'pageSize', 'sort', 'legacyAll', 'all'])
 
@@ -22,12 +23,28 @@ export default defineEventHandler(async (event) => {
       parsed.legacyAll = true
     }
 
-    const result = await fetchAnimalsList(parsed)
+    const cacheKey = `dogs:list:${JSON.stringify(parsed)}:${hasFilters}:${explicitPage}`
+    const cached = apiCache.get(cacheKey)
+    if (cached) {
+      setHeader(event, 'ETag', cached.etag)
+      setHeader(event, 'Cache-Control', 'public, max-age=60')
 
-    if (!hasFilters && !explicitPage) {
-      return result.items
+      const ifNoneMatch = getHeader(event, 'if-none-match')
+      if (ifNoneMatch === cached.etag) {
+        setResponseStatus(event, 304)
+        return ''
+      }
+      return cached.data
     }
-    return result
+
+    const result = await fetchAnimalsList(parsed)
+    const data = (!hasFilters && !explicitPage) ? result.items : result
+    const etag = apiCache.set(cacheKey, data, CACHE_TTL.LIST)
+
+    setHeader(event, 'ETag', etag)
+    setHeader(event, 'Cache-Control', 'public, max-age=60')
+
+    return data
   } catch (error: any) {
     console.error('Error in /api/dogs:', error)
     throw createError({

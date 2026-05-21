@@ -6,6 +6,7 @@ export const pool = new Pool(dbConfig)
 
 // Track connection status
 let isConnected = false
+let lastCheckTime = 0
 
 // Test connection
 pool.on('connect', () => {
@@ -24,8 +25,14 @@ pool.on('error', (err) => {
   // Don't exit process in Nuxt/Nitro - let the app handle errors gracefully
 })
 
-// Connection health check with better error messages
+// Connection health check with better error messages and 5-second cooldown cache
 export async function checkConnection(): Promise<boolean> {
+  const now = Date.now()
+  if (now - lastCheckTime < 5000) {
+    return isConnected
+  }
+  lastCheckTime = now
+
   try {
     await pool.query('SELECT 1')
     isConnected = true

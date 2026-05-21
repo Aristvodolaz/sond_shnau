@@ -25,7 +25,7 @@
         <div>
           <div class="relative aspect-square rounded-xl overflow-hidden mb-3">
             <NuxtImg
-              :src="story.beforePhoto"
+              :src="resolveMediaUrl(story.beforePhoto)"
               :alt="`${story.dogName} до`"
               class="w-full h-full object-cover"
               width="600"
@@ -37,7 +37,7 @@
         <div>
           <div class="relative aspect-square rounded-xl overflow-hidden mb-3">
             <NuxtImg
-              :src="story.afterPhoto"
+              :src="resolveMediaUrl(story.afterPhoto)"
               :alt="`${story.dogName} после`"
               class="w-full h-full object-cover"
               width="600"
@@ -61,7 +61,7 @@
         <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
           <div v-for="(photo, index) in story.photos" :key="index" class="aspect-square rounded-lg overflow-hidden">
             <NuxtImg
-              :src="photo"
+              :src="resolveMediaUrl(photo)"
               :alt="`${story.dogName} фото ${index + 1}`"
               class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
               loading="lazy"
@@ -99,8 +99,11 @@
 <script setup lang="ts">
 import type { Story } from '~/types'
 
+const { resolveMediaUrl } = useMediaUrl()
+
 const route = useRoute()
 const slug = route.params.slug as string
+
 
 // Fetch story from API
 const { data: story } = await useFetch<Story>(`/api/stories/${slug}`)

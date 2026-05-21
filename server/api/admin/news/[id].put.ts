@@ -1,5 +1,6 @@
 import { query } from '~/server/database/db'
 import { requireAuth } from '~/server/utils/auth'
+import { apiCache } from '~/server/utils/cache'
 
 export default defineEventHandler(async (event) => {
   await requireAuth(event)
@@ -17,5 +18,8 @@ export default defineEventHandler(async (event) => {
     body.image || null, body.published, id
   ])
 
+  apiCache.invalidate('news:')
+
   return { success: true }
 })
+

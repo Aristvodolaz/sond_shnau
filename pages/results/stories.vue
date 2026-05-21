@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <div class="min-h-screen bg-warm-50">
     <section class="bg-white border-b border-warm-100 py-8 md:py-10">
       <div class="container-custom">
@@ -34,7 +34,7 @@
             <div class="relative aspect-square overflow-hidden">
               <NuxtImg
                 v-if="story.beforePhoto"
-                :src="story.beforePhoto"
+                :src="resolveMediaUrl(story.beforePhoto)"
                 :alt="`${story.dogName} до`"
                 class="w-full h-full object-cover"
                 loading="lazy"
@@ -46,7 +46,7 @@
             <div class="relative aspect-square overflow-hidden">
               <NuxtImg
                 v-if="story.afterPhoto"
-                :src="story.afterPhoto"
+                :src="resolveMediaUrl(story.afterPhoto)"
                 :alt="`${story.dogName} после`"
                 class="w-full h-full object-cover"
                 loading="lazy"
@@ -81,6 +81,8 @@
 <script setup lang="ts">
 import type { Story } from '~/types'
 
+const { resolveMediaUrl } = useMediaUrl()
+
 // SEO
 useHead({
   title: 'Счастливые истории',
@@ -88,6 +90,7 @@ useHead({
     { name: 'description', content: 'Трогательные истории спасения и преображения шнауцеров, обретших новый дом и любящую семью.' }
   ]
 })
+
 
 // Fetch stories from API
 const { data } = await useFetch<Story[]>('/api/stories')

@@ -1,6 +1,7 @@
 import { query } from '~/server/database/db'
 import { requireAuth } from '~/server/utils/auth'
 import { z } from 'zod'
+import { apiCache } from '~/server/utils/cache'
 
 const newsSchema = z.object({
   slug: z.string().min(1),
@@ -27,5 +28,8 @@ export default defineEventHandler(async (event) => {
     data.image || null, data.published
   ])
 
+  apiCache.invalidate('news:')
+
   return { id: result.rows[0].id, success: true }
 })
+
