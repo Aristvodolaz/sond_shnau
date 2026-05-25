@@ -4,14 +4,14 @@
     <!-- Photo -->
     <NuxtLink :to="`/animals/${dog.slug}`" class="block relative overflow-hidden bg-white p-1 shrink-0" style="aspect-ratio: 4/3;">
       <div class="w-full h-full rounded-xl overflow-hidden relative group-hover:shadow-lg transition-all duration-500 border border-warm-200">
-        <template v-if="dog.photos?.length">
+        <template v-if="coverPhoto">
           <img
-            :src="resolveMediaUrl(dog.photos[0])"
+            :src="resolveMediaUrl(coverPhoto)"
             aria-hidden="true"
             class="absolute inset-0 w-full h-full object-cover blur-2xl opacity-40 scale-110 pointer-events-none"
           />
           <img
-            :src="resolveMediaUrl(dog.photos[0])"
+            :src="resolveMediaUrl(coverPhoto)"
             :alt="dog.name"
             class="relative w-full h-full object-contain transition-transform duration-700 group-hover:scale-[1.03]"
             loading="lazy"
@@ -111,6 +111,17 @@
 import type { Dog } from '~/types'
 
 const props = defineProps<{ dog: Dog }>()
+
+const coverPhoto = computed(() => {
+  const photo = props.dog.photos?.find((p) => {
+    const u = p?.trim()
+    if (!u) return false
+    if (u.startsWith('/images/')) return false
+    return true
+  })
+  return photo || ''
+})
+
 const { resolveMediaUrl } = useMediaUrl()
 const { statusLabel, breedLabel, featureLabel } = useAnimalLabels()
 const { has, toggle } = useFavorites()

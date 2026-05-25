@@ -301,10 +301,21 @@ function pluralAnimals(n: number) {
   return 'собак'
 }
 
-// Hero photos from first loaded dogs
+// Hero: first 4 dogs that have a real photo (skip missing /images/* placeholders)
 const heroPhotos = computed(() => {
-  const dogs = pagedDogs.value
-  return [0, 1, 2, 3].map(i => dogs[i]?.photos?.[0] || '')
+  const picked: string[] = []
+  for (const dog of pagedDogs.value) {
+    const photo = dog.photos?.find((p) => {
+      const u = p?.trim()
+      if (!u) return false
+      if (u.startsWith('/images/')) return false
+      return true
+    })
+    if (photo) picked.push(photo)
+    if (picked.length >= 4) break
+  }
+  while (picked.length < 4) picked.push('')
+  return picked
 })
 
 watch(filterStatus, () => { homeDogPage.value = 1 })

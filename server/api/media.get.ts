@@ -1,5 +1,5 @@
-import { sendStream } from 'h3'
 import { getObjectFromS3 } from '~/server/utils/storage'
+import { isStoragePhotoHost } from '~/server/utils/photoUrl'
 
 function extractObjectKeyFromUrl(rawUrl: string): string {
   const bucket = process.env.S3_BUCKET || ''
@@ -12,7 +12,7 @@ function extractObjectKeyFromUrl(rawUrl: string): string {
     ...(process.env.S3_PUBLIC_BASE_URL ? [new URL(process.env.S3_PUBLIC_BASE_URL).hostname] : []),
   ])
 
-  if (!allowedHosts.has(host)) {
+  if (!allowedHosts.has(host) && !isStoragePhotoHost(host)) {
     throw createError({
       statusCode: 400,
       message: 'Unsupported media host',
@@ -27,13 +27,23 @@ function extractObjectKeyFromUrl(rawUrl: string): string {
     })
   }
 
-  // Path-style: /bucket/key
   if (bucket && path.startsWith(`${bucket}/`)) {
     return path.slice(bucket.length + 1)
   }
 
-  // Virtual-hosted: https://bucket.storage.yandexcloud.net/key
   return path
+}
+
+async function streamToBuffer(body: unknown): Promise<Buffer> {
+  if (body instanceof Buffer) return body
+  if (!body || typeof body !== 'object') return Buffer.alloc(0)
+
+  const readable = body as AsyncIterable<Uint8Array | string>
+  const chunks: Buffer[] = []
+  for await (const chunk of readable) {
+    chunks.push(typeof chunk === 'string' ? Buffer.from(chunk) : Buffer.from(chunk))
+  }
+  return Buffer.concat(chunks)
 }
 
 export default defineEventHandler(async (event) => {
@@ -56,13 +66,20 @@ export default defineEventHandler(async (event) => {
     }
 
     const contentType = result.ContentType || 'application/octet-stream'
+    const buffer = await streamToBuffer(result.Body)
+
+    if (!buffer.length) {
+      throw createError({ statusCode: 404, message: 'Media not found' })
+    }
+
     setHeader(event, 'Content-Type', contentType)
+    setHeader(event, 'Content-Length', String(buffer.length))
     setHeader(event, 'Cache-Control', 'public, max-age=86400, s-maxage=86400')
     if (result.ETag) {
       setHeader(event, 'ETag', result.ETag)
     }
 
-    return sendStream(event, result.Body as ReadableStream)
+    return buffer
   } catch (err: unknown) {
     const e = err as { statusCode?: number }
     if (e.statusCode) throw err

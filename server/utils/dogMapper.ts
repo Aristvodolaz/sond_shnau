@@ -1,17 +1,5 @@
 import type { Dog } from '~/types'
-
-function normalizePhotos(raw: unknown): string[] {
-  if (Array.isArray(raw)) return raw.map(String)
-  if (typeof raw === 'string') {
-    try {
-      const p = JSON.parse(raw) as unknown
-      return Array.isArray(p) ? p.map(String) : []
-    } catch {
-      return []
-    }
-  }
-  return []
-}
+import { normalizePhotoList } from '~/server/utils/photoUrl'
 
 function normalizeFeatures(raw: unknown): string[] {
   if (Array.isArray(raw)) return raw.map(String)
@@ -39,7 +27,7 @@ export function mapDogRow(dog: Record<string, unknown>): Dog {
       whatsapp: (dog.curator_whatsapp as string | null) ?? undefined,
       telegram: (dog.curator_telegram as string | null) ?? undefined
     },
-    photos: normalizePhotos(dog.photos),
+    photos: normalizePhotoList(dog.photos),
     description: (dog.description as string) || '',
     features: normalizeFeatures(dog.features),
     health: dog.health as string,
