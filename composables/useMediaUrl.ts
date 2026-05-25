@@ -1,28 +1,32 @@
+function isProxiedStorageHost(hostname: string): boolean {
+  if (hostname === 'storage.yandexcloud.net') return true
+  // bucket.storage.yandexcloud.net
+  if (hostname.endsWith('.storage.yandexcloud.net')) return true
+  return false
+}
+
 export const useMediaUrl = () => {
   const resolveMediaUrl = (url?: string | null): string => {
-    if (!url) return ''
+    if (!url?.trim()) return ''
 
-    // Keep local/static paths as-is.
-    if (url.startsWith('/') && !url.startsWith('//')) {
-      return url
+    const trimmed = url.trim()
+
+    // Local/static paths
+    if (trimmed.startsWith('/') && !trimmed.startsWith('//')) {
+      return trimmed
     }
 
     try {
-      const parsed = new URL(url)
-      const isObjectStorageHost =
-        parsed.hostname === 'storage.yandexcloud.net' ||
-        parsed.hostname.includes('storage.yandexcloud.net')
-
-      if (isObjectStorageHost) {
-        return `/api/media?url=${encodeURIComponent(url)}`
+      const parsed = new URL(trimmed)
+      if (isProxiedStorageHost(parsed.hostname)) {
+        return `/api/media?url=${encodeURIComponent(trimmed)}`
       }
     } catch {
-      return url
+      return trimmed
     }
 
-    return url
+    return trimmed
   }
 
   return { resolveMediaUrl }
 }
-

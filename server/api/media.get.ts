@@ -1,3 +1,4 @@
+import { sendStream } from 'h3'
 import { getObjectFromS3 } from '~/server/utils/storage'
 
 function extractObjectKeyFromUrl(rawUrl: string): string {
@@ -26,30 +27,16 @@ function extractObjectKeyFromUrl(rawUrl: string): string {
     })
   }
 
-  // Yandex Object Storage URL format: /<bucket>/<key>
+  // Path-style: /bucket/key
   if (bucket && path.startsWith(`${bucket}/`)) {
     return path.slice(bucket.length + 1)
   }
 
-  // Fallback for pre-normalized keys
+  // Virtual-hosted: https://bucket.storage.yandexcloud.net/key
   return path
 }
 
-async function streamToBuffer(stream: any): Promise<Buffer> {
-  if (stream instanceof Buffer) {
-    return stream
-  }
-  if (!stream) {
-    return Buffer.alloc(0)
-  }
-  const chunks: any[] = []
-  for await (const chunk of stream) {
-    chunks.push(typeof chunk === 'string' ? Buffer.from(chunk) : chunk)
-  }
-  return Buffer.concat(chunks)
-}
-
-export default defineCachedEventHandler(async (event) => {
+export default defineEventHandler(async (event) => {
   const query = getQuery(event)
   const rawUrl = String(query.url || '')
 
@@ -60,27 +47,26 @@ export default defineCachedEventHandler(async (event) => {
     })
   }
 
-  const key = extractObjectKeyFromUrl(rawUrl)
-  const result = await getObjectFromS3(key)
-  const contentType = result.ContentType || 'application/octet-stream'
+  try {
+    const key = extractObjectKeyFromUrl(rawUrl)
+    const result = await getObjectFromS3(key)
 
-  setHeader(event, 'Content-Type', contentType)
-  // Cache in browser for 1 year (immutable)
-  setHeader(event, 'Cache-Control', 'public, max-age=31536000, immutable')
-  
-  if (result.ETag) {
-    setHeader(event, 'ETag', result.ETag)
-  }
+    if (!result.Body) {
+      throw createError({ statusCode: 404, message: 'Media not found' })
+    }
 
-  const buffer = await streamToBuffer(result.Body)
-  return buffer
-}, {
-  maxAge: 7 * 24 * 60 * 60, // 7 days server cache
-  name: 'media',
-  getKey: (event) => {
-    const query = getQuery(event)
-    return String(query.url || '')
+    const contentType = result.ContentType || 'application/octet-stream'
+    setHeader(event, 'Content-Type', contentType)
+    setHeader(event, 'Cache-Control', 'public, max-age=86400, s-maxage=86400')
+    if (result.ETag) {
+      setHeader(event, 'ETag', result.ETag)
+    }
+
+    return sendStream(event, result.Body as ReadableStream)
+  } catch (err: unknown) {
+    const e = err as { statusCode?: number }
+    if (e.statusCode) throw err
+    console.error('[media] Failed to load:', rawUrl, err)
+    throw createError({ statusCode: 404, message: 'Media not found' })
   }
 })
-
-
