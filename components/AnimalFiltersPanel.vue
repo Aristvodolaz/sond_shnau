@@ -142,6 +142,7 @@ const emitPatch = (patch: Partial<AnimalFiltersModel>) => {
 const statusOptions = [
   { value: 'all', label: 'Все' },
   { value: 'looking', label: 'Ищут дом' },
+  { value: 'trial', label: 'Испытательный срок' },
   { value: 'foster', label: 'Передержка' },
   { value: 'pensioner', label: 'Пенсионеры' }
 ]

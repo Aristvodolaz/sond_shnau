@@ -1,7 +1,7 @@
 // Type definitions for the application
 
-/** looking — ищет дом; foster — на передержке; pensioner — программа пенсионеров */
-export type AnimalStatus = 'looking' | 'foster' | 'pensioner'
+/** looking — ищет дом; trial — на испытательном сроке; foster — на передержке; pensioner — программа пенсионеров */
+export type AnimalStatus = 'looking' | 'trial' | 'foster' | 'pensioner'
 
 export interface Dog {
   id: string

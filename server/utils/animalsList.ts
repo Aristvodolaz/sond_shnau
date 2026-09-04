@@ -77,9 +77,16 @@ export async function fetchAnimalsList(opts: AnimalsQuery): Promise<AnimalListRe
   }
 
   if (opts.status && opts.status !== 'all') {
-    conditions.push(`status = $${i}`)
-    params.push(opts.status)
-    i++
+    const statuses = opts.status.split(',').map(s => s.trim()).filter(Boolean)
+    if (statuses.length === 1) {
+      conditions.push(`status = $${i}`)
+      params.push(statuses[0])
+      i++
+    } else if (statuses.length > 1) {
+      conditions.push(`status = ANY($${i})`)
+      params.push(statuses)
+      i++
+    }
   }
 
   const range = opts.age && opts.age !== 'all' ? ageBucketRange(opts.age) : null

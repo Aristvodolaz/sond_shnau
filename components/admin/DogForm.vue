@@ -63,6 +63,7 @@
         class="w-full px-4 py-3 border border-warm-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
       >
         <option value="looking">Ищет дом</option>
+        <option value="trial">На испытательном сроке</option>
         <option value="foster">На передержке</option>
         <option value="pensioner">Пенсионер</option>
       </select>

@@ -477,6 +477,7 @@ const selectedSourcePhotos = computed(() =>
 function sourceDogStatusLabel(status: string) {
   const labels: Record<string, string> = {
     looking: 'Ищет дом',
+    trial: 'На испытательном сроке',
     foster: 'На передержке',
     pensioner: 'Пенсионер'
   }

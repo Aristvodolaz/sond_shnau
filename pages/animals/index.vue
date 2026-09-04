@@ -214,6 +214,7 @@ const { breedLabel } = useAnimalLabels()
 
 const statusLabels: Record<string, string> = {
   looking: 'Ищут дом',
+  trial: 'Испытательный срок',
   foster: 'Передержка',
   pensioner: 'Пенсионеры'
 }

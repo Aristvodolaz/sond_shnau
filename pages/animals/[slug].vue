@@ -432,6 +432,7 @@ watch(dog, (d) => {
 const statusBadgeClass = computed(() => {
   switch (dog.value?.status) {
     case 'looking': return 'bg-primary-500 text-white shadow-lg shadow-primary-500/30'
+    case 'trial': return 'bg-amber-600 text-white'
     case 'foster': return 'bg-primary-700 text-white'
     case 'pensioner': return 'bg-primary-900 text-white'
     default: return 'bg-warm-400 text-white'

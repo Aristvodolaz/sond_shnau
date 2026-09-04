@@ -63,6 +63,7 @@
             >
               <option value="">Все статусы</option>
               <option value="looking">Ищет дом</option>
+              <option value="trial">На испытательном сроке</option>
               <option value="foster">На передержке</option>
               <option value="pensioner">Пенсионер</option>
             </select>

@@ -25,7 +25,7 @@ const dogSchema = z.object({
     .nullable()
     .optional()
     .transform((s) => (s && String(s).trim() ? String(s).trim() : null)),
-  status: z.enum(['looking', 'foster', 'pensioner']),
+  status: z.enum(['looking', 'trial', 'foster', 'pensioner']),
   age_months: z.number().int().min(0).max(600).nullable().optional(),
   date_added: z.string()
 })

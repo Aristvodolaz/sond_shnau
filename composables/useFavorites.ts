@@ -50,12 +50,14 @@ export function useFavorites() {
 export function useAnimalLabels() {
   const statusLabel = (s: AnimalStatus) => {
     if (s === 'looking') return 'Ищет дом'
+    if (s === 'trial') return 'На испытательном сроке'
     if (s === 'foster') return 'На передержке'
     return 'Пенсионер'
   }
 
   const statusVariant = (s: AnimalStatus): 'success' | 'info' | 'warning' => {
     if (s === 'looking') return 'success'
+    if (s === 'trial') return 'warning'
     if (s === 'foster') return 'warning'
     return 'info'
   }

@@ -276,7 +276,8 @@ function setFilter(val: string) {
 }
 
 const homeQuery = computed(() => ({
-  status: filterStatus.value,
+  // looking + trial: пристраивающиеся, в том числе на испытательном сроке
+  status: filterStatus.value === 'looking' ? 'looking,trial' : filterStatus.value,
   page: String(homeDogPage.value),
   pageSize: String(HOME_PAGE_SIZE)
 }))

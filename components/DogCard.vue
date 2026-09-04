@@ -132,6 +132,7 @@ const toggleFavorite = () => toggle(props.dog.id)
 const statusBadgeClass = computed(() => {
   switch (props.dog.status) {
     case 'looking':   return 'bg-primary-500/90 text-white'
+    case 'trial':     return 'bg-amber-600/90 text-white'
     case 'foster':    return 'bg-primary-800/90 text-white'
     case 'pensioner': return 'bg-warm-800/90 text-warm-100'
     default:          return 'bg-primary-500/90 text-white'
